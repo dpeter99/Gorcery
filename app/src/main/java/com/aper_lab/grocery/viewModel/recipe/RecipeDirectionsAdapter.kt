@@ -41,6 +41,7 @@ class RecipeDirectionsAdapter: RecyclerView.Adapter<RecipeDirectionsAdapter.View
             fun from(parent: ViewGroup): ViewHolder{
                 val layoutInflater = LayoutInflater.from(parent.context);
                 val binding = DirectionListItemBinding.inflate(layoutInflater);
+                binding.root.layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                 return ViewHolder(binding);
             }
         }

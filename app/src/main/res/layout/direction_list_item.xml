@@ -11,7 +11,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:minWidth="400dp">
 
         <ImageView
             android:id="@+id/imageView5"
@@ -19,10 +20,10 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
+            android:contentDescription="@string/dummy_description"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_recipe_step_number_empty"
-            android:contentDescription="@string/dummy_description" />
+            app:srcCompat="@drawable/ic_recipe_step_number_empty" />
 
         <TextView
             android:id="@+id/textView4"
@@ -43,11 +44,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
+            android:contentDescription="@string/dummy_description"
             app:layout_constraintBottom_toBottomOf="@+id/imageView5"
             app:layout_constraintStart_toEndOf="@+id/imageView5"
             app:layout_constraintTop_toTopOf="@+id/imageView5"
-            app:srcCompat="@drawable/ic_stove"
-            android:contentDescription="@string/dummy_description" />
+            app:srcCompat="@drawable/ic_stove" />
 
         <TextView
             android:id="@+id/textView6"
@@ -56,11 +57,10 @@
             android:layout_marginStart="8dp"
             android:text="@{step.text}"
             android:textColor="@color/primaryTextColor"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/imageView6"
             app:layout_constraintTop_toTopOf="@+id/imageView6"
-            tools:text="Preheat oven to 425 degrees F (220 degrees C). Grease a 9x13-inch baking dish" />
+            tools:text="Preheat oven to 425 degrees F (220 degrees C). Grease a 9x13-inch baking dish. asdasdasdasdadsad asdasdasdasdadsad asdasdasdasdadsad asdasdasdasdadsad asdasdasdasdadsad" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
