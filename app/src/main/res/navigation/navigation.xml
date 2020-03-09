@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation.xml"
+    app:startDestination="@id/recipeList">
+
+    <fragment
+        android:id="@+id/recipeList"
+        android:name="com.aper_lab.grocery.RecipeList"
+        android:label="RecipeList" >
+        <action
+            android:id="@+id/action_recipeList_to_recepie"
+            app:destination="@id/recepie"
+            app:popUpTo="@id/recipeList"
+            app:popUpToInclusive="false" />
+    </fragment>
+    <fragment
+        android:id="@+id/recepie"
+        android:name="com.aper_lab.grocery.RecepieFragment"
+        android:label="fragment_recepie"
+        tools:layout="@layout/fragment_recepie" />
+</navigation>

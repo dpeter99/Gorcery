@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Grocery</string>
+    <string name="title_activity_recepie">Recepie</string>
+    <!-- Strings used for fragments for navigation -->
+
+
+
+    <string name="text_ingredients">Ingredients</string>
+    <string name="text_directions">Directions</string>
+</resources>
