@@ -62,6 +62,33 @@
             app:layout_constraintTop_toTopOf="@+id/imageView6"
             tools:text="Preheat oven to 425 degrees F (220 degrees C). Grease a 9x13-inch baking dish. asdasdasdasdadsad asdasdasdasdadsad asdasdasdasdadsad asdasdasdasdadsad asdasdasdasdadsad" />
 
+        <ImageView
+            android:id="@+id/bottom_line"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginTop="-1dp"
+            android:adjustViewBounds="false"
+            android:cropToPadding="false"
+            android:scaleType="fitXY"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/imageView5"
+            app:layout_constraintStart_toStartOf="@+id/imageView5"
+            app:layout_constraintTop_toBottomOf="@+id/imageView5"
+            app:srcCompat="@drawable/ge_line" />
+
+        <ImageView
+            android:id="@+id/top_line"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:adjustViewBounds="false"
+            android:cropToPadding="false"
+            android:scaleType="fitXY"
+            app:layout_constraintBottom_toTopOf="@+id/imageView5"
+            app:layout_constraintEnd_toEndOf="@+id/imageView5"
+            app:layout_constraintStart_toStartOf="@+id/imageView5"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ge_line" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

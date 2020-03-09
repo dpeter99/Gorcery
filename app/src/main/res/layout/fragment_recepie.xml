@@ -134,7 +134,7 @@
                 app:layout_constraintStart_toStartOf="@+id/textView3"
                 app:layout_constraintTop_toBottomOf="@+id/textView3"
                 tools:itemCount="4"
-                tools:listitem="@layout/direction_list_item" />
+                tools:listitem="@layout/list_item_direction" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

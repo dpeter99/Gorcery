@@ -11,6 +11,8 @@ import com.aper_lab.grocery.databinding.FragmentRecepieBinding
 import com.aper_lab.grocery.viewModel.recipe.RecipeDirectionsAdapter
 import com.aper_lab.grocery.viewModel.recipe.RecipeIngredientAdapter
 import com.aper_lab.grocery.viewModel.recipe.RecipeViewModel
+import com.aper_lab.scraperlib.data.Ingredient
+import com.aper_lab.scraperlib.data.RecipeStep
 
 /**
  * A simple [Fragment] subclass.
@@ -28,11 +30,11 @@ class RecepieFragment : Fragment() {
         binding.viewModel = viewModel;
 
         var adapter_ingredients = RecipeIngredientAdapter();
-        adapter_ingredients.data = viewModel.recipe.ingredients;
+        adapter_ingredients.data = viewModel.recipe.value?.ingredients ?: listOf(Ingredient("",""));
         binding.ingredientList.adapter = adapter_ingredients;
 
         var adapter_directions = RecipeDirectionsAdapter();
-        adapter_directions.data = viewModel.recipe.directions;
+        adapter_directions.data = viewModel.recipe.value?.directions ?: listOf(RecipeStep(0,""));
         binding.stepsList.adapter = adapter_directions;
 
 
