@@ -26,6 +26,7 @@ class MainActivity : AppCompatActivity() {
         val navController = findNavController(R.id.myNavHostFragment)
         val drawer = findViewById<DrawerLayout>(R.id.drawer_layout)
         val appToolbar = findViewById<Toolbar>(R.id.app_toolbar)
+        navController.setGraph(R.navigation.navigation);
         NavigationUI.setupWithNavController(appToolbar, navController, drawer)
     }
 
