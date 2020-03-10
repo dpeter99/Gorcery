@@ -1,8 +1,11 @@
 package com.aper_lab.grocery.viewModel.recipe
 
+import android.widget.TextView
+import androidx.databinding.BindingAdapter
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.liveData
 import com.aper_lab.scraperlib.RecipeAPIService
 import com.aper_lab.scraperlib.Scraper
 import com.aper_lab.scraperlib.data.Ingredient
@@ -15,22 +18,26 @@ import kotlinx.coroutines.launch
 
 class RecipeViewModel : ViewModel() {
 
-    var recipe: MutableLiveData<Recipe> = MutableLiveData(Recipe());
-
-    private var viewModelJob = Job()
-    private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main )
+    val recipe: LiveData<Recipe> = liveData {
+        val re = Recipe()
+        re.name = "test";
+        emit(re);
+        val rec : Recipe? = RecipeAPIService.GetRecipe("https://www.delish.com/cooking/recipe-ideas/recipes/a55501/best-goulash-recipe/").await();
+        emit(rec?: Recipe());
+    }
 
     init {
         //val scraper = Scraper();
-        coroutineScope.launch {
-            recipe.value = RecipeAPIService.GetRecipe("https://www.delish.com/cooking/recipe-ideas/recipes/a55501/best-goulash-recipe/").await() ?: Recipe();
+
+        /*
+        recipe = liveData {
+             val rec = RecipeAPIService.GetRecipe("https://www.delish.com/cooking/recipe-ideas/recipes/a55501/best-goulash-recipe/").await() ?: Recipe();
+            emit(rec);
         }
+         */
 
-
-
-
-        recipe.value?.name = "Test Recipe";
-
+        //recipe.value?.name = "Test Recipe";
+/*
         recipe.value?.ingredients = listOf(
             Ingredient("Chicken", "10kg"),
             Ingredient("Chicken", "10kg"),
@@ -58,5 +65,14 @@ class RecipeViewModel : ViewModel() {
             )
         )
 
+ */
+
+    }
+}
+
+@BindingAdapter("recipeName")
+fun TextView.setSleepImage(item: Recipe?) {
+    item?.let {
+        text = item.name;
     }
 }

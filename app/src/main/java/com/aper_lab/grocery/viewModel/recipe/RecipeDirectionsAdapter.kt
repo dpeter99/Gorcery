@@ -32,6 +32,10 @@ class RecipeDirectionsAdapter: RecyclerView.Adapter<RecipeDirectionsAdapter.View
         holder.bind(data[position], data.size)
     }
 
+    fun setContent(steps:List<RecipeStep>){
+        data = steps;
+    }
+
     class ViewHolder(val binding: ListItemDirectionBinding): RecyclerView.ViewHolder(binding.root){
 
         fun bind(direction: RecipeStep, itemCount:Int){
