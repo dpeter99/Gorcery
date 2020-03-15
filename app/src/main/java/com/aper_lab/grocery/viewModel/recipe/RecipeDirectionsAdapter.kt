@@ -4,6 +4,7 @@ import android.opengl.Visibility
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.aper_lab.grocery.databinding.ListItemDirectionBinding
 import com.aper_lab.scraperlib.data.Ingredient
@@ -52,7 +53,9 @@ class RecipeDirectionsAdapter: RecyclerView.Adapter<RecipeDirectionsAdapter.View
             fun from(parent: ViewGroup): ViewHolder{
                 val layoutInflater = LayoutInflater.from(parent.context);
                 val binding = ListItemDirectionBinding.inflate(layoutInflater);
-                binding.root.layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                //binding.root.layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                //val layout = binding.root as ConstraintLayout;
+                //layout.requestLayout();
                 return ViewHolder(binding);
             }
         }
