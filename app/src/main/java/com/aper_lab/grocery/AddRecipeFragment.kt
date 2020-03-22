@@ -1,6 +1,7 @@
 package com.aper_lab.grocery
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -32,6 +33,7 @@ class AddRecipeFragment : Fragment() {
 
         binding.btnImport.setOnClickListener {
             viewModel.importRecipe(binding.recipeUrl.text.toString());
+            Log.e("Test", viewModel.successfulImport.value.toString())
         }
 
 
