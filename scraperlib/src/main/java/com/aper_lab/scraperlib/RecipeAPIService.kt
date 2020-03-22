@@ -5,6 +5,7 @@ import com.aper_lab.scraperlib.data.Recipe
 import com.aper_lab.scraperlib.datastore.DataStore
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.async
 
 object RecipeAPIService {
@@ -13,11 +14,13 @@ object RecipeAPIService {
 
     val dataStore = DataStore();
 
+    val scope = MainScope();
+
     fun InitApi(db: DatabaseConnection){
         dataStore.Init(db);
     }
 
-    fun GetRecipe(url:String): Deferred<Recipe?> {
+    fun getRecipeFromURLAsync(url:String): Deferred<Recipe?> {
         return GlobalScope.async{
 
             var rec = dataStore.getRecipebyURL(url);
@@ -31,4 +34,15 @@ object RecipeAPIService {
         };
     }
 
+
+    fun getRecipeByIDAsync(id: String): Deferred<Recipe?>{
+        return scope.async{
+
+            var rec = dataStore.getRecipebyID(id);
+            if(rec == null) {
+                rec = Recipe();
+            }
+            rec;
+        };
+    }
 }

@@ -10,5 +10,5 @@ dependencies {
 
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$version_kotlin_coroutines"
 
-    implementation 'org.jsoup:jsoup:1.12.2'
+    implementation 'org.jsoup:jsoup:1.13.1'
 }

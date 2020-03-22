@@ -3,7 +3,7 @@ package com.aper_lab.grocery.viewModel.recipe
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.aper_lab.grocery.databinding.IngredientListItemBinding
+import com.aper_lab.grocery.databinding.ListItemIngredientBinding
 import com.aper_lab.scraperlib.data.Ingredient
 
 //TODO(Diff Utils)
@@ -29,7 +29,7 @@ class RecipeIngredientAdapter: RecyclerView.Adapter<RecipeIngredientAdapter.View
         holder.bind(data[position])
     }
 
-    class ViewHolder(val binding: IngredientListItemBinding): RecyclerView.ViewHolder(binding.root){
+    class ViewHolder(val binding: ListItemIngredientBinding): RecyclerView.ViewHolder(binding.root){
 
         fun bind(ingredient: Ingredient){
             binding.ingredient = ingredient;
@@ -39,7 +39,7 @@ class RecipeIngredientAdapter: RecyclerView.Adapter<RecipeIngredientAdapter.View
         companion object{
             fun from(parent: ViewGroup): ViewHolder{
                 val layoutInflater = LayoutInflater.from(parent.context);
-                val binding = IngredientListItemBinding.inflate(layoutInflater);
+                val binding = ListItemIngredientBinding.inflate(layoutInflater);
                 return ViewHolder(binding);
             }
         }

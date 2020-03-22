@@ -23,20 +23,18 @@ class DataStore (){
         databaseConnection?.storeData("recipes",recipe);
     }
 
-    fun getRecipebyID(id: String){
-
+    suspend fun getRecipebyID(id: String) :Recipe?{
+        return databaseConnection?.getRecipeByID(id);
     }
 
     fun getRecipebyURL(url: String):Recipe?{
-        val res = databaseConnection?.getDataQuerry("recipes/","url",url)?.get(0)
+        val res = databaseConnection?.getRecipeByURL(url)
         if(res == null) {
             return null;
         }
         else {
             return res;
         }
-
-
     }
 
     fun getIngredientByName(name: String){

@@ -59,7 +59,7 @@ class RecipeList : Fragment() {
         viewModel._recipeNav.observe(this.viewLifecycleOwner,navObserver)
 
         binding.addButton.setOnClickListener {
-            RecipeAPIService.GetRecipe("https://www.nosalty.hu/recept/rantott-csirkemell-fokhagymas-tejben-pacolva")
+            view?.findNavController()?.navigate(RecipeListDirections.actionRecipeListToAddRecipeFragment())
         }
 
         return binding.root

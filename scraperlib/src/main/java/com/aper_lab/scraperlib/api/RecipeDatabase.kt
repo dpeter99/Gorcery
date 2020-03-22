@@ -1,10 +1,15 @@
 package com.aper_lab.scraperlib.api
 
+import com.aper_lab.scraperlib.data.Recipe
+
 interface DatabaseConnection {
 
     fun storeData(path: String, data: IHasID);
 
-    fun getData(path: String):IHasID?;
+    //#################################
+    //RECIPE
+    //#################################
+    fun getRecipeByURL(url: String):Recipe?;
 
-    fun <T>getDataQuerry(path:String, key: String, value: String):List<IHasID>?
+    suspend fun getRecipeByID(id: String):Recipe?;
 }

@@ -44,7 +44,9 @@ dependencies {
 
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:${version_kotlin_coroutines}"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$version_kotlin_coroutines"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.2.1"
 
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0'
     testImplementation 'junit:junit:4.13'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
@@ -77,4 +79,3 @@ dependencies {
 kapt {
     generateStubs = true
 }
-

@@ -9,10 +9,12 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.aper_lab.grocery.RecipeFragmentArgs.fromBundle
 import com.aper_lab.grocery.databinding.FragmentRecepieBinding
 import com.aper_lab.grocery.viewModel.recipe.RecipeDirectionsAdapter
 import com.aper_lab.grocery.viewModel.recipe.RecipeIngredientAdapter
 import com.aper_lab.grocery.viewModel.recipe.RecipeViewModel
+import com.aper_lab.grocery.viewModel.recipe.RecipeViewModelFactory
 import com.aper_lab.scraperlib.data.Ingredient
 import com.aper_lab.scraperlib.data.Recipe
 import com.aper_lab.scraperlib.data.RecipeStep
@@ -21,15 +23,21 @@ import com.aper_lab.scraperlib.data.RecipeStep
 /**
  * A simple [Fragment] subclass.
  */
-class RecepieFragment : Fragment() {
+class RecipeFragment : Fragment() {
 
     private lateinit var viewModel: RecipeViewModel;
+    private lateinit var viewModelFactory: RecipeViewModelFactory
+
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val binding = DataBindingUtil.inflate<FragmentRecepieBinding>(inflater, R.layout.fragment_recepie,container,false)
 
+        val args = RecipeFragmentArgs.fromBundle(arguments!!)
+
         //viewModel = ViewModelProviders.of(this).get(RecipeViewModel::class.java);
-        viewModel = ViewModelProvider(this).get(RecipeViewModel::class.java);
+        viewModelFactory = RecipeViewModelFactory(args.recipeID)
+        viewModel = ViewModelProvider(this, viewModelFactory).get(RecipeViewModel::class.java);
+
 
         binding.viewModel = viewModel;
         binding.lifecycleOwner = this;
@@ -46,11 +54,10 @@ class RecepieFragment : Fragment() {
         val recipeObserver = Observer<Recipe> { recipe ->
             // Update the UI, in this case, a TextView.
             adapter_directions.data = recipe.directions
+            adapter_ingredients.data = recipe.ingredients
         }
 
         viewModel.recipe.observe(this.viewLifecycleOwner,recipeObserver)
-
-
 
         return binding.root
     }

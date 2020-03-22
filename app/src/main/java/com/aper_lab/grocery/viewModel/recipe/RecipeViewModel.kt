@@ -2,34 +2,30 @@ package com.aper_lab.grocery.viewModel.recipe
 
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.liveData
+import androidx.lifecycle.*
 import com.aper_lab.scraperlib.RecipeAPIService
-import com.aper_lab.scraperlib.Scraper
-import com.aper_lab.scraperlib.data.Ingredient
 import com.aper_lab.scraperlib.data.Recipe
-import com.aper_lab.scraperlib.data.RecipeStep
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
 
-class RecipeViewModel : ViewModel() {
+class RecipeViewModel(val id : String) : ViewModel() {
 
-    val recipe: LiveData<Recipe> = liveData {
-        val re = Recipe()
-        re.name = "test";
-        emit(re);
-        //val rec : Recipe? = RecipeAPIService.GetRecipe("https://www.delish.com/cooking/recipe-ideas/recipes/a55501/best-goulash-recipe/").await();
-        //emit(rec?: Recipe());
+    var recipe: LiveData<Recipe> = liveData {
+        var rec = Recipe();
+        emit(rec);
+        rec = RecipeAPIService.getRecipeByIDAsync(id).await()?: Recipe();
+        emit(rec);
+    }
+}
+
+
+class RecipeViewModelFactory(private val id: String) : ViewModelProvider.Factory {
+
+    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+        if (modelClass.isAssignableFrom(RecipeViewModel::class.java)) {
+            return RecipeViewModel(id) as T
+        }
+        throw IllegalArgumentException("Unknown ViewModel class")
     }
 
-    init {
-
-
-    }
 }
 
 @BindingAdapter("recipeName")
