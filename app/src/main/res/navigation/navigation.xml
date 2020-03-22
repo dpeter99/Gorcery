@@ -19,5 +19,9 @@
         android:id="@+id/recepie"
         android:name="com.aper_lab.grocery.RecepieFragment"
         android:label="fragment_recepie"
-        tools:layout="@layout/fragment_recepie" />
+        tools:layout="@layout/fragment_recepie" >
+        <argument
+            android:name="recipeID"
+            app:argType="string" />
+    </fragment>
 </navigation>

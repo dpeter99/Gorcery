@@ -1,5 +1,6 @@
 package com.aper_lab.scraperlib.datastore
 
+import com.aper_lab.scraperlib.api.DatabaseConnection
 import com.aper_lab.scraperlib.data.Producte
 import com.aper_lab.scraperlib.data.Recipe
 //import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport
@@ -7,10 +8,36 @@ import com.aper_lab.scraperlib.data.Recipe
 //import com.google.api.services.kgsearch.v1.Kgsearch
 //import com.google.api.services.kgsearch.v1.KgsearchRequest
 
-class DataStore {
+class DataStore (){
 
-    var recipes = mutableListOf<Recipe>();
+    var recipes = mutableListOf<Recipe>()
     var ingredients = mutableListOf<Producte>()
+
+    private var databaseConnection : DatabaseConnection? = null;
+
+    fun Init(db: DatabaseConnection){
+        databaseConnection = db;
+    }
+
+    fun addRecipe(recipe: Recipe){
+        databaseConnection?.storeData("recipes",recipe);
+    }
+
+    fun getRecipebyID(id: String){
+
+    }
+
+    fun getRecipebyURL(url: String):Recipe?{
+        val res = databaseConnection?.getDataQuerry("recipes/","url",url)?.get(0)
+        if(res == null) {
+            return null;
+        }
+        else {
+            return res;
+        }
+
+
+    }
 
     fun getIngredientByName(name: String){
         this.ingredients.find {

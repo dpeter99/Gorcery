@@ -1,6 +1,10 @@
 package com.aper_lab.scraperlib.data
 
-class Recipe() {
+import com.aper_lab.scraperlib.api.IHasID
+
+class Recipe() :IHasID{
+    var id: String = "";
+
     var name: String = "";
     var link = "";
     var time = "";
@@ -32,5 +36,9 @@ class Recipe() {
             }
 
         return res;
+    }
+
+    override fun GetID(): String{
+        return id;
     }
 }

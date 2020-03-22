@@ -5,7 +5,7 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
-    implementation 'com.google.apis:google-api-services-kgsearch:v1-rev251-1.25.0'
+    implementation 'com.google.apis:google-api-services-kgsearch:v1-rev7-1.22.0'
     implementation group: 'com.google.api-client', name: 'google-api-client-gson', version: '1.30.9'
 
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$version_kotlin_coroutines"

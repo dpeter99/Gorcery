@@ -25,7 +25,6 @@ class RecipeDirectionsAdapter: RecyclerView.Adapter<RecipeDirectionsAdapter.View
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-
         return ViewHolder.from(parent);
     }
 

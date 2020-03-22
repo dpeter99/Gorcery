@@ -3,6 +3,7 @@ package com.aper_lab.scraperlib;
 import com.aper_lab.scraperlib.api.RecipeScraper
 import com.aper_lab.scraperlib.data.Recipe
 import com.aper_lab.scraperlib.scrapers.*
+import com.aper_lab.scraperlib.util.HashUtils
 import java.net.URL
 
 class Scraper {
@@ -19,8 +20,16 @@ class Scraper {
     fun scrape(path: String): Recipe?{
         var url = URL(path);
         val rec = scrapers[url.host]?.scrapFromLink(path);
-        println("-------------------------------------------")
-        println(rec.toString());
+        if(rec != null) {
+            rec.id = HashUtils.md5(rec.name);
+            println("-------------------------------------------")
+            println(rec.toString());
+        }
+
+
+
+
+
         return rec;
     }
 }
