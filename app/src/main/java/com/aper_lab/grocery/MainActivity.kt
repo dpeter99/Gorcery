@@ -6,12 +6,8 @@ import androidx.appcompat.widget.Toolbar
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
-import androidx.navigation.ui.setupWithNavController
-import com.aper_lab.grocery.database.Recipedatabase
+import com.aper_lab.grocery.database.RecipeDatabase
 import com.aper_lab.scraperlib.RecipeAPIService
-import com.aper_lab.scraperlib.Scraper
-import com.aper_lab.scraperlib.api.RecipeScraperAnotation
-import com.google.firebase.FirebaseApp
 
 class MainActivity : AppCompatActivity() {
 
@@ -28,7 +24,7 @@ class MainActivity : AppCompatActivity() {
         appToolbar.setupWithNavController(navController,nav);
         */
 
-        RecipeAPIService.InitApi(Recipedatabase());
+        RecipeAPIService.InitApi(RecipeDatabase);
 
         val navController = findNavController(R.id.myNavHostFragment)
         val drawer = findViewById<DrawerLayout>(R.id.drawer_layout)

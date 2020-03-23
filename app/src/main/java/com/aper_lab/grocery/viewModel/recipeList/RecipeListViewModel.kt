@@ -1,43 +1,65 @@
 package com.aper_lab.grocery.viewModel.recipeList
 
-import androidx.lifecycle.LiveData
+import android.content.ContentValues.TAG
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.aper_lab.grocery.database.RecipeDatabase
 import com.aper_lab.grocery.util.SingleLiveEvent
 import com.aper_lab.scraperlib.data.Recipe
+import com.google.firebase.firestore.DocumentChange
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 
 class RecipeListViewModel: ViewModel() {
 
-    val db = Firebase.firestore
+    //val db = Firebase.firestore
 
-    var recipes = mutableListOf<Recipe>()
-    val recipesLiveData :MutableLiveData<List<Recipe>> = MutableLiveData();
+    var recipes = mutableMapOf<String,Recipe>()
+    val recipesLiveData :MutableLiveData<MutableMap<String,Recipe>> = MutableLiveData(mutableMapOf());
 
     var recipesCount : MutableLiveData<String> = MutableLiveData("")
 
-    var _recipeNav = SingleLiveEvent<Recipe>();
+    var _recipeNav = SingleLiveEvent<String>();
 
     init {
-        db.collection("recipes").get()
-            .addOnSuccessListener {result ->
-                val recipes_new = mutableListOf<Recipe>()
-                for (recipe in result) {
-                    recipes_new.add(recipe.toObject<Recipe>())
-                    //recipes_new.add(RecipePreview(recipe["name"].toString()))
-                }
-                recipes = recipes_new;
-                recipesLiveData.value = recipes;
 
-                recipesCount.value = recipes.count().toString();
-
+        RecipeDatabase.recipes.addSnapshotListener { snapshot, exception ->
+            if (exception != null) {
+                Log.w(TAG, "Listen failed.", exception)
+                return@addSnapshotListener
             }
+
+            if (snapshot != null && !snapshot.isEmpty) {
+                Log.d(TAG, "Current data: ${snapshot.documents}")
+
+                for (item in snapshot.documentChanges){
+                    val rec = item.document.toObject<Recipe>();
+                    if(item.type == DocumentChange.Type.ADDED || item.type == DocumentChange.Type.MODIFIED) {
+                        recipes.put(rec.id, rec);
+                    }
+                    else if(item.type == DocumentChange.Type.REMOVED){
+                        recipes.remove(rec.id);
+                    }
+                }
+                recipesLiveData.postValue(recipes);
+
+
+                recipesCount.postValue(recipesLiveData.value?.size.toString());
+
+            } else {
+                Log.d(TAG, "Current data: null")
+            }
+        }
     }
 
-    fun recipeClicked(){
-        _recipeNav.value = recipes[0];
+    fun recipeClicked(id: String){
+        _recipeNav.value = id;
+    }
+
+    fun refreshRecipeList(){
+
     }
 
     class RecipePreview(val name:String){

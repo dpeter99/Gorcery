@@ -7,6 +7,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.aper_lab.scraperlib.RecipeAPIService
 import kotlinx.coroutines.*
 
 class AddRecipeViewModel : ViewModel() {
@@ -22,9 +23,12 @@ class AddRecipeViewModel : ViewModel() {
     }
 
     fun importRecipe(url: String) {
+        successfulImport.postValue(false);
         viewModelScope.launch {
-            //val rec = RecipeAPIService.getRecipeFromURLAsync(url).await();
-            successfulImport.postValue( true);
+            val rec = RecipeAPIService.getRecipeFromURLAsync(url).await();
+            if(rec != null) {
+                successfulImport.postValue(true);
+            }
         }
 
     }

@@ -48,8 +48,13 @@ class AddRecipeFragment : Fragment() {
         binding.viewModel = viewModel;
 
         // Create the observer which updates the UI.
-        val navObserver = Observer<Boolean> { recipe ->
+        val navObserver = Observer<Boolean> { it ->
             // Update the UI, in this case, a TextView.
+            binding.imageView2.visibility = if(it){
+                View.VISIBLE;
+            } else {
+                View.INVISIBLE;
+            }
         }
         viewModel.successfulImport.observe(this.viewLifecycleOwner,navObserver)
     }

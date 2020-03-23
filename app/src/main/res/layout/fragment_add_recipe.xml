@@ -8,6 +8,7 @@
         <variable
             name="viewModel"
             type="com.aper_lab.grocery.AddRecipeViewModel" />
+        <import type="android.view.View" />
     </data>
 
 
@@ -17,7 +18,7 @@
         android:layout_height="match_parent"
         tools:context=".AddRecipeFragment">
 
-        <import type="android.view.View" />
+
 
         <TextView
             android:id="@+id/textView7"
@@ -58,7 +59,6 @@
             android:layout_marginStart="8dp"
             android:src="@drawable/ic_add_24dp"
             android:visibility="@{viewModel.successfulImport? View.VISIBLE : View.GONE, default=gone}"
-            app:visible="@{viewModel.successfulImport}"
             app:layout_constraintBottom_toBottomOf="@+id/btn_import"
             app:layout_constraintStart_toEndOf="@+id/btn_import"
             app:layout_constraintTop_toTopOf="@+id/btn_import" />
