@@ -1,7 +1,7 @@
 package com.aper_lab.grocery
 
-import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -9,9 +9,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.findNavController
 import com.aper_lab.grocery.databinding.FragmentAddRecipeBinding
-import com.aper_lab.scraperlib.data.Recipe
 
 
 class AddRecipeFragment : Fragment() {
@@ -35,6 +33,7 @@ class AddRecipeFragment : Fragment() {
 
         binding.btnImport.setOnClickListener {
             viewModel.importRecipe(binding.recipeUrl.text.toString());
+            Log.e("Test", viewModel.successfulImport.value.toString())
         }
 
 
@@ -49,10 +48,15 @@ class AddRecipeFragment : Fragment() {
         binding.viewModel = viewModel;
 
         // Create the observer which updates the UI.
-        val navObserver = Observer<Boolean> { recipe ->
+        val navObserver = Observer<Boolean> { it ->
             // Update the UI, in this case, a TextView.
+            binding.imageView2.visibility = if(it){
+                View.VISIBLE;
+            } else {
+                View.INVISIBLE;
+            }
         }
-        viewModel.succesfullImport.observe(this.viewLifecycleOwner,navObserver)
+        viewModel.successfulImport.observe(this.viewLifecycleOwner,navObserver)
     }
 
 }

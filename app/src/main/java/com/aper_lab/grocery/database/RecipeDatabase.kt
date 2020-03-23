@@ -15,7 +15,7 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.tasks.await
 
-class Recipedatabase : DatabaseConnection {
+object RecipeDatabase : DatabaseConnection {
 
     val db =Firebase.firestore;
 
@@ -25,12 +25,19 @@ class Recipedatabase : DatabaseConnection {
         db.collection(path).document(data.GetID()).set(data);
     }
 
-    override fun getRecipeByURL(url: String):Recipe? {
-        return recipes.whereEqualTo("url", url).get().result?.first()?.toObject<Recipe>();
+    override suspend fun getRecipeByURL(url: String):Recipe? {
+        val res = recipes.whereEqualTo("url", url).get().await();
+        if(res.size() > 0){
+            return res.first()?.toObject<Recipe>();
+        }
+        else{
+            return null;
+        }
+
     }
 
     override suspend fun getRecipeByID(id: String): Recipe? {
-           return recipes.document(id).get().await().toObject<Recipe>();
+        return recipes.document(id).get().await().toObject<Recipe>();
     }
 
 }

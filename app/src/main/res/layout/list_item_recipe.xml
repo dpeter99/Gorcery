@@ -12,41 +12,61 @@
             type="com.aper_lab.grocery.viewModel.recipeList.RecipeListAdapter.RecipeListener" />
     </data>
 
-    <com.google.android.material.card.MaterialCardView
+    <com.google.android.material.circularreveal.CircularRevealFrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginRight="8dp"
-        android:onClick="@{() -> clickListener.onClick(recipe)}">
+        android:layout_height="wrap_content">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginRight="8dp"
+            android:onClick="@{() -> clickListener.onClick(recipe)}"
+            app:cardBackgroundColor="@color/cardview_light_background">
 
-            <ImageView
-                android:id="@+id/imageView7"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_launcher_background" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="150dp">
 
-            <TextView
-                android:id="@+id/name"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:text="@{recipe.name}"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/imageView7"
-                app:layout_constraintTop_toTopOf="@+id/imageView7"
-                tools:text="Meat Loaf" />
+                <ImageView
+                    android:id="@+id/imageView7"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:adjustViewBounds="true"
+                    android:cropToPadding="true"
+                    android:scaleType="centerCrop"
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                    app:imageUrl="@{recipe.image}"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline2"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:srcCompat="@drawable/goulash" />
 
-    </com.google.android.material.card.MaterialCardView>
+                <TextView
+                    android:id="@+id/name"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:text="@{recipe.name}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/imageView7"
+                    app:layout_constraintTop_toTopOf="@+id/imageView7"
+                    tools:text="Meat Loaf" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_begin="150dp" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+    </com.google.android.material.circularreveal.CircularRevealFrameLayout>
 
 </layout>

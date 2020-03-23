@@ -36,27 +36,24 @@ class RecipeList : Fragment() {
         binding.viewModel = viewModel;
 
         val recipeAdapter = RecipeListAdapter(RecipeListAdapter.RecipeListener {
-            //Toast.makeText(context, "${it}", Toast.LENGTH_LONG).show();
-            //view?.findNavController()?.navigate(R.id.action_recipeList_to_recepie)
-            viewModel.recipeClicked();
+            viewModel.recipeClicked(it);
         });
         binding.recipeList.adapter = recipeAdapter;
 
 
 
-        // Create the observer which updates the UI.
-        val recipeObserver = Observer<List<Recipe>> { recipe ->
+        // recipe list changes
+        viewModel.recipesLiveData.observe(this.viewLifecycleOwner,Observer { recipe ->
             // Update the UI, in this case, a TextView.
-            recipeAdapter.data = recipe?: listOf<Recipe>();
-        }
-        viewModel.recipesLiveData.observe(this.viewLifecycleOwner,recipeObserver)
+            recipeAdapter.data = recipe?: mutableMapOf();
+        })
+        recipeAdapter.data = viewModel.recipesLiveData.value?: mutableMapOf<String,Recipe>();
 
-        // Create the observer which updates the UI.
-        val navObserver = Observer<Recipe> { recipe ->
-            // Update the UI, in this case, a TextView.
-            view?.findNavController()?.navigate(RecipeListDirections.actionRecipeListToRecepie(recipe.id))
-        }
-        viewModel._recipeNav.observe(this.viewLifecycleOwner,navObserver)
+        //Navigation event
+        viewModel._recipeNav.observe(this.viewLifecycleOwner,Observer<String> { recipe ->
+            view?.findNavController()?.navigate(RecipeListDirections.actionRecipeListToRecepie(recipe))
+        })
+
 
         binding.addButton.setOnClickListener {
             view?.findNavController()?.navigate(RecipeListDirections.actionRecipeListToAddRecipeFragment())

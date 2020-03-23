@@ -14,6 +14,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="#32000000"
         android:orientation="vertical">
 
         <TextView
@@ -27,21 +28,23 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:text="asdasdas" />
 
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recipe_list"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
-            android:clipChildren="true"
-            android:clipToPadding="true"
+
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+
             app:layout_constraintTop_toBottomOf="@+id/recipe_count"
             tools:itemCount="5"
             tools:listitem="@layout/list_item_recipe" />
+
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/add_button"

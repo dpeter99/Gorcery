@@ -2,13 +2,14 @@ package com.aper_lab.grocery.viewModel.recipeList
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.view.marginBottom
 import androidx.recyclerview.widget.RecyclerView
 import com.aper_lab.grocery.databinding.ListItemRecipeBinding
 import com.aper_lab.scraperlib.data.Recipe
 
 class RecipeListAdapter (val clickListener: RecipeListener): RecyclerView.Adapter<RecipeListAdapter.ViewHolder>() {
 
-    var data = listOf<Recipe>()
+    var data = mutableMapOf<String,Recipe>()
         set(value) {
             field = value
             notifyDataSetChanged()
@@ -23,7 +24,7 @@ class RecipeListAdapter (val clickListener: RecipeListener): RecyclerView.Adapte
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(data[position], data.size, clickListener)
+        holder.bind(data.values.elementAt(position), data.size, clickListener)
     }
 
     class ViewHolder(val binding: ListItemRecipeBinding): RecyclerView.ViewHolder(binding.root){
@@ -42,7 +43,7 @@ class RecipeListAdapter (val clickListener: RecipeListener): RecyclerView.Adapte
         companion object{
             fun from(parent: ViewGroup): ViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context);
-                val binding = ListItemRecipeBinding.inflate(layoutInflater);
+                var binding = ListItemRecipeBinding.inflate(layoutInflater);
                 binding.root.layoutParams =ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                 return ViewHolder(binding);
             }
@@ -51,7 +52,7 @@ class RecipeListAdapter (val clickListener: RecipeListener): RecyclerView.Adapte
     }
 
     class RecipeListener(val clickListener: (name: String) -> Unit) {
-        fun onClick(night: Recipe) = clickListener(night.name)
+        fun onClick(recipe: Recipe) = clickListener(recipe.id)
     }
 
 }
