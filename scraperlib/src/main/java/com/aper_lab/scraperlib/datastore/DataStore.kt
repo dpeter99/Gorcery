@@ -27,7 +27,7 @@ class DataStore (){
         return databaseConnection?.getRecipeByID(id);
     }
 
-    fun getRecipebyURL(url: String):Recipe?{
+    suspend fun getRecipebyURL(url: String):Recipe?{
         val res = databaseConnection?.getRecipeByURL(url)
         if(res == null) {
             return null;

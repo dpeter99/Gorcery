@@ -9,7 +9,7 @@ interface DatabaseConnection {
     //#################################
     //RECIPE
     //#################################
-    fun getRecipeByURL(url: String):Recipe?;
+    suspend fun getRecipeByURL(url: String):Recipe?;
 
     suspend fun getRecipeByID(id: String):Recipe?;
 }

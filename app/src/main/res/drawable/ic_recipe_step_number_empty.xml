@@ -5,8 +5,8 @@
     android:shape="oval">
 
     <size
-        android:width="34dp"
-        android:height="34dp" />
+        android:width="42dp"
+        android:height="42dp" />
     
     <stroke android:color="@color/secondaryColor" android:width="2dp" />
 
