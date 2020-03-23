@@ -12,7 +12,7 @@ fun main(args: Array<String>) {
 
     val sites = listOf<String>(
         "https://tasty.co/recipe/creamy-sausage-bolognese",
-        "http://www.mindmegette.hu/rakott-teszta-daralt-hussal.recept/",
+        "https://www.mindmegette.hu/rakott-teszta-daralt-hussal.recept/",
         "https://www.delish.com/cooking/recipe-ideas/a25239697/easy-turkey-tetrazzini-recipe/",
         "https://www.delish.com/cooking/recipe-ideas/a19665622/easy-chicken-fajitas-recipe/",
         "https://www.delish.com/cooking/recipe-ideas/recipes/a55510/easy-baked-spaghetti-recipe/",
