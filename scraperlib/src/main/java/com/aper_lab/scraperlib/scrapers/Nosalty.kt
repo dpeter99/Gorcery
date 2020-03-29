@@ -1,22 +1,27 @@
 package com.aper_lab.scraperlib.scrapers
 
+import com.aper_lab.scraperlib.ScraperRegistry
 import com.aper_lab.scraperlib.api.RecipeScraper
 import com.aper_lab.scraperlib.api.RecipeScraperAnotation
 import com.aper_lab.scraperlib.data.Ingredient
 import com.aper_lab.scraperlib.data.Recipe
 import com.aper_lab.scraperlib.data.RecipeStep
 import org.jsoup.Jsoup
+import java.net.URL
 import java.nio.charset.Charset
 
 @RecipeScraperAnotation()
 class Nosalty : RecipeScraper{
 
-    override fun scrapFromLink(link: String):Recipe {
-        val doc = Jsoup.connect(link).get()
+    override fun scrapFromLink(link: URL):Recipe {
+        val connection = Jsoup.connect(link.toString())
+                                .followRedirects(true)
+
+        val doc = connection.get()
         doc.charset(Charset.forName("UTF-8"))
 
         val recipe = Recipe();
-        recipe.link = link;
+        recipe.link = link.toString();
 
         var recipeFragment = doc.select("[itemtype=\"https://data-vocabulary.org/Recipe\"]");
 
@@ -35,6 +40,24 @@ class Nosalty : RecipeScraper{
         }
 
         return recipe;
+    }
+
+    override fun getSourceID(): String {
+        return "nosalty"
+    }
+
+
+    companion object{
+        val urls = listOf<String>(
+            "www.nosalty.hu",
+            "nosalty.hu",
+            "m.nosalty.hu"
+        )
+
+        fun Register(registry: ScraperRegistry){
+
+            registry.Register(urls,Nosalty())
+        }
     }
 
 }

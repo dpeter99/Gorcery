@@ -5,7 +5,7 @@
     <foreground>
 
         <inset
-            android:drawable="@drawable/ic_app_icon_03_1"
+            android:drawable="@drawable/ic_app_icon"
             android:inset="15%" />
     </foreground>
 

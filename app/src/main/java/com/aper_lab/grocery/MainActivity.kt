@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity() {
         appToolbar.setupWithNavController(navController,nav);
         */
 
-        RecipeAPIService.InitApi(RecipeDatabase);
+        RecipeAPIService.initApi(RecipeDatabase);
 
         val navController = findNavController(R.id.myNavHostFragment)
         val drawer = findViewById<DrawerLayout>(R.id.drawer_layout)

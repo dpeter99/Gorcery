@@ -14,8 +14,6 @@ import com.google.firebase.ktx.Firebase
 
 class RecipeListViewModel: ViewModel() {
 
-    //val db = Firebase.firestore
-
     var recipes = mutableMapOf<String,Recipe>()
     val recipesLiveData :MutableLiveData<MutableMap<String,Recipe>> = MutableLiveData(mutableMapOf());
 
