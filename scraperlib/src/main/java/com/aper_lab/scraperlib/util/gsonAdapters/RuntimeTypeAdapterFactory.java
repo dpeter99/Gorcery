@@ -140,6 +140,8 @@ public final class RuntimeTypeAdapterFactory<T> implements TypeAdapterFactory {
   private final Map<Class<?>, String> subtypeToLabel = new LinkedHashMap<Class<?>, String>();
   private final boolean maintainType;
 
+  private Class<?> defaultClass = null;
+
   private RuntimeTypeAdapterFactory(Class<?> baseType, String typeFieldName, boolean maintainType) {
     if (typeFieldName == null || baseType == null) {
       throw new NullPointerException();
@@ -204,6 +206,11 @@ public final class RuntimeTypeAdapterFactory<T> implements TypeAdapterFactory {
     return registerSubtype(type, type.getSimpleName());
   }
 
+  public RuntimeTypeAdapterFactory<T> registerDefaultSubtype(Class<? extends T> type) {
+    defaultClass = type;
+    return this;
+  }
+
   public <R> TypeAdapter<R> create(Gson gson, TypeToken<R> type) {
     if (type.getRawType() != baseType) {
       return null;
@@ -219,6 +226,9 @@ public final class RuntimeTypeAdapterFactory<T> implements TypeAdapterFactory {
       subtypeToDelegate.put(entry.getValue(), delegate);
     }
 
+    //final TypeAdapter<?> defaultClassDelegate = (defaultClass != null) ? gson.getDelegateAdapter(this, TypeToken.get(defaultClass)) : null;
+
+
     return new TypeAdapter<R>() {
       @Override public R read(JsonReader in) throws IOException {
         JsonElement jsonElement = Streams.parse(in);
@@ -230,15 +240,22 @@ public final class RuntimeTypeAdapterFactory<T> implements TypeAdapterFactory {
         }
         
         if (labelJsonElement == null) {
-          throw new JsonParseException("cannot deserialize " + baseType
-              + " because it does not define a field named " + typeFieldName);
+          //if(defaultClassDelegate == null) {
+            throw new JsonParseException("cannot deserialize " + baseType
+                    + " because it does not define a field named " + typeFieldName);
+          //}
         }
         String label = labelJsonElement.getAsString();
         @SuppressWarnings("unchecked") // registration requires that subtype extends T
         TypeAdapter<R> delegate = (TypeAdapter<R>) labelToDelegate.get(label);
         if (delegate == null) {
-          throw new JsonParseException("cannot deserialize " + baseType + " subtype named "
-              + label + "; did you forget to register a subtype?");
+          //if(defaultClassDelegate == null) {
+            throw new JsonParseException("cannot deserialize " + baseType + " subtype named "
+                    + label + "; did you forget to register a subtype?");
+          //}
+          //else{
+          //  return ((TypeAdapter<R>)defaultClassDelegate).fromJsonTree(jsonElement);
+          //}
         }
         return delegate.fromJsonTree(jsonElement);
       }

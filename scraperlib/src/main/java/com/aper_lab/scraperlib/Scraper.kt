@@ -6,7 +6,7 @@ import com.aper_lab.scraperlib.scrapers.*
 import com.aper_lab.scraperlib.util.HashUtils
 import com.aper_lab.scraperlib.util.URLutils
 import java.net.URL
-
+/*
 @Deprecated("Moved to the service object")
 class Scraper {
     //var scrapers: MutableMap<String, RecipeScraper> = mutableMapOf();
@@ -39,3 +39,4 @@ class Scraper {
         return rec;
     }
 }
+*/

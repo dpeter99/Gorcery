@@ -1,6 +1,7 @@
 package com.aper_lab.scraperlib
 
 import com.aper_lab.scraperlib.api.DatabaseConnection
+import com.aper_lab.scraperlib.data.Data
 import com.aper_lab.scraperlib.data.Recipe
 import com.aper_lab.scraperlib.datastore.DataStore
 import com.aper_lab.scraperlib.scrapers.*
@@ -34,6 +35,7 @@ object RecipeAPIService {
         dataStore.Init(db);
     }
 
+
     fun getRecipeFromURLAsync(url:String): Deferred<Recipe?> {
         return GlobalScope.async{
 
@@ -44,40 +46,58 @@ object RecipeAPIService {
                     dataStore.addRecipe(rec);
                 }
             }
+
             rec;
         };
     }
 
     fun getRecipeByIDAsync(id: String): Deferred<Recipe?>{
-        return scope.async{
+        return GlobalScope.async{
 
             var rec = dataStore.getRecipebyID(id);
             if(rec == null) {
-                rec = Recipe();
+                rec = Recipe.create();
             }
+            rec = checkRecipeVersion(rec);
             rec;
         };
     }
+
 
     fun getSourceIDfromURL(url:String): String{
         val link = URL(url);
         return registry.mapping[link.host]?.getSourceID()?: "";
     }
 
-    fun scrape(path: String): Recipe?{
+
+
+    private fun checkRecipeVersion(rec: Recipe): Recipe?{
+        var result: Recipe? = rec;
+
+        if (rec.version != Data.DATA_VERSION || rec.version == "") {
+            result = scrape(rec.link);
+            if (result != null) {
+                result.id = HashUtils.md5(rec.name);
+                result.version = Data.DATA_VERSION;
+
+                dataStore.updateRecipe(result);
+            }
+        }
+        return result;
+    }
+
+    private fun scrape(path: String): Recipe?{
         val url_parsed = URLutils.HTTPToHTTPS(path);
         var url = URL(url_parsed);
 
         val rec = registry.mapping[url.host]?.scrapFromLink(url);
         if(rec != null) {
             rec.id = HashUtils.md5(rec.name);
-            println("-------------------------------------------")
+            rec.version = Data.DATA_VERSION;
+
+            //println("-------------------------------------------")
             println(rec.toString());
         }
-
-
-
-
 
         return rec;
     }

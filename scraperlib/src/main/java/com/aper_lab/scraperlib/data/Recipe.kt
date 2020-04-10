@@ -1,15 +1,17 @@
 package com.aper_lab.scraperlib.data
 
 import com.aper_lab.scraperlib.api.IHasID
+import com.aper_lab.scraperlib.util.ScrappingHelper
 import com.aper_lab.scraperlib.util.jsonAdapters.TimeadApter
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.JsonAdapter
 import com.google.gson.annotations.SerializedName
 import com.google.gson.internal.LinkedTreeMap
 import org.threeten.bp.Duration
+import java.util.*
 
 
-class Recipe() :IHasID{
+class Recipe private constructor() : Data(), IHasID{
     var id: String = "";
 
     var name: String = "";
@@ -26,26 +28,76 @@ class Recipe() :IHasID{
     var ingredients: List<Ingredient> = listOf();
     var directions: List<RecipeStep> = listOf();
 
+    var keywords: List<String> = listOf();
+    var recipeCategory: List<String> = listOf();
+    var recipeCuisine: List<String> = listOf();
+
+    var nutrition: NutritionInformation = NutritionInformation();
+    var tools: List<String> = listOf();
+
+    var datePublished: Date = Date();
+
     override fun toString(): String {
         var res = "";
 
-        res += this.name + "\n" +
-                this.link + "\n" +
-                this.time + "\n" +
-                this.yields + "\n" +
-                this.image + "\n" +
-                this.description + "\n";
+        res +=  "name: " + this.name + "\n" +
+                "link: " + this.link + "\n" +
+                "datePublished: " + this.datePublished + "\n" +
+                "time: " + this.time + "\n" +
+                "cookTime: " + this.cookTime + "\n" +
+                "prepTime: " + this.prepTime + "\n" +
+                "totalTime: " + this.totalTime + "\n" +
+                "yields: " + this.yields + "\n" +
+                "image: " + this.image + "\n" +
+                "description: " + this.description + "\n";
+
+        res += "keywords: \n";
+        if(keywords.isNotEmpty())
+            for (ing in keywords)
+            {
+                res += "\t" + ing + "\n";
+            }
+
+        res += "recipeCategory: \n";
+        if(recipeCategory.isNotEmpty())
+            for (ing in recipeCategory)
+            {
+                res += "\t" + ing + "\n";
+            }
+
+        res += "recipeCuisine: \n";
+        if(recipeCuisine.isNotEmpty())
+            for (ing in recipeCuisine)
+            {
+                res += "\t" + ing + "\n";
+            }
+
+        res += "tools: \n";
+        if(tools.isNotEmpty())
+            for (ing in tools)
+            {
+                res += "\t" + ing + "\n";
+            }
+
+        res += "ingredients: \n";
         if(ingredients.isNotEmpty())
             for (ing in ingredients)
             {
-                res += ing.name + " " + ing.amount + "\n";
+                res += "\t" + ing.name + " " + ing.amount + "\n";
             }
 
+        res += "directions: \n";
         if(directions.isNotEmpty())
             for (dir in directions)
             {
-                res +=  dir.num.toString() + " " + dir.text + "\n";
+                res += "\t" + dir.num.toString() + " " + dir.text + "\n";
             }
+
+        res += "nutrition: \n";
+        res += "\t calories: "+nutrition.calories;
+
+
+        res += " \n##################################################################################";
 
         return res;
     }
@@ -55,32 +107,11 @@ class Recipe() :IHasID{
     }
 
     companion object{
-        fun fromSchemaOrg(recipe: com.aper_lab.scraperlib.util.schemaOrg.Recipe):Recipe{
-            var rec = Recipe();
-
-            rec.name = recipe.name;
-            rec.time = recipe.totalTime;
-
-            if(recipe.cookTime != "")
-            rec.cookTime = Duration.parse(recipe.cookTime).seconds;
-            if(recipe.prepTime != "")
-            rec.prepTime = Duration.parse(recipe.prepTime).seconds;
-            if(recipe.totalTime != "")
-            rec.totalTime = Duration.parse(recipe.totalTime).seconds;
-
-            rec.yields = recipe.recipeYield.removeSuffix("servings")
-            rec.image = recipe.image;
-            rec.description = recipe.description;
-
-            rec.ingredients = recipe.recipeIngredient.map {
-                    element -> Ingredient(element,"");
-            }
-
-            rec.directions = recipe.recipeInstructions.mapIndexed {
-                    id, element -> RecipeStep(id+1,(element as LinkedTreeMap<String, String>)["text"].toString());
-            }
-
-            return rec;
+        fun create(): Recipe{
+            val res = Recipe();
+            res.version = DATA_VERSION;
+            return res;
         }
     }
+
 }
