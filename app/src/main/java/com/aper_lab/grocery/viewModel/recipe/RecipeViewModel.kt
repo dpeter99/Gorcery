@@ -9,9 +9,9 @@ import com.aper_lab.scraperlib.data.Recipe
 class RecipeViewModel(val id : String) : ViewModel() {
 
     var recipe: LiveData<Recipe> = liveData {
-        var rec = Recipe();
+        var rec = Recipe.create();
         emit(rec);
-        rec = RecipeAPIService.getRecipeByIDAsync(id).await()?: Recipe();
+        rec = RecipeAPIService.getRecipeByIDAsync(id).await()?: Recipe.create();
         emit(rec);
     }
 }
@@ -28,9 +28,3 @@ class RecipeViewModelFactory(private val id: String) : ViewModelProvider.Factory
 
 }
 
-@BindingAdapter("recipeName")
-fun TextView.setSleepImage(item: Recipe?) {
-    item?.let {
-        text = item.name;
-    }
-}

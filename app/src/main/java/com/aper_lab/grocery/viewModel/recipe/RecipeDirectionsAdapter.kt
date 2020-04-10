@@ -5,8 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.aper_lab.grocery.R
 import com.aper_lab.grocery.databinding.ListItemDirectionBinding
+import com.aper_lab.grocery.databinding.ListItemIngredientBinding
 import com.aper_lab.scraperlib.data.Ingredient
 import com.aper_lab.scraperlib.data.RecipeStep
 
@@ -51,7 +54,11 @@ class RecipeDirectionsAdapter: RecyclerView.Adapter<RecipeDirectionsAdapter.View
         companion object{
             fun from(parent: ViewGroup): ViewHolder{
                 val layoutInflater = LayoutInflater.from(parent.context);
-                val binding = ListItemDirectionBinding.inflate(layoutInflater);
+
+                var binding : ListItemDirectionBinding = DataBindingUtil.inflate(layoutInflater,
+                    R.layout.list_item_direction, parent,false);
+
+                //val binding = ListItemDirectionBinding.inflate(layoutInflater);
                 //binding.root.layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                 //val layout = binding.root as ConstraintLayout;
                 //layout.requestLayout();

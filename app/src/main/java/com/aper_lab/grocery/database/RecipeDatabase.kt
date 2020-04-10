@@ -40,4 +40,9 @@ object RecipeDatabase : DatabaseConnection {
         return recipes.document(id).get().await().toObject<Recipe>();
     }
 
+    override fun updateRecipe(path: String, recipe: Recipe) {
+        recipes.document(recipe.GetID()).set(recipe);
+    }
+
+
 }

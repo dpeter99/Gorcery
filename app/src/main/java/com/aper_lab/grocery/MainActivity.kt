@@ -4,10 +4,15 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.appcompat.widget.Toolbar
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.navigation.NavController
 import androidx.navigation.findNavController
+import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
+import androidx.navigation.ui.setupActionBarWithNavController
+import androidx.navigation.ui.setupWithNavController
 import com.aper_lab.grocery.database.RecipeDatabase
 import com.aper_lab.scraperlib.RecipeAPIService
+import com.google.android.material.navigation.NavigationView
 
 class MainActivity : AppCompatActivity() {
 
@@ -27,10 +32,21 @@ class MainActivity : AppCompatActivity() {
         RecipeAPIService.initApi(RecipeDatabase);
 
         val navController = findNavController(R.id.myNavHostFragment)
+        navController.setGraph(R.navigation.navigation);
+
         val drawer = findViewById<DrawerLayout>(R.id.drawer_layout)
         val appToolbar = findViewById<Toolbar>(R.id.app_toolbar)
-        navController.setGraph(R.navigation.navigation);
+
+
+        val appBarConfiguration = AppBarConfiguration(navController.graph, drawer).
+
         NavigationUI.setupWithNavController(appToolbar, navController, drawer)
+        NavigationUI.setupActionBarWithNavController(this,navController,appBarConfiguration);
+    }
+
+    private fun setupNavigationMenu(navController: NavController) {
+        val sideNavView = findViewById<NavigationView>(R.id.navigation_view)
+        sideNavView?.setupWithNavController(navController)
     }
 
     override fun onSupportNavigateUp(): Boolean {

@@ -9,4 +9,8 @@
     <string name="text_directions">Directions</string>
     <string name="import_new_recipe">Import new recipe</string>
     <string name="import_text">Import</string>
+
+
+    <string name="minute_short">min</string>
+    <string name="recipes_for_you">Recipes For You</string>
 </resources>

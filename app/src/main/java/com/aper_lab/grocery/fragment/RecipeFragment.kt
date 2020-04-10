@@ -1,4 +1,4 @@
-package com.aper_lab.grocery
+package com.aper_lab.grocery.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,8 +8,8 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.aper_lab.grocery.RecipeFragmentArgs.fromBundle
+import com.aper_lab.grocery.R
+
 import com.aper_lab.grocery.databinding.FragmentRecepieBinding
 import com.aper_lab.grocery.viewModel.recipe.RecipeDirectionsAdapter
 import com.aper_lab.grocery.viewModel.recipe.RecipeIngredientAdapter
@@ -30,14 +30,14 @@ class RecipeFragment : Fragment() {
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val binding = DataBindingUtil.inflate<FragmentRecepieBinding>(inflater, R.layout.fragment_recepie,container,false)
+        val binding = DataBindingUtil.inflate<FragmentRecepieBinding>(inflater,
+            R.layout.fragment_recepie,container,false)
 
         val args = RecipeFragmentArgs.fromBundle(arguments!!)
 
         //viewModel = ViewModelProviders.of(this).get(RecipeViewModel::class.java);
         viewModelFactory = RecipeViewModelFactory(args.recipeID)
         viewModel = ViewModelProvider(this, viewModelFactory).get(RecipeViewModel::class.java);
-
 
         binding.viewModel = viewModel;
         binding.lifecycleOwner = this;

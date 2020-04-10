@@ -3,12 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation.xml"
-    app:startDestination="@id/recipeList">
+    app:startDestination="@id/discoverRecipesFragment">
 
     <fragment
         android:id="@+id/recipeList"
-        android:name="com.aper_lab.grocery.RecipeList"
-        android:label="RecipeList" >
+        android:name="com.aper_lab.grocery.fragment.RecipeList"
+        android:label="My recipes">
         <action
             android:id="@+id/action_recipeList_to_recepie"
             app:destination="@id/recepie"
@@ -20,7 +20,7 @@
     </fragment>
     <fragment
         android:id="@+id/recepie"
-        android:name="com.aper_lab.grocery.RecipeFragment"
+        android:name="com.aper_lab.grocery.fragment.RecipeFragment"
         android:label="fragment_recepie"
         tools:layout="@layout/fragment_recepie" >
         <argument
@@ -31,4 +31,12 @@
         android:id="@+id/addRecipeFragment"
         android:name="com.aper_lab.grocery.AddRecipeFragment"
         android:label="AddRecipeFragment" />
+    <fragment
+        android:id="@+id/discoverRecipesFragment"
+        android:name="com.aper_lab.grocery.fragment.DiscoverRecipesFragment"
+        android:label="Discover some recipes">
+        <action
+            android:id="@+id/action_discoverRecipesRragment_to_recipeList"
+            app:destination="@id/recipeList" />
+    </fragment>
 </navigation>

@@ -3,6 +3,7 @@ package com.aper_lab.grocery.viewModel.recipeList
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.aper_lab.grocery.R
 import com.aper_lab.grocery.databinding.ListItemRecipeBinding
 import com.aper_lab.scraperlib.RecipeAPIService
 import com.aper_lab.scraperlib.data.Recipe
@@ -46,6 +47,9 @@ class RecipeListAdapter (val clickListener: RecipeListener): RecyclerView.Adapte
         companion object{
             fun from(parent: ViewGroup): ViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context);
+
+                //val view = layoutInflater.inflate(R.layout.list_item_recipe, parent);
+
                 var binding = ListItemRecipeBinding.inflate(layoutInflater);
                 binding.root.layoutParams =ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                 return ViewHolder(binding);

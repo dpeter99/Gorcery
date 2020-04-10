@@ -1,4 +1,4 @@
-package com.aper_lab.grocery
+package com.aper_lab.grocery.fragment
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -9,10 +9,11 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
+import com.aper_lab.grocery.R
+
 import com.aper_lab.grocery.databinding.FragmentRecipeListBinding
 import com.aper_lab.grocery.viewModel.recipeList.RecipeListAdapter
 import com.aper_lab.grocery.viewModel.recipeList.RecipeListViewModel
-import com.aper_lab.scraperlib.RecipeAPIService
 import com.aper_lab.scraperlib.data.Recipe
 
 
@@ -51,7 +52,11 @@ class RecipeList : Fragment() {
 
         //Navigation event
         viewModel._recipeNav.observe(this.viewLifecycleOwner,Observer<String> { recipe ->
-            view?.findNavController()?.navigate(RecipeListDirections.actionRecipeListToRecepie(recipe))
+            view?.findNavController()?.navigate(
+                RecipeListDirections.actionRecipeListToRecepie(
+                    recipe
+                )
+            )
         })
 
 
