@@ -3,16 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation.xml"
-    app:startDestination="@id/discoverRecipesFragment">
+    app:startDestination="@id/discover_recipes">
 
     <fragment
-        android:id="@+id/recipeList"
+        android:id="@+id/recipe_list"
         android:name="com.aper_lab.grocery.fragment.RecipeList"
         android:label="My recipes">
         <action
             android:id="@+id/action_recipeList_to_recepie"
             app:destination="@id/recepie"
-            app:popUpTo="@id/recipeList"
+            app:popUpTo="@id/recipe_list"
             app:popUpToInclusive="false" />
         <action
             android:id="@+id/action_recipeList_to_addRecipeFragment"
@@ -32,11 +32,12 @@
         android:name="com.aper_lab.grocery.AddRecipeFragment"
         android:label="AddRecipeFragment" />
     <fragment
-        android:id="@+id/discoverRecipesFragment"
+        android:id="@+id/discover_recipes"
         android:name="com.aper_lab.grocery.fragment.DiscoverRecipesFragment"
         android:label="Discover some recipes">
         <action
             android:id="@+id/action_discoverRecipesRragment_to_recipeList"
-            app:destination="@id/recipeList" />
+            app:destination="@id/recipe_list"
+            app:popUpToInclusive="true" />
     </fragment>
 </navigation>

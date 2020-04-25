@@ -37,6 +37,8 @@ class DiscoverRecipesFragment : Fragment() {
         //binding.viewModel = viewModel;
         //binding.lifecycleOwner = this;
 
+
+
         return binding.root
     }
 
