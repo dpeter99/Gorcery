@@ -1,14 +1,18 @@
 package com.aper_lab.grocery.fragment
 
+import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.aper_lab.grocery.R
+import androidx.navigation.findNavController
+import com.aper_lab.grocery.*
 
 import com.aper_lab.grocery.databinding.FragmentRecepieBinding
 import com.aper_lab.grocery.viewModel.recipe.RecipeDirectionsAdapter
@@ -18,12 +22,13 @@ import com.aper_lab.grocery.viewModel.recipe.RecipeViewModelFactory
 import com.aper_lab.scraperlib.data.Ingredient
 import com.aper_lab.scraperlib.data.Recipe
 import com.aper_lab.scraperlib.data.RecipeStep
+import com.google.android.material.bottomappbar.BottomAppBar
 
 
 /**
  * A simple [Fragment] subclass.
  */
-class RecipeFragment : Fragment() {
+class RecipeFragment : Fragment(), IHasFAB {
 
     private lateinit var viewModel: RecipeViewModel;
     private lateinit var viewModelFactory: RecipeViewModelFactory
@@ -62,4 +67,15 @@ class RecipeFragment : Fragment() {
         return binding.root
     }
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+
+        if(context is IFABProvider){
+            context.setFABProperties( null);
+            context.setFABListener(this);
+        }
+    }
+
+    override fun onFABClicked() {
+    }
 }

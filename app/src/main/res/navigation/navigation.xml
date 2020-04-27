@@ -29,8 +29,13 @@
     </fragment>
     <fragment
         android:id="@+id/addRecipeFragment"
-        android:name="com.aper_lab.grocery.AddRecipeFragment"
-        android:label="AddRecipeFragment" />
+        android:name="com.aper_lab.grocery.fragment.AddRecipeFragment"
+        android:label="AddRecipeFragment" >
+        <action
+            android:id="@+id/action_addRecipeFragment_to_recepie"
+            app:destination="@id/recepie"
+            app:popUpTo="@id/recipe_list" />
+    </fragment>
     <fragment
         android:id="@+id/discover_recipes"
         android:name="com.aper_lab.grocery.fragment.DiscoverRecipesFragment"

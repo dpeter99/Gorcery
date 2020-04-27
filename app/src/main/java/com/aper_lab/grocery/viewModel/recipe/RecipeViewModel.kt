@@ -14,6 +14,7 @@ class RecipeViewModel(val id : String) : ViewModel() {
         rec = RecipeAPIService.getRecipeByIDAsync(id).await()?: Recipe.create();
         emit(rec);
     }
+
 }
 
 

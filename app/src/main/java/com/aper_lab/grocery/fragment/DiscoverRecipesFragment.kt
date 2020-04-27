@@ -1,13 +1,16 @@
 package com.aper_lab.grocery.fragment
 
+import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.aper_lab.grocery.R
+import androidx.navigation.findNavController
+import com.aper_lab.grocery.*
 
 import com.aper_lab.grocery.databinding.FragmentDiscoverRecipesBinding
 import com.aper_lab.grocery.databinding.FragmentRecepieBinding
@@ -18,8 +21,9 @@ import com.aper_lab.grocery.viewModel.recipe.RecipeViewModelFactory
 import com.aper_lab.scraperlib.data.Ingredient
 import com.aper_lab.scraperlib.data.Recipe
 import com.aper_lab.scraperlib.data.RecipeStep
+import com.google.android.material.bottomappbar.BottomAppBar
 
-class DiscoverRecipesFragment : Fragment() {
+class DiscoverRecipesFragment : FABFragment() {
 
     private lateinit var viewModel: RecipeViewModel;
     private lateinit var viewModelFactory: RecipeViewModelFactory
@@ -41,5 +45,4 @@ class DiscoverRecipesFragment : Fragment() {
 
         return binding.root
     }
-
 }

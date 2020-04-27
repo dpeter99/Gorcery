@@ -168,7 +168,7 @@
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/materialCardView"
-                app:srcCompat="@drawable/circle_slice_2" />
+                app:srcCompat="@drawable/ic_circle_slice_2" />
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/icon2"
@@ -180,7 +180,7 @@
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/icon"
                 app:layout_constraintTop_toTopOf="@+id/icon"
-                app:srcCompat="@drawable/circle_slice_6" />
+                app:srcCompat="@drawable/ic_circle_slice_6" />
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/icon3"
@@ -190,7 +190,7 @@
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/icon2"
                 app:layout_constraintTop_toTopOf="@+id/icon2"
-                app:srcCompat="@drawable/circle_slice_8" />
+                app:srcCompat="@drawable/ic_circle_slice_8" />
 
             <TextView
                 android:id="@+id/textView8"

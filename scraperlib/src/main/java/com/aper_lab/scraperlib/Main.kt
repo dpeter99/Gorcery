@@ -21,7 +21,7 @@ fun main(args: Array<String>) = runBlocking{
 
     for (site in sites) {
         launch {
-            var a = RecipeAPIService.getRecipeFromURLAsync(site).await();
+            var a = RecipeAPIService.getRecipeFromURLAsync(site, false).await();
             //print(a.toString())
         }
     }

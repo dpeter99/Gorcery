@@ -3,11 +3,14 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@id/recipe_list"
-        android:icon="@drawable/ic_notebook_24dp"
-        android:title="My recipes"
+        android:id="@+id/recipe_list"
+        android:icon="@drawable/ic_notebook_outline_24dp"
+        android:title="Item 1"
         app:showAsAction="ifRoom" />
+
     <item
         android:id="@+id/discover_recipes"
-        android:title="Discover" />
+        android:icon="@drawable/ic_compass_outline_24dp"
+        android:title="Item 2"
+        app:showAsAction="ifRoom" />
 </menu>

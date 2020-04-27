@@ -11,6 +11,7 @@
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
 <!--
         <LinearLayout
             android:layout_width="match_parent"
@@ -42,6 +43,7 @@
 
         </LinearLayout>
 -->
+
         <fragment
             android:id="@+id/myNavHostFragment"
             android:name="androidx.navigation.fragment.NavHostFragment"
@@ -49,7 +51,7 @@
             android:layout_height="match_parent"
             app:defaultNavHost="true"
             app:navGraph="@navigation/navigation"
-            tools:layout="@layout/fragment_recipe_list" />
+            tools:layout="@layout/fragment_add_recipe" />
 
         <com.google.android.material.bottomappbar.BottomAppBar
             android:id="@+id/bottom_bar"
@@ -57,16 +59,18 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             app:backgroundTint="@color/primaryColor"
-            app:fabAlignmentMode="center" />
+            app:fabAlignmentMode="center"
+            app:hideOnScroll="true"
+            app:menu="@menu/menu_bottom_app_bar" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_add_24dp"
-            android:visibility="visible"
             app:fabSize="normal"
-            app:layout_anchor="@id/bottom_bar" />
+            app:layout_anchor="@id/bottom_bar"
+            tools:visibility="visible" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

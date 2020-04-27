@@ -7,6 +7,7 @@ import com.aper_lab.scraperlib.datastore.DataStore
 import com.aper_lab.scraperlib.scrapers.*
 import com.aper_lab.scraperlib.util.HashUtils
 import com.aper_lab.scraperlib.util.URLutils
+import com.sun.org.apache.xpath.internal.operations.Bool
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.MainScope
@@ -36,19 +37,23 @@ object RecipeAPIService {
     }
 
 
-    fun getRecipeFromURLAsync(url:String): Deferred<Recipe?> {
+    fun getRecipeFromURLAsync(url:String, storeRecipe: Boolean): Deferred<Recipe?> {
         return GlobalScope.async{
 
             var rec = dataStore.getRecipebyURL(url);
             if(rec == null) {
                 rec = scrape(url);
-                if (rec != null) {
+                if (rec != null && storeRecipe) {
                     dataStore.addRecipe(rec);
                 }
             }
 
             rec;
         };
+    }
+
+    fun saveRecipeToDB(rec: Recipe){
+        dataStore.addRecipe(rec);
     }
 
     fun getRecipeByIDAsync(id: String): Deferred<Recipe?>{
