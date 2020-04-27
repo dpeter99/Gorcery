@@ -3,40 +3,69 @@ package com.aper_lab.grocery
 import android.view.View
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.aper_lab.scraperlib.RecipeAPIService
+import com.aper_lab.scraperlib.data.Recipe
 import kotlinx.coroutines.*
 
 class AddRecipeViewModel : ViewModel() {
 
-    private var viewModelJob = Job()
-    private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
+    enum class State{
+        Default,
+        Loading,
+        Done,
+        Error
+    }
 
+    private val _recipe = MutableLiveData<Recipe>();
+    val recipe : LiveData<Recipe>
+        get() = _recipe;
 
-    var successfulImport = MutableLiveData<Boolean>(false);
+    private val _state = MutableLiveData<State>();
+    val state : LiveData<State>
+        get() = _state;
 
     init {
-        successfulImport.value = false
+
+    }
+
+    fun urlChanged(){
+        _state.value = State.Default;
+    }
+
+    fun getRecipeFromURL(url:String){
+        _state.postValue(State.Loading);
+        viewModelScope.launch {
+            //Get the recipe at the location
+            val rec = RecipeAPIService.getRecipeFromURLAsync(url, false).await();
+            if(rec != null){
+                _recipe.postValue(rec);
+                _state.postValue(State.Done);
+            }
+        }
+    }
+
+    fun saveRecipe(){
+        viewModelScope.launch {
+            if(_recipe.value != null) {
+                RecipeAPIService.saveRecipeToDB(_recipe.value!!);
+            }
+        }
     }
 
     fun importRecipe(url: String) {
-        successfulImport.postValue(false);
+        //successfulImport.postValue(false);
         viewModelScope.launch {
-            val rec = RecipeAPIService.getRecipeFromURLAsync(url).await();
+            val rec = RecipeAPIService.getRecipeFromURLAsync(url, true).await();
             if(rec != null) {
-                successfulImport.postValue(true);
+                //successfulImport.postValue(true);
             }
         }
 
     }
 
-
     override fun onCleared() {
         super.onCleared()
-        viewModelJob.cancel()
     }
 }
 

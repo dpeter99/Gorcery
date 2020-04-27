@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:title="Item" />
+    <item
+        android:id="@id/recipe_list"
+        android:icon="@drawable/ic_notebook_24dp"
+        android:title="My recipes"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/discover_recipes"
+        android:title="Discover" />
 </menu>

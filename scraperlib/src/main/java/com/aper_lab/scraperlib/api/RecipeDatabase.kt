@@ -12,4 +12,6 @@ interface DatabaseConnection {
     suspend fun getRecipeByURL(url: String):Recipe?;
 
     suspend fun getRecipeByID(id: String):Recipe?;
+
+    fun updateRecipe(path: String, recipe: Recipe);
 }

@@ -6,23 +6,26 @@ import com.aper_lab.scraperlib.scrapers.*
 import com.aper_lab.scraperlib.util.HashUtils
 import com.aper_lab.scraperlib.util.URLutils
 import java.net.URL
-
+/*
+@Deprecated("Moved to the service object")
 class Scraper {
-    var scrapers: MutableMap<String, RecipeScraper> = mutableMapOf();
+    //var scrapers: MutableMap<String, RecipeScraper> = mutableMapOf();
+
+    var registry = ScraperRegistry();
 
     init {
-        scrapers["www.allrecipes.com"] =    Allrecipes();
-        scrapers["www.nosalty.hu"] =        Nosalty();
-        scrapers["www.delish.com"] =        Delish();
-        scrapers["www.mindmegette.hu"] =    Mindmegette();
-        scrapers["tasty.co"] =              Tasty();
+        Allrecipes.Register(registry);
+        Delish.Register(registry);
+        Mindmegette.Register(registry);
+        Nosalty.Register(registry);
+        Tasty.Register(registry);
     }
 
     fun scrape(path: String): Recipe?{
         val url_parsed = URLutils.HTTPToHTTPS(path);
         var url = URL(url_parsed);
 
-        val rec = scrapers[url.host]?.scrapFromLink(path);
+        val rec = registry.mapping[url.host]?.scrapFromLink(url);
         if(rec != null) {
             rec.id = HashUtils.md5(rec.name);
             println("-------------------------------------------")
@@ -36,3 +39,4 @@ class Scraper {
         return rec;
     }
 }
+*/
