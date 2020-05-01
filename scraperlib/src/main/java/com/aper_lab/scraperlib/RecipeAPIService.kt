@@ -103,7 +103,7 @@ object RecipeAPIService {
             rec.version = Data.DATA_VERSION;
 
             //println("-------------------------------------------")
-            println(rec.toString());
+            //println(rec.toString());
         }
 
         return rec;
