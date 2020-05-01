@@ -13,6 +13,7 @@ import androidx.navigation.findNavController
 import com.aper_lab.grocery.*
 import com.aper_lab.grocery.databinding.FragmentAddRecipeBinding
 import com.google.android.material.bottomappbar.BottomAppBar
+import kotlinx.android.synthetic.main.recipe_import_preview.*
 
 
 class AddRecipeFragment : FABFragment() {
@@ -22,9 +23,12 @@ class AddRecipeFragment : FABFragment() {
             AddRecipeFragment()
     }
 
+
+
     private lateinit var viewModel: AddRecipeViewModel
 
-    lateinit var binding :FragmentAddRecipeBinding
+    private lateinit var binding :FragmentAddRecipeBinding
+    private lateinit var preview: View;
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_add_recipe,container,false)
@@ -33,6 +37,8 @@ class AddRecipeFragment : FABFragment() {
         binding.urlInput.getEditText()?.doOnTextChanged { text, start, before, count ->
             viewModel.urlChanged();
         }
+
+        preview = binding.root.findViewById(R.id.recipe_import_preview);
 
         fabParameters = FABParameters(
             BottomAppBar.FAB_ALIGNMENT_MODE_END,
@@ -50,22 +56,32 @@ class AddRecipeFragment : FABFragment() {
 
         viewModel.state.observe(viewLifecycleOwner, Observer {
             when(it) {
-                AddRecipeViewModel.State.Default ->
+                AddRecipeViewModel.State.Default -> {
                     fabParameters = FABParameters(
                         BottomAppBar.FAB_ALIGNMENT_MODE_END,
                         R.drawable.ic_search_24dp
                     )
-                AddRecipeViewModel.State.Done ->
+                    preview.visibility = View.INVISIBLE;
+                }
+                AddRecipeViewModel.State.Loading ->{
+                    fabParameters = null;
+                    binding.progressBar.visibility = View.VISIBLE;
+                }
+                AddRecipeViewModel.State.Done ->{
                     fabParameters = FABParameters(
                         BottomAppBar.FAB_ALIGNMENT_MODE_END,
                         R.drawable.ic_done_24dp
                     )
+                    preview.visibility = View.VISIBLE;
+                    binding.progressBar.visibility = View.GONE;
+                }
+
             }
+            binding.executePendingBindings();
         })
     }
 
     override fun onFABClicked() {
-        Toast.makeText(context,"asd",Toast.LENGTH_SHORT).show();
         if(viewModel.state.value == AddRecipeViewModel.State.Done) {
             viewModel.saveRecipe();
             if(viewModel.recipe.value != null) {

@@ -37,7 +37,11 @@ object RecipeDatabase {
         }
     }
 
-    fun storeRecipe(recipe: com.aper_lab.grocery.model.Recipe){
+    fun storeRecipe(recipe: Recipe){
+        recipes.document(recipe.GetID()).set(recipe);
+    }
+
+    fun updateRecipe(recipe: Recipe) {
         recipes.document(recipe.GetID()).set(recipe);
     }
 
@@ -55,9 +59,7 @@ object RecipeDatabase {
         return recipes.document(id).get().await().toObject<Recipe>();
     }
 
-    fun updateRecipe(recipe: Recipe) {
-        recipes.document(recipe.GetID()).set(recipe);
-    }
+
 
 
     suspend fun getUserRecipes(): List<Recipe>?{

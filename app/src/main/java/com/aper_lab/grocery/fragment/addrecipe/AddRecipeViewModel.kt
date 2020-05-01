@@ -6,6 +6,7 @@ import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import androidx.lifecycle.*
 import com.aper_lab.grocery.User
+import com.aper_lab.grocery.util.SingleLiveEvent
 import com.aper_lab.scraperlib.RecipeAPIService
 import com.aper_lab.scraperlib.data.Recipe
 import kotlinx.coroutines.*
@@ -13,10 +14,10 @@ import kotlinx.coroutines.*
 class AddRecipeViewModel(val user:User) : ViewModel() {
 
     enum class State{
-        Default,
-        Loading,
-        Done,
-        Error
+        Default, //when we open up the fragment
+        Loading, //while we are loading the recipe info from the url
+        Done,    //When the recipe loading is finished
+        Error    //There was an error loading the recipe
     }
 
     private val _recipe = MutableLiveData<Recipe>();
@@ -27,18 +28,21 @@ class AddRecipeViewModel(val user:User) : ViewModel() {
     val state : LiveData<State>
         get() = _state;
 
+    private val _navigateToRecipe = SingleLiveEvent<String>();
+    val navigateToRecipe : SingleLiveEvent<String>
+        get() = _navigateToRecipe;
+
     init {
 
     }
 
     fun urlChanged(){
         Log.d("AddRecipe",user.user_id);
-        _state.value =
-            State.Default;
+        _state.value = State.Default;
     }
 
     fun getRecipeFromURL(url:String){
-        _state.postValue(State.Loading);
+        _state.value = State.Loading;
         viewModelScope.launch {
             //Get the recipe at the location
             val rec = RecipeAPIService.getRecipeFromURLAsync(url, false).await();
@@ -50,14 +54,18 @@ class AddRecipeViewModel(val user:User) : ViewModel() {
     }
 
     fun saveRecipe(){
-        Log.d("AddRecipe",user.user_id);
-        viewModelScope.launch {
+        viewModelScope.async {
             if(_recipe.value != null) {
-                RecipeAPIService.saveRecipeToDB(_recipe.value!!);
+                //RecipeAPIService.saveRecipeToDB(_recipe.value!!);
+                GlobalScope.async {
+                    User.getInstance().addNewRecipe(_recipe.value!!);
+                }.await()
+                _navigateToRecipe.value = _recipe.value!!.id;
             }
         }
     }
 
+    @Deprecated("Should use 2 steps to import, (import and save)")
     fun importRecipe(url: String) {
         //successfulImport.postValue(false);
         viewModelScope.launch {
