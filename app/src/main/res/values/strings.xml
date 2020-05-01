@@ -4,7 +4,6 @@
     <!-- Strings used for fragments for navigation -->
 
 
-
     <string name="text_ingredients">Ingredients</string>
     <string name="text_directions">Directions</string>
     <string name="import_new_recipe">Import new recipe</string>

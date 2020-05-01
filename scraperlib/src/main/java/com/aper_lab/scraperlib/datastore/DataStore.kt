@@ -20,11 +20,11 @@ class DataStore (){
     }
 
     fun addRecipe(recipe: Recipe){
-        databaseConnection?.storeData("recipes",recipe);
+        databaseConnection?.storeRecipe(recipe);
     }
 
     fun updateRecipe(recipe: Recipe){
-        databaseConnection?.updateRecipe("recipes",recipe);
+        databaseConnection?.updateRecipe(recipe);
     }
 
     suspend fun getRecipebyID(id: String) :Recipe?{

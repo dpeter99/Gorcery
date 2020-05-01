@@ -1,14 +1,16 @@
-package com.aper_lab.grocery
+package com.aper_lab.grocery.fragment.addrecipe
 
+import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import androidx.lifecycle.*
+import com.aper_lab.grocery.User
 import com.aper_lab.scraperlib.RecipeAPIService
 import com.aper_lab.scraperlib.data.Recipe
 import kotlinx.coroutines.*
 
-class AddRecipeViewModel : ViewModel() {
+class AddRecipeViewModel(val user:User) : ViewModel() {
 
     enum class State{
         Default,
@@ -30,7 +32,9 @@ class AddRecipeViewModel : ViewModel() {
     }
 
     fun urlChanged(){
-        _state.value = State.Default;
+        Log.d("AddRecipe",user.user_id);
+        _state.value =
+            State.Default;
     }
 
     fun getRecipeFromURL(url:String){
@@ -46,6 +50,7 @@ class AddRecipeViewModel : ViewModel() {
     }
 
     fun saveRecipe(){
+        Log.d("AddRecipe",user.user_id);
         viewModelScope.launch {
             if(_recipe.value != null) {
                 RecipeAPIService.saveRecipeToDB(_recipe.value!!);
@@ -66,16 +71,5 @@ class AddRecipeViewModel : ViewModel() {
 
     override fun onCleared() {
         super.onCleared()
-    }
-}
-
-@BindingAdapter("visible")
-fun ImageView.setVisibility(item: Boolean?) {
-    item?.let {
-        visibility = if(it){
-            View.VISIBLE;
-        } else {
-            View.INVISIBLE;
-        }
     }
 }

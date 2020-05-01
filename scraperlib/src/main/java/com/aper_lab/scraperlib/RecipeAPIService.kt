@@ -27,7 +27,7 @@ object RecipeAPIService {
     init {
         Allrecipes.Register(registry);
         Delish.Register(registry);
-        Mindmegette.Register(registry);
+        //Mindmegette.Register(registry);
         Nosalty.Register(registry);
         Tasty.Register(registry);
     }
@@ -43,9 +43,11 @@ object RecipeAPIService {
             var rec = dataStore.getRecipebyURL(url);
             if(rec == null) {
                 rec = scrape(url);
+
                 if (rec != null && storeRecipe) {
                     dataStore.addRecipe(rec);
                 }
+
             }
 
             rec;

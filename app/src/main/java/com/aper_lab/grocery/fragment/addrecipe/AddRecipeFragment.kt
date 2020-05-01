@@ -1,8 +1,6 @@
-package com.aper_lab.grocery.fragment
+package com.aper_lab.grocery.fragment.addrecipe
 
-import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,58 +13,41 @@ import androidx.navigation.findNavController
 import com.aper_lab.grocery.*
 import com.aper_lab.grocery.databinding.FragmentAddRecipeBinding
 import com.google.android.material.bottomappbar.BottomAppBar
-import kotlinx.android.synthetic.main.fragment_add_recipe.view.*
 
 
 class AddRecipeFragment : FABFragment() {
 
     companion object {
-        fun newInstance() = AddRecipeFragment()
+        fun newInstance() =
+            AddRecipeFragment()
     }
 
     private lateinit var viewModel: AddRecipeViewModel
 
     lateinit var binding :FragmentAddRecipeBinding
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        binding = DataBindingUtil.inflate<FragmentAddRecipeBinding>(inflater,
-            R.layout.fragment_add_recipe,container,false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_add_recipe,container,false)
+        binding.setLifecycleOwner(this);
+
+        binding.urlInput.getEditText()?.doOnTextChanged { text, start, before, count ->
+            viewModel.urlChanged();
+        }
 
         fabParameters = FABParameters(
             BottomAppBar.FAB_ALIGNMENT_MODE_END,
             R.drawable.ic_search_24dp
         )
 
-        binding.urlInput.getEditText()?.doOnTextChanged { text, start, before, count ->
-            viewModel.urlChanged();
-        }
-
-        binding.setLifecycleOwner(this);
-
         return binding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(AddRecipeViewModel::class.java)
+        viewModel = ViewModelProvider(this, AddRecipeViewModelFactory()).get(AddRecipeViewModel::class.java)
 
         binding.viewModel = viewModel;
 
-        // Create the observer which updates the UI.
-/*
-        val navObserver = Observer<Boolean> { it ->
-            // Update the UI, in this case, a TextView.
-            binding.materialCardView.visibility = if(it){
-                View.VISIBLE;
-            } else {
-                View.INVISIBLE;
-            }
-        }
-        viewModel.successfulImport.observe(this.viewLifecycleOwner,navObserver)
- */
         viewModel.state.observe(viewLifecycleOwner, Observer {
             when(it) {
                 AddRecipeViewModel.State.Default ->

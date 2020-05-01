@@ -9,7 +9,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.aper_lab.grocery.AddRecipeViewModel" />
+            type="com.aper_lab.grocery.fragment.addrecipe.AddRecipeViewModel" />
         <import type="android.view.View" />
     </data>
 

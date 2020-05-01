@@ -15,6 +15,7 @@ import com.aper_lab.grocery.*
 import com.aper_lab.grocery.databinding.FragmentRecipeListBinding
 import com.aper_lab.grocery.viewModel.recipeList.RecipeListAdapter
 import com.aper_lab.grocery.viewModel.recipeList.RecipeListViewModel
+import com.aper_lab.grocery.viewModel.recipeList.RecipeListViewModelFactory
 import com.aper_lab.scraperlib.data.Recipe
 import com.google.android.material.bottomappbar.BottomAppBar
 
@@ -30,37 +31,25 @@ class RecipeList : Fragment() , IHasFAB {
 
     private lateinit var fab: IFABProvider;
 
+    private lateinit var recipeAdapter:RecipeListAdapter;
+
+    private lateinit var binding: FragmentRecipeListBinding;
+
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val binding = DataBindingUtil.inflate<FragmentRecipeListBinding>(inflater,
+        binding = DataBindingUtil.inflate<FragmentRecipeListBinding>(inflater,
             R.layout.fragment_recipe_list,container,false)
 
-        viewModel = ViewModelProvider(this).get(RecipeListViewModel::class.java);
-
         binding.lifecycleOwner = this;
-        binding.viewModel = viewModel;
 
-        val recipeAdapter = RecipeListAdapter(RecipeListAdapter.RecipeListener {
+
+        recipeAdapter = RecipeListAdapter(RecipeListAdapter.RecipeListener {
             viewModel.recipeClicked(it);
         });
         binding.recipeList.adapter = recipeAdapter;
 
-
-
-        // recipe list changes
-        viewModel.recipesLiveData.observe(this.viewLifecycleOwner,Observer { recipe ->
-            // Update the UI, in this case, a TextView.
-            recipeAdapter.data = recipe?: mutableMapOf();
-        })
-        recipeAdapter.data = viewModel.recipesLiveData.value?: mutableMapOf<String,Recipe>();
-
         //Navigation event
-        viewModel._recipeNav.observe(this.viewLifecycleOwner,Observer<String> { recipe ->
-            view?.findNavController()?.navigate(
-                RecipeListDirections.actionRecipeListToRecepie(
-                    recipe
-                )
-            )
-        })
+
 
 /*
         binding.addButton.setOnClickListener {
@@ -69,6 +58,29 @@ class RecipeList : Fragment() , IHasFAB {
 */
         return binding.root
     }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        viewModel = ViewModelProvider(this, RecipeListViewModelFactory()).get(RecipeListViewModel::class.java);
+
+        binding.viewModel = viewModel;
+
+        // recipe list changes
+        viewModel.recipes.observe(this.viewLifecycleOwner,Observer { recipe ->
+            // Update the UI, in this case, a TextView.
+            recipeAdapter.data = recipe?: mutableMapOf();
+        })
+        recipeAdapter.data = viewModel.recipes.value?: mutableMapOf<String,Recipe>();
+
+        viewModel._recipeNav.observe(this.viewLifecycleOwner,Observer<String> { recipe ->
+            view?.findNavController()?.navigate(
+                RecipeListDirections.actionRecipeListToRecepie(
+                    recipe
+                )
+            )
+        })
+    }
+
 
     override fun onAttach(context: Context) {
         super.onAttach(context)

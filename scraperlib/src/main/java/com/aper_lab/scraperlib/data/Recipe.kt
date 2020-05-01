@@ -10,32 +10,36 @@ import com.google.gson.internal.LinkedTreeMap
 import org.threeten.bp.Duration
 import java.util.*
 
+//open data class Recipe(var id: String = "");
 
-class Recipe private constructor() : Data(), IHasID{
-    var id: String = "";
 
-    var name: String = "";
-    var link = "";
+open class Recipe(
+    var id: String = "",
 
-    var time = "";
-    var cookTime : Long = 0;
-    var prepTime : Long  = 0;
-    var totalTime : Long = 0;
+    var name: String = "",
+    var link: String = "",
 
-    var yields = "";
-    var image = "";
-    var description = "";
-    var ingredients: List<Ingredient> = listOf();
-    var directions: List<RecipeStep> = listOf();
+    var time: String = "",
+    var cookTime : Long = 0,
+    var prepTime : Long  = 0,
+    var totalTime : Long = 0,
 
-    var keywords: List<String> = listOf();
-    var recipeCategory: List<String> = listOf();
-    var recipeCuisine: List<String> = listOf();
+    var yields: String = "",
+    var image: String = "",
+    var description: String = "",
+    var ingredients: List<Ingredient> = listOf(),
+    var directions: List<RecipeStep> = listOf(),
 
-    var nutrition: NutritionInformation = NutritionInformation();
-    var tools: List<String> = listOf();
+    var keywords: List<String> = listOf(),
+    var recipeCategory: List<String> = listOf(),
+    var recipeCuisine: List<String> = listOf(),
 
-    var datePublished: Date = Date();
+    var nutrition: NutritionInformation = NutritionInformation(),
+    var tools: List<String> = listOf(),
+
+    var datePublished: Date = Date()
+
+) : Data(), IHasID{
 
     override fun toString(): String {
         var res = "";
@@ -106,6 +110,31 @@ class Recipe private constructor() : Data(), IHasID{
         return id;
     }
 
+    fun copy(rec:Recipe){
+        rec.id = this.id;
+        rec.name = this.name;
+        rec.link = this.link;
+
+        rec.time = this.time;
+        rec.cookTime = this.cookTime;
+        rec.prepTime = this.prepTime;
+        rec.totalTime = this.totalTime;
+
+        rec.yields = this.yields;
+        rec.image = this.image;
+        rec.description = this.description;
+        rec.ingredients = this.ingredients;
+        rec.directions = this.directions;
+
+        rec.keywords = this.keywords;
+        rec.recipeCategory = this.recipeCategory;
+        rec.recipeCuisine = this.recipeCuisine;
+        rec.nutrition = this.nutrition;
+        rec.tools = this.tools;
+        rec.datePublished = this.datePublished;
+
+    }
+
     companion object{
         fun create(): Recipe{
             val res = Recipe();
@@ -113,5 +142,4 @@ class Recipe private constructor() : Data(), IHasID{
             return res;
         }
     }
-
 }

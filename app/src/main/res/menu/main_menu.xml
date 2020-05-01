@@ -10,4 +10,7 @@
     <item
         android:id="@+id/discover_recipes"
         android:title="Discover" />
+    <item
+        android:id="@+id/userProfile"
+        android:title="Profile" />
 </menu>

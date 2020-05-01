@@ -1,5 +1,6 @@
 package com.aper_lab.grocery.util
 
+import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.res.TypedArrayUtils.getString
@@ -25,5 +26,16 @@ fun bindImage(textView: TextView, time: Long?) {
     time?.let {
         val text: String = Duration.ofSeconds(time).toMinutes().toString() + textView.context.resources.getString(R.string.minute_short)
         textView.text = text;
+    }
+}
+
+@BindingAdapter("visible")
+fun ImageView.setVisibility(item: Boolean?) {
+    item?.let {
+        visibility = if(it){
+            View.VISIBLE;
+        } else {
+            View.INVISIBLE;
+        }
     }
 }
