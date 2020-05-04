@@ -49,10 +49,7 @@ class Delish : RecipeScraper{
                 id, element -> RecipeStep(id+1,element.text());
         }
 
-
         recipe.link = link.toString();
-
-
 
         return recipe;
     }
