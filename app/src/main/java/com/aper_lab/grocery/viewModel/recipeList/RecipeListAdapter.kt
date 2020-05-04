@@ -10,7 +10,7 @@ import com.aper_lab.scraperlib.data.Recipe
 
 class RecipeListAdapter (val clickListener: RecipeListener): RecyclerView.Adapter<RecipeListAdapter.ViewHolder>() {
 
-    var data = mutableMapOf<String,Recipe>()
+    var data = mapOf<String,Recipe>()
         set(value) {
             field = value
             notifyDataSetChanged()

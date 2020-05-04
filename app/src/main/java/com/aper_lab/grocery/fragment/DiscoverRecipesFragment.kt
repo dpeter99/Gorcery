@@ -10,6 +10,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.aper_lab.grocery.*
 
 import com.aper_lab.grocery.databinding.FragmentDiscoverRecipesBinding
@@ -21,7 +22,10 @@ import com.aper_lab.grocery.viewModel.recipe.RecipeViewModelFactory
 import com.aper_lab.scraperlib.data.Ingredient
 import com.aper_lab.scraperlib.data.Recipe
 import com.aper_lab.scraperlib.data.RecipeStep
+import com.bumptech.glide.Glide
 import com.google.android.material.bottomappbar.BottomAppBar
+import com.google.firebase.auth.FirebaseAuth
+import kotlinx.android.synthetic.main.fragment_discover_recipes.*
 
 class DiscoverRecipesFragment : FABFragment() {
 
@@ -41,7 +45,17 @@ class DiscoverRecipesFragment : FABFragment() {
         //binding.viewModel = viewModel;
         //binding.lifecycleOwner = this;
 
+        var profile_url = FirebaseAuth.getInstance().currentUser?.photoUrl;
 
+        if(profile_url != null) {
+            Glide.with(this)
+                .load(profile_url)
+                .into(binding.profileImage);
+        }
+
+        binding.profileImage.setOnClickListener {
+            findNavController().navigate(DiscoverRecipesFragmentDirections.actionDiscoverRecipesToUserProfile());
+        }
 
         return binding.root
     }

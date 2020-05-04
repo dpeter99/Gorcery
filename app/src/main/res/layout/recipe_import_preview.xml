@@ -12,10 +12,34 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/recipe_import_preview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="16dp"
         tools:showIn="@layout/fragment_add_recipe">
+
+        <TextView
+            android:id="@+id/textView18"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:text="@{recipe.description}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView17"
+            tools:text="&quot;Here's what you need: green beans, olive oil, salt, pepper, skinless salmon, pesto, cherry tomatoes, parchment paper" />
+
+        <TextView
+            android:id="@+id/textView17"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="32dp"
+            android:text="@string/recipe_description_title"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/materialCardView" />
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/materialCardView"
@@ -51,7 +75,8 @@
                     android:layout_marginTop="4dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView"
-                    tools:srcCompat="@drawable/icon_nosalty" />
+                    tools:srcCompat="@drawable/icon_nosalty"
+                    app:recipeSourceIcon="@{recipe}"/>
 
                 <TextView
                     android:id="@+id/textView12"

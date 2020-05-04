@@ -42,6 +42,7 @@ class RecipeFragment : Fragment(), IHasFAB {
 
         //viewModel = ViewModelProviders.of(this).get(RecipeViewModel::class.java);
         viewModelFactory = RecipeViewModelFactory(args.recipeID)
+        Log.d("OpenRecipe", args.recipeID);
         viewModel = ViewModelProvider(this, viewModelFactory).get(RecipeViewModel::class.java);
 
         binding.viewModel = viewModel;

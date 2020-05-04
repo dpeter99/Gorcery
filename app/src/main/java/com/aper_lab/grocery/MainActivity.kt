@@ -1,6 +1,7 @@
 package com.aper_lab.grocery
 
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
@@ -16,9 +17,13 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.aper_lab.grocery.database.RecipeDatabase
+import com.aper_lab.grocery.database.ScrapperDatabaseInterface
 import com.aper_lab.scraperlib.RecipeAPIService
+import com.firebase.ui.auth.AuthUI
 import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.navigation.NavigationView
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import kotlinx.android.synthetic.main.activity_main.*
 
 
@@ -32,8 +37,46 @@ class MainActivity : AppCompatActivity(), IFABProvider {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        RecipeAPIService.initApi(RecipeDatabase);
+        RecipeAPIService.initApi(ScrapperDatabaseInterface);
 
+        setupNavBar()
+
+        val user = FirebaseAuth.getInstance().currentUser
+        //checkSignedIn(user);
+        FirebaseAuth.getInstance().addAuthStateListener {
+            val user = it.currentUser
+            checkSignedIn(user);
+        }
+
+    }
+
+    fun checkSignedIn(user: FirebaseUser?){
+        if (user != null) {
+            // User is signed in
+            Toast.makeText(this,"Already signed it", Toast.LENGTH_LONG).show();
+            User.signIn(user);
+        } else {
+            // No user is signed in
+            Toast.makeText(this,"You are not signed in", Toast.LENGTH_LONG).show();
+            showSignInActivity()
+        }
+    }
+
+    private fun showSignInActivity() {
+        startActivityForResult(
+            Intent(this, WellcomeActivity::class.java),
+            1
+        )
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+
+        super.onActivityResult(requestCode, resultCode, data)
+    }
+
+
+
+    private fun setupNavBar() {
         //val toolbar = findViewById<Toolbar>(R.id.app_toolbar)
         val bottomBar = findViewById<BottomAppBar>(R.id.bottom_bar)
         setSupportActionBar(bottomBar)
@@ -59,7 +102,6 @@ class MainActivity : AppCompatActivity(), IFABProvider {
         fab.setOnClickListener {
             fabContext?.onFABClicked();
         }
-
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -102,4 +144,19 @@ class MainActivity : AppCompatActivity(), IFABProvider {
     override fun setFABListener(a: IHasFAB) {
         fabContext = a;
     }
+
+
+    override fun onDestroy() {
+
+
+
+        super.onDestroy()
+    }
+
+
+    companion object {
+
+        private const val RC_SIGN_IN = 123
+    }
+
 }

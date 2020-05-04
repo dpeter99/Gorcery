@@ -39,10 +39,14 @@ class Delish : RecipeScraper{
                     element -> Ingredient(element.text(),"");
             }
 
-            recipe.directions = recipeFragment.select(".direction-lists ol").select("li").mapIndexed {
-                    id, element -> RecipeStep(id+1,element.text());
-            }
 
+
+        }
+
+        var recipeFragment = doc.select(".site-content");
+
+        recipe.directions = recipeFragment.select(".direction-lists ol").select("li").mapIndexed {
+                id, element -> RecipeStep(id+1,element.text());
         }
 
 

@@ -4,6 +4,6 @@ open class Data {
     var version = "";
 
     companion object{
-        val DATA_VERSION = "0.0.1";
+        val DATA_VERSION = "0.0.2";
     }
 }

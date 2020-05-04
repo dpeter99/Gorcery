@@ -29,7 +29,7 @@
     </fragment>
     <fragment
         android:id="@+id/addRecipeFragment"
-        android:name="com.aper_lab.grocery.fragment.AddRecipeFragment"
+        android:name="com.aper_lab.grocery.fragment.addrecipe.AddRecipeFragment"
         android:label="AddRecipeFragment" >
         <action
             android:id="@+id/action_addRecipeFragment_to_recepie"
@@ -44,5 +44,13 @@
             android:id="@+id/action_discoverRecipesRragment_to_recipeList"
             app:destination="@id/recipe_list"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_discover_recipes_to_userProfile"
+            app:destination="@id/userProfile" />
     </fragment>
+    <fragment
+        android:id="@+id/userProfile"
+        android:name="com.aper_lab.grocery.fragment.UserProfile"
+        android:label="UserProfile" />
+
 </navigation>

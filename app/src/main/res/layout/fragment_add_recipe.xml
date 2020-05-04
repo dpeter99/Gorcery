@@ -9,7 +9,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.aper_lab.grocery.AddRecipeViewModel" />
+            type="com.aper_lab.grocery.fragment.addrecipe.AddRecipeViewModel" />
         <import type="android.view.View" />
     </data>
 
@@ -52,9 +52,23 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="@style/Widget.AppCompat.ProgressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:indeterminate="true"
+            android:progressDrawable="@drawable/ic_circle_slice_2"
+            android:visibility="gone"
+            tools:visibility="visible" />
+
         <include
             layout="@layout/recipe_import_preview"
-            bind:recipe="@{viewModel.recipe}" />
+            android:visibility="invisible"
+            bind:recipe="@{viewModel.recipe}"
+            tools:visibility="visible" />
+
 
         <!--
         <androidx.constraintlayout.widget.ConstraintLayout
