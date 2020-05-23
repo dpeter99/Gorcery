@@ -8,9 +8,12 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.View
 import android.widget.Toast
+import androidx.annotation.MenuRes
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.os.bundleOf
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
@@ -18,6 +21,7 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.aper_lab.grocery.database.RecipeDatabase
 import com.aper_lab.grocery.database.ScrapperDatabaseInterface
+import com.aper_lab.grocery.fragment.addrecipe.AddRecipeFragmentDirections
 import com.aper_lab.scraperlib.RecipeAPIService
 import com.firebase.ui.auth.AuthUI
 import com.google.android.material.bottomappbar.BottomAppBar
@@ -29,6 +33,8 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), IFABProvider {
 
+    lateinit var navController : NavController;
+
     lateinit var  appBarConfiguration : AppBarConfiguration;
 
     var fabContext : IHasFAB? = null;
@@ -38,7 +44,6 @@ class MainActivity : AppCompatActivity(), IFABProvider {
         setContentView(R.layout.activity_main)
 
         RecipeAPIService.initApi(ScrapperDatabaseInterface);
-
         setupNavBar()
 
         val user = FirebaseAuth.getInstance().currentUser
@@ -46,7 +51,20 @@ class MainActivity : AppCompatActivity(), IFABProvider {
         FirebaseAuth.getInstance().addAuthStateListener {
             val user = it.currentUser
             checkSignedIn(user);
+
+            when {
+                intent?.action == Intent.ACTION_SEND -> {
+                    Log.e("TEST",intent.getStringExtra(Intent.EXTRA_TEXT)?:"");
+                    val bundle = bundleOf("url" to intent.getStringExtra(Intent.EXTRA_TEXT))
+                    navController.navigate(R.id.addRecipeFragment, bundle);
+                }
+                else -> {
+                    // Handle other intents, such as being started from the home screen
+                }
+            }
         }
+
+
 
     }
 
@@ -69,18 +87,15 @@ class MainActivity : AppCompatActivity(), IFABProvider {
         )
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-
-        super.onActivityResult(requestCode, resultCode, data)
-    }
-
 
 
     private fun setupNavBar() {
         //val toolbar = findViewById<Toolbar>(R.id.app_toolbar)
         val bottomBar = findViewById<BottomAppBar>(R.id.bottom_bar)
         setSupportActionBar(bottomBar)
-        bottom_bar.replaceMenu(R.menu.main_menu)
+
+        //bottom_bar.replaceMenu(R.menu.main_menu)
+        /*
         bottom_bar.setOnMenuItemClickListener { item ->
             when (item.itemId) {
                 R.id.recipe_list -> {
@@ -95,19 +110,15 @@ class MainActivity : AppCompatActivity(), IFABProvider {
                 else -> false
             }
         }
+        */
 
-        val navController = findNavController(R.id.myNavHostFragment);
+
+        navController = findNavController(R.id.myNavHostFragment);
         setupNavigationMenu(navController);
 
         fab.setOnClickListener {
             fabContext?.onFABClicked();
         }
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        val inflater: MenuInflater = menuInflater
-        inflater.inflate(R.menu.menu_bottom_app_bar, menu)
-        return true
     }
 
     private fun setupNavigationMenu(navController: NavController) {
@@ -124,6 +135,8 @@ class MainActivity : AppCompatActivity(), IFABProvider {
         navigationView.setupWithNavController(navController)
         setupActionBarWithNavController(navController, appBarConfiguration);
     }
+
+
 
     override fun onSupportNavigateUp(): Boolean {
         val navController = this.findNavController(R.id.myNavHostFragment)
@@ -147,15 +160,11 @@ class MainActivity : AppCompatActivity(), IFABProvider {
 
 
     override fun onDestroy() {
-
-
-
         super.onDestroy()
     }
 
 
     companion object {
-
         private const val RC_SIGN_IN = 123
     }
 

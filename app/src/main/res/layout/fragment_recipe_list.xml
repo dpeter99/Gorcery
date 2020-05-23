@@ -6,7 +6,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.aper_lab.grocery.viewModel.recipeList.RecipeListViewModel" />
+            type="com.aper_lab.grocery.fragment.recipeList.RecipeListViewModel" />
 
     </data>
 

@@ -17,8 +17,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:context=".fragment.RecipeFragment">
-
+            tools:context=".fragment.recipe.RecipeFragment">
 
             <ImageView
                 android:id="@+id/imageView4"
@@ -26,7 +25,7 @@
                 android:layout_height="0dp"
                 android:contentDescription="@string/dummy_recipe_name"
                 android:scaleType="centerCrop"
-                app:imageUrl="@{viewModel.recipe.image}"
+                app:imageUrl="@{viewModel.recipe.recipe.image}"
                 app:layout_constraintBottom_toTopOf="@+id/guideline"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -74,14 +73,16 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-                    <TextView
+                    <com.elyeproj.loaderviewlibrary.LoaderTextView
                         android:id="@+id/textView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginEnd="16dp"
                         android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:recipeName="@{viewModel.recipe}"
+                        app:recipeName="@{viewModel.recipe.recipe}"
                         tools:text="Test Recipe" />
 
                     <androidx.appcompat.widget.AppCompatImageView
@@ -91,7 +92,7 @@
                         android:layout_marginTop="4dp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/textView"
-                        app:recipeSourceIcon="@{viewModel.recipe}"
+                        app:recipeSourceIcon="@{viewModel.recipe.recipe}"
                         tools:srcCompat="@drawable/icon_nosalty" />
 
                     <TextView
@@ -196,7 +197,7 @@
                 android:id="@+id/textView8"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:time="@{viewModel.recipe.totalTime}"
+                app:time="@{viewModel.recipe.recipe.totalTime}"
                 app:layout_constraintEnd_toEndOf="@+id/icon3"
                 app:layout_constraintStart_toStartOf="@+id/icon3"
                 app:layout_constraintTop_toBottomOf="@+id/icon3"
@@ -206,7 +207,7 @@
                 android:id="@+id/textView10"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:time="@{viewModel.recipe.cookTime}"
+                app:time="@{viewModel.recipe.recipe.cookTime}"
                 app:layout_constraintEnd_toEndOf="@+id/icon2"
                 app:layout_constraintStart_toStartOf="@+id/icon2"
                 app:layout_constraintTop_toBottomOf="@+id/icon2"
@@ -219,15 +220,15 @@
                 app:layout_constraintEnd_toEndOf="@+id/icon"
                 app:layout_constraintStart_toStartOf="@+id/icon"
                 app:layout_constraintTop_toBottomOf="@+id/icon"
-                app:time="@{viewModel.recipe.prepTime}"
+                app:time="@{viewModel.recipe.recipe.prepTime}"
                 tools:text="20 min" />
 
-            <TextView
+            <com.elyeproj.loaderviewlibrary.LoaderTextView
                 android:id="@+id/textView11"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
-                android:text="@{viewModel.recipe.description}"
+                android:text="@{viewModel.recipe.recipe.description}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/textView13"
                 app:layout_constraintTop_toBottomOf="@+id/textView13"
@@ -243,6 +244,17 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView10" />
+
+            <CheckBox
+                android:id="@+id/fav_checkbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:button="@drawable/sl_favourite_24dp"
+                android:foregroundGravity="center"
+                app:buttonTint="@android:color/white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:checked="@{viewModel.recipe.userData.favorite}"/>
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

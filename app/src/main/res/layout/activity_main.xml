@@ -60,7 +60,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             app:backgroundTint="@color/primaryColor"
-            app:fabAlignmentMode="center"
+            app:fabAlignmentMode="end"
             app:hideOnScroll="true"
             app:menu="@menu/menu_bottom_app_bar" />
 
@@ -72,16 +72,6 @@
             app:fabSize="normal"
             app:layout_anchor="@id/bottom_bar"
             tools:visibility="visible" />
-
-        <com.google.android.material.card.MaterialCardView
-            android:layout_width="match_parent"
-            android:layout_height="350dp"
-            android:elevation="8dp"
-            app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
-            app:behavior_hideable="true"
-            app:behavior_skipCollapsed="true">
-
-        </com.google.android.material.card.MaterialCardView>
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
