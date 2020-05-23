@@ -51,7 +51,8 @@
             android:layout_height="match_parent"
             app:defaultNavHost="true"
             app:navGraph="@navigation/navigation"
-            tools:layout="@layout/fragment_add_recipe" />
+            tools:layout="@layout/fragment_recipe_list" />
+
 
         <com.google.android.material.bottomappbar.BottomAppBar
             android:id="@+id/bottom_bar"
@@ -59,7 +60,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             app:backgroundTint="@color/primaryColor"
-            app:fabAlignmentMode="center"
+            app:fabAlignmentMode="end"
             app:hideOnScroll="true"
             app:menu="@menu/menu_bottom_app_bar" />
 

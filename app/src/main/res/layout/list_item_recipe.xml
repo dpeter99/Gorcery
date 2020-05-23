@@ -10,7 +10,7 @@
             type="com.aper_lab.scraperlib.data.Recipe" />
         <variable
             name="clickListener"
-            type="com.aper_lab.grocery.viewModel.recipeList.RecipeListAdapter.RecipeListener" />
+            type="com.aper_lab.grocery.fragment.recipeList.RecipeListAdapter.RecipeListener" />
     </data>
 
     <com.google.android.material.circularreveal.CircularRevealFrameLayout
@@ -75,6 +75,16 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:srcCompat="@drawable/icon_tasty" />
+
+                <ImageView
+                    android:id="@+id/favourite_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="8dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:srcCompat="@drawable/ic_heart_24dp" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
