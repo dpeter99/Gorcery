@@ -11,6 +11,7 @@ import com.aper_lab.grocery.model.Recipe as Recipe
 import com.aper_lab.scraperlib.data.Recipe as ScrapperRecipe
 import com.aper_lab.grocery.model.toDomainModel
 import com.aper_lab.scraperlib.RecipeAPIService.scope
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.DocumentChange
 import com.google.firebase.firestore.ktx.toObject
@@ -25,8 +26,12 @@ class User(id: String) {
     val recipes: LiveData<Map<String, UserRecipe>>
         get() = _recipes;
 
+    public lateinit var profilePic: String;
+
     init {
         User.instance = this;
+
+        profilePic = FirebaseAuth.getInstance().currentUser?.photoUrl.toString();
 
         RecipeDatabase.getUserRecipesCollection().addSnapshotListener { snapshot, exception ->
             scope.launch {
@@ -145,16 +150,22 @@ class User(id: String) {
     companion object {
         private var instance: User? = null;
 
+        init {
+            if(FirebaseAuth.getInstance().currentUser != null){
+                User.signIn(FirebaseAuth.getInstance().currentUser!!);
+                Log.e("APP", "Static user we have");
+            }
+        }
 
         public fun getInstance(): User {
             if (instance == null) {
-                Log.e("User", "There is no user yet :(");
+                Log.e("APP", "There is no user yet :(");
             }
             return instance!!;
         }
 
         fun signIn(user: FirebaseUser) {
-            Log.i("User", "User logged in");
+            Log.i("APP", "User logged in");
             instance = User(user.uid);
         }
     }

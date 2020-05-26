@@ -14,17 +14,29 @@
     android:layout_height="match_parent"
     tools:context=".fragment.UserProfile">
 
+        <androidx.cardview.widget.CardView
+            android:id="@+id/profile_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="64dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:cardCornerRadius="50dp">
 
-    <ImageView
-        android:id="@+id/profile_image"
-        android:layout_width="84dp"
-        android:layout_height="84dp"
-        android:layout_marginTop="64dp"
-        android:src="@drawable/ic_account_24dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        imageUrl="@{viewModel.profilePicture}"/>
+            <ImageView
+                imageUrl="@{viewModel.profilePicture}"
+                android:layout_width="84dp"
+                android:layout_height="84dp"
+                android:src="@drawable/ic_account_24dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:srcCompat="@drawable/ic_launcher_background_old" />
+
+        </androidx.cardview.widget.CardView>
+
+
 
     <TextView
         android:id="@+id/profile_name"

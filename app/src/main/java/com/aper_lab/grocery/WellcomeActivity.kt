@@ -2,18 +2,19 @@ package com.aper_lab.grocery
 
 import android.app.Activity
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
-import androidx.navigation.findNavController
-import androidx.navigation.ui.NavigationUI
+import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
+import androidx.navigation.Navigation
+import com.aper_lab.grocery.databinding.ActivityWellcomeBinding
 import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.IdpResponse
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.auth.ActionCodeSettings
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_wellcome.*
-import java.util.*
 
 class WellcomeActivity : AppCompatActivity() {
 
@@ -21,12 +22,34 @@ class WellcomeActivity : AppCompatActivity() {
         private const val RC_SIGN_IN = 123
     }
 
+    lateinit var binding: ActivityWellcomeBinding;
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_wellcome)
+
+        binding = DataBindingUtil.setContentView(
+            this, R.layout.activity_wellcome)
 
         g_sign_in.setOnClickListener {
             signIn();
+        }
+
+        if(FirebaseAuth.getInstance().currentUser != null){
+            User.signIn(FirebaseAuth.getInstance().currentUser!!);
+
+            binding.progressBar.visibility = View.INVISIBLE;
+
+            var i: Intent = Intent(this,
+                MainActivity::class.java);
+            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            i.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
+            startActivity(i);
+
+        }
+        else{
+            binding.progressBar.visibility = View.GONE;
+            binding.gSignIn.visibility = View.VISIBLE;
         }
     }
 

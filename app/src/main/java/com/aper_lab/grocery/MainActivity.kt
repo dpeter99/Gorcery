@@ -50,24 +50,26 @@ class MainActivity : AppCompatActivity(), IFABProvider {
         //checkSignedIn(user);
         FirebaseAuth.getInstance().addAuthStateListener {
             val user = it.currentUser
-            checkSignedIn(user);
+            //checkSignedIn(user);
 
-            when {
-                intent?.action == Intent.ACTION_SEND -> {
-                    Log.e("TEST",intent.getStringExtra(Intent.EXTRA_TEXT)?:"");
-                    val bundle = bundleOf("url" to intent.getStringExtra(Intent.EXTRA_TEXT))
-                    navController.navigate(R.id.addRecipeFragment, bundle);
-                }
-                else -> {
-                    // Handle other intents, such as being started from the home screen
-                }
+
+        }
+
+        when {
+            intent?.action == Intent.ACTION_SEND -> {
+                Log.e("TEST",intent.getStringExtra(Intent.EXTRA_TEXT)?:"");
+                val bundle = bundleOf("url" to intent.getStringExtra(Intent.EXTRA_TEXT))
+                navController.navigate(R.id.addRecipeFragment, bundle);
+            }
+            else -> {
+                // Handle other intents, such as being started from the home screen
             }
         }
 
 
-
     }
 
+    /*
     fun checkSignedIn(user: FirebaseUser?){
         if (user != null) {
             // User is signed in
@@ -87,7 +89,7 @@ class MainActivity : AppCompatActivity(), IFABProvider {
         )
     }
 
-
+*/
 
     private fun setupNavBar() {
         //val toolbar = findViewById<Toolbar>(R.id.app_toolbar)
@@ -137,11 +139,12 @@ class MainActivity : AppCompatActivity(), IFABProvider {
     }
 
 
-
     override fun onSupportNavigateUp(): Boolean {
         val navController = this.findNavController(R.id.myNavHostFragment)
         return navController.navigateUp(appBarConfiguration)
     }
+
+
 
     override fun setFABProperties(props: FABParameters?) {
         if(props == null){
@@ -162,7 +165,6 @@ class MainActivity : AppCompatActivity(), IFABProvider {
     override fun onDestroy() {
         super.onDestroy()
     }
-
 
     companion object {
         private const val RC_SIGN_IN = 123

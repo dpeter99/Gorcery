@@ -1,40 +1,27 @@
-package com.aper_lab.grocery.fragment
+package com.aper_lab.grocery.fragment.discover
 
-import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.aper_lab.grocery.*
 
 import com.aper_lab.grocery.databinding.FragmentDiscoverRecipesBinding
-import com.aper_lab.grocery.databinding.FragmentRecepieBinding
-import com.aper_lab.grocery.viewModel.recipe.RecipeDirectionsAdapter
-import com.aper_lab.grocery.viewModel.recipe.RecipeIngredientAdapter
-import com.aper_lab.grocery.viewModel.recipe.RecipeViewModel
+import com.aper_lab.grocery.fragment.UserProfileViewModel
 import com.aper_lab.grocery.viewModel.recipe.RecipeViewModelFactory
-import com.aper_lab.scraperlib.data.Ingredient
-import com.aper_lab.scraperlib.data.Recipe
-import com.aper_lab.scraperlib.data.RecipeStep
-import com.bumptech.glide.Glide
-import com.google.android.material.bottomappbar.BottomAppBar
-import com.google.firebase.auth.FirebaseAuth
-import kotlinx.android.synthetic.main.fragment_discover_recipes.*
 
 class DiscoverRecipesFragment : FABFragment() {
 
-    private lateinit var viewModel: RecipeViewModel;
-    private lateinit var viewModelFactory: RecipeViewModelFactory
+    private lateinit var viewModel: DiscoverViewModel;
+    //private lateinit var viewModelFactory: RecipeViewModelFactory
+
+    private lateinit var binding: FragmentDiscoverRecipesBinding;
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val binding = FragmentDiscoverRecipesBinding.inflate(inflater, container,false)
+        binding = FragmentDiscoverRecipesBinding.inflate(inflater, container,false)
 
         //val args = RecipeFragmentArgs.fromBundle(arguments!!)
 
@@ -44,7 +31,7 @@ class DiscoverRecipesFragment : FABFragment() {
 
         //binding.viewModel = viewModel;
         //binding.lifecycleOwner = this;
-
+/*
         var profile_url = FirebaseAuth.getInstance().currentUser?.photoUrl;
 
         if(profile_url != null) {
@@ -53,10 +40,21 @@ class DiscoverRecipesFragment : FABFragment() {
                 .into(binding.profileImage);
         }
 
+ */
+
         binding.profileImage.setOnClickListener {
             findNavController().navigate(DiscoverRecipesFragmentDirections.actionDiscoverRecipesToUserProfile());
         }
 
         return binding.root
+    }
+
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        viewModel = ViewModelProvider(this).get(DiscoverViewModel::class.java)
+
+        binding.viewModel = viewModel;
+
     }
 }
