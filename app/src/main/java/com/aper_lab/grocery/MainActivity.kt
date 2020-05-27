@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.annotation.MenuRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
+import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
@@ -36,6 +37,8 @@ class MainActivity : AppCompatActivity(), IFABProvider {
     lateinit var navController : NavController;
 
     lateinit var  appBarConfiguration : AppBarConfiguration;
+
+    lateinit var drawerLayout: DrawerLayout;
 
     var fabContext : IHasFAB? = null;
 
@@ -69,27 +72,13 @@ class MainActivity : AppCompatActivity(), IFABProvider {
 
     }
 
-    /*
-    fun checkSignedIn(user: FirebaseUser?){
-        if (user != null) {
-            // User is signed in
-            Toast.makeText(this,"Already signed it", Toast.LENGTH_LONG).show();
-            User.signIn(user);
+    public fun openCloseNavigationDrawer() {
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            drawerLayout.closeDrawer(GravityCompat.START)
         } else {
-            // No user is signed in
-            Toast.makeText(this,"You are not signed in", Toast.LENGTH_LONG).show();
-            showSignInActivity()
+            drawerLayout.openDrawer(GravityCompat.START)
         }
     }
-
-    private fun showSignInActivity() {
-        startActivityForResult(
-            Intent(this, WellcomeActivity::class.java),
-            1
-        )
-    }
-
-*/
 
     private fun setupNavBar() {
         //val toolbar = findViewById<Toolbar>(R.id.app_toolbar)
@@ -126,7 +115,7 @@ class MainActivity : AppCompatActivity(), IFABProvider {
     private fun setupNavigationMenu(navController: NavController) {
         navController.setGraph(R.navigation.navigation);
 
-        val drawerLayout = findViewById<DrawerLayout>(R.id.drawer_layout);
+        drawerLayout = findViewById<DrawerLayout>(R.id.drawer_layout);
 
         val navigationView = findViewById<NavigationView>(R.id.navigation_view);
 

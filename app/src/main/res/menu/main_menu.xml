@@ -1,16 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    >
 
     <item
-        android:id="@id/recipe_list"
-        android:icon="@drawable/ic_notebook_24dp"
-        android:title="My recipes"
-        app:showAsAction="ifRoom" />
-    <item
         android:id="@+id/discover_recipes"
-        android:title="Discover" />
+        android:icon="@drawable/ic_earth_24dp"
+        android:title="Discover"
+        app:showAsAction="ifRoom" />
+
+    <group>
+        <item
+            android:id="@id/recipe_list"
+            android:icon="@drawable/ic_notebook_24dp"
+            android:title="My recipes"
+            app:showAsAction="ifRoom" />
+    </group>
+
+
+
     <item
         android:id="@+id/userProfile"
-        android:title="Profile" />
+        android:icon="@drawable/ic_account_circle_24dp"
+        android:title="Profile"
+        app:showAsAction="ifRoom" />
 </menu>

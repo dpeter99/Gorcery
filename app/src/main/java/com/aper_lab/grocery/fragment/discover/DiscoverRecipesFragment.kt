@@ -4,13 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.aper_lab.grocery.*
-
+import com.aper_lab.grocery.FABFragment
+import com.aper_lab.grocery.MainActivity
 import com.aper_lab.grocery.databinding.FragmentDiscoverRecipesBinding
-import com.aper_lab.grocery.fragment.UserProfileViewModel
-import com.aper_lab.grocery.viewModel.recipe.RecipeViewModelFactory
+
 
 class DiscoverRecipesFragment : FABFragment() {
 
@@ -23,30 +23,26 @@ class DiscoverRecipesFragment : FABFragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentDiscoverRecipesBinding.inflate(inflater, container,false)
 
-        //val args = RecipeFragmentArgs.fromBundle(arguments!!)
-
-        //viewModel = ViewModelProviders.of(this).get(RecipeViewModel::class.java);
-        //viewModelFactory = RecipeViewModelFactory(args.recipeID)
-        //viewModel = ViewModelProvider(this, viewModelFactory).get(RecipeViewModel::class.java);
-
-        //binding.viewModel = viewModel;
-        //binding.lifecycleOwner = this;
-/*
-        var profile_url = FirebaseAuth.getInstance().currentUser?.photoUrl;
-
-        if(profile_url != null) {
-            Glide.with(this)
-                .load(profile_url)
-                .into(binding.profileImage);
+        binding.navMenuButton.setOnClickListener {
+            (activity as MainActivity?)!!.openCloseNavigationDrawer();
         }
-
- */
 
         binding.profileImage.setOnClickListener {
             findNavController().navigate(DiscoverRecipesFragmentDirections.actionDiscoverRecipesToUserProfile());
         }
 
         return binding.root
+    }
+
+
+    override fun onResume() {
+        super.onResume()
+        (activity as AppCompatActivity?)!!.supportActionBar!!.hide()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        (activity as AppCompatActivity?)!!.supportActionBar!!.show()
     }
 
 

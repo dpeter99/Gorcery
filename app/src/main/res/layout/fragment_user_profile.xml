@@ -6,13 +6,13 @@
     <data>
         <variable
             name="viewModel"
-            type="com.aper_lab.grocery.fragment.UserProfileViewModel" />
+            type="com.aper_lab.grocery.fragment.userProfile.UserProfileViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragment.UserProfile">
+    tools:context=".fragment.userProfile.UserProfile">
 
         <androidx.cardview.widget.CardView
             android:id="@+id/profile_image"

@@ -1,11 +1,9 @@
-package com.aper_lab.grocery.fragment
+package com.aper_lab.grocery.fragment.userProfile
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.aper_lab.scraperlib.data.Recipe
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.ktx.Firebase
 
 class UserProfileViewModel : ViewModel() {
     // TODO: Implement the ViewModel
