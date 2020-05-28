@@ -2,8 +2,10 @@ package com.aper_lab.grocery.fragment.recipe.recipeMenu
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.view.menu.MenuBuilder
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.FragmentManager
 import com.aper_lab.grocery.R
@@ -27,7 +29,10 @@ class RecipeMenuFragment : BottomSheetDialogFragment() {
 
         //binding.root.layoutParams = ViewGroup.LayoutParams(200,200);
 
-        binding.viewModel = viewModel;
+        if(viewModel != null) {
+            binding?.viewModel = viewModel;
+        }
+
 
         binding.switch1.setOnCheckedChangeListener { buttonView, isChecked ->
             viewModel.setRecipeFavorite(buttonView.isChecked);
@@ -39,6 +44,8 @@ class RecipeMenuFragment : BottomSheetDialogFragment() {
 
     fun show(manager: FragmentManager, tag : String, viewModel: RecipeViewModel) {
         this.viewModel = viewModel;
+
+
 
         super.show(manager,tag);
     }
