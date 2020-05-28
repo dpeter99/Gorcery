@@ -4,7 +4,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.aper_lab.grocery.viewModel.recipe.RecipeViewModel" />
+            type="com.aper_lab.grocery.fragment.recipe.RecipeViewModel" />
     </data>
 
     <com.google.android.material.card.MaterialCardView

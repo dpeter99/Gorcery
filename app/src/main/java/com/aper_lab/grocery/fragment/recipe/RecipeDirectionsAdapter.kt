@@ -1,16 +1,12 @@
-package com.aper_lab.grocery.viewModel.recipe
+package com.aper_lab.grocery.fragment.recipe
 
-import android.opengl.Visibility
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.aper_lab.grocery.R
 import com.aper_lab.grocery.databinding.ListItemDirectionBinding
-import com.aper_lab.grocery.databinding.ListItemIngredientBinding
-import com.aper_lab.scraperlib.data.Ingredient
 import com.aper_lab.scraperlib.data.RecipeStep
 
 //TODO(Diff Utils)
@@ -28,7 +24,9 @@ class RecipeDirectionsAdapter: RecyclerView.Adapter<RecipeDirectionsAdapter.View
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder.from(parent);
+        return ViewHolder.from(
+            parent
+        );
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -52,7 +50,7 @@ class RecipeDirectionsAdapter: RecyclerView.Adapter<RecipeDirectionsAdapter.View
         }
 
         companion object{
-            fun from(parent: ViewGroup): ViewHolder{
+            fun from(parent: ViewGroup): ViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context);
 
                 var binding : ListItemDirectionBinding = DataBindingUtil.inflate(layoutInflater,
@@ -62,7 +60,9 @@ class RecipeDirectionsAdapter: RecyclerView.Adapter<RecipeDirectionsAdapter.View
                 //binding.root.layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                 //val layout = binding.root as ConstraintLayout;
                 //layout.requestLayout();
-                return ViewHolder(binding);
+                return ViewHolder(
+                    binding
+                );
             }
         }
     }

@@ -31,7 +31,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:text="@{ingredient.name}"
-            android:textColor="@color/primaryTextColor"
+            android:textColor="@color/textColor"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/ingredient_amount"

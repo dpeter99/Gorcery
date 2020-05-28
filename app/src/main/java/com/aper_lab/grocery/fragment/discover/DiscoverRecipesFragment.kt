@@ -6,10 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.aper_lab.grocery.FABFragment
 import com.aper_lab.grocery.MainActivity
 import com.aper_lab.grocery.databinding.FragmentDiscoverRecipesBinding
+import com.aper_lab.grocery.fragment.recipeList.RecipeListDirections
 
 
 class DiscoverRecipesFragment : FABFragment() {
@@ -22,6 +24,7 @@ class DiscoverRecipesFragment : FABFragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentDiscoverRecipesBinding.inflate(inflater, container,false)
+        binding.lifecycleOwner = this;
 
         binding.navMenuButton.setOnClickListener {
             (activity as MainActivity?)!!.openCloseNavigationDrawer();
@@ -29,6 +32,12 @@ class DiscoverRecipesFragment : FABFragment() {
 
         binding.profileImage.setOnClickListener {
             findNavController().navigate(DiscoverRecipesFragmentDirections.actionDiscoverRecipesToUserProfile());
+        }
+
+        binding.mainRecipe.main.setOnClickListener {
+            view?.findNavController()?.navigate(
+                DiscoverRecipesFragmentDirections.actionDiscoverRecipesToRecepie(viewModel.mainRecipe.value?.recipe?.id?:"")
+            )
         }
 
         return binding.root

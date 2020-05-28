@@ -3,6 +3,6 @@
     <string name="dummy_recipe_name">Chicken Meatloaf</string>
     <string name="dummy_recipe_ingredient_name">Chicken breasts</string>
     <string name="dummy_recipe_ingredient_amount">0.5kg</string>
-    <string name="dummy_description" />
+    <string name="dummy_description">Lorem ipsum dolor sit amet</string>
 
 </resources>

@@ -46,11 +46,13 @@
         android:label="Discover some recipes">
         <action
             android:id="@+id/action_discoverRecipesRragment_to_recipeList"
-            app:destination="@id/recipe_list"
-            app:popUpToInclusive="true" />
+            app:destination="@id/recipe_list" />
         <action
             android:id="@+id/action_discover_recipes_to_userProfile"
             app:destination="@id/userProfile" />
+        <action
+            android:id="@+id/action_discover_recipes_to_recepie"
+            app:destination="@id/recepie" />
     </fragment>
     <fragment
         android:id="@+id/userProfile"

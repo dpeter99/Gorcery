@@ -12,10 +12,6 @@ import com.aper_lab.grocery.IFABProvider
 import com.aper_lab.grocery.R
 import com.aper_lab.grocery.databinding.FragmentRecepieBinding
 import com.aper_lab.grocery.fragment.recipe.recipeMenu.RecipeMenuFragment
-import com.aper_lab.grocery.viewModel.recipe.RecipeDirectionsAdapter
-import com.aper_lab.grocery.viewModel.recipe.RecipeIngredientAdapter
-import com.aper_lab.grocery.viewModel.recipe.RecipeViewModel
-import com.aper_lab.grocery.viewModel.recipe.RecipeViewModelFactory
 import com.aper_lab.scraperlib.data.Ingredient
 import com.aper_lab.scraperlib.data.RecipeStep
 
@@ -32,7 +28,7 @@ class RecipeFragment : FABFragment() {
     private lateinit var recipeID: String;
 
     private lateinit var adapter_ingredients : RecipeIngredientAdapter;
-    private lateinit var adapter_steps :  RecipeDirectionsAdapter;
+    private lateinit var adapter_steps : RecipeDirectionsAdapter;
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -55,10 +51,12 @@ class RecipeFragment : FABFragment() {
         //viewModelFactory = RecipeViewModelFactory(args.recipeID)
         //viewModel = ViewModelProvider(this, viewModelFactory).get(RecipeViewModel::class.java);
 
-        adapter_ingredients = RecipeIngredientAdapter();
+        adapter_ingredients =
+            RecipeIngredientAdapter();
         binding.ingredientList.adapter = adapter_ingredients;
 
-        adapter_steps = RecipeDirectionsAdapter();
+        adapter_steps =
+            RecipeDirectionsAdapter();
         binding.stepsList.adapter = adapter_steps;
 
 
@@ -114,8 +112,5 @@ class RecipeFragment : FABFragment() {
             context.setFABListener(this);
         }
     }
-
-
-
 
 }

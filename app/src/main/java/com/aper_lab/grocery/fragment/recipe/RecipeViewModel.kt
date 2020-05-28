@@ -1,17 +1,11 @@
-package com.aper_lab.grocery.viewModel.recipe
+package com.aper_lab.grocery.fragment.recipe
 
-import android.widget.TextView
-import androidx.databinding.BindingAdapter
 import androidx.lifecycle.*
 import com.aper_lab.grocery.User
 import com.aper_lab.grocery.database.RecipeDatabase
 import com.aper_lab.grocery.model.UserRecipe
-import com.aper_lab.scraperlib.RecipeAPIService
-import com.aper_lab.scraperlib.data.Recipe
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import kotlin.coroutines.CoroutineContext
 
 class RecipeViewModel(val id : String) : ViewModel() {
 

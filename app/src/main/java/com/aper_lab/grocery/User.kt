@@ -147,6 +147,10 @@ class User(id: String) {
     }
 
 
+    suspend fun getDiscoverRecipes():List<UserRecipe>{
+        return RecipeDatabase.getUserDiscoverrecipes();
+    }
+
     companion object {
         private var instance: User? = null;
 

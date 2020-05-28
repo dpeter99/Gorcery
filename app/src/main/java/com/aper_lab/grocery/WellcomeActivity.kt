@@ -84,8 +84,12 @@ class WellcomeActivity : AppCompatActivity() {
                 if(user != null) {
                     Toast.makeText(this, "signed in!" + user.displayName, Toast.LENGTH_SHORT)
                         .show();
-                    setResult(2, intent);
-                    finish();
+                    var i: Intent = Intent(this,
+                        MainActivity::class.java);
+                    i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    i.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
+                    startActivity(i);
                 }
 
 

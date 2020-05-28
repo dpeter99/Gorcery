@@ -14,6 +14,7 @@
     android:layout_height="match_parent">
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/top_app_bar"
         android:layout_width="0dp"
         android:layout_height="58dp"
         android:layout_marginStart="16dp"
@@ -87,38 +88,40 @@
 
     </androidx.cardview.widget.CardView>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="409dp"
+
+    <TextView
+        android:id="@+id/textView14"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:layout_editor_absoluteX="1dp"
-        tools:layout_editor_absoluteY="249dp"/>
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/recipes_for_you"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/top_app_bar" />
 
+    <include
+        android:id="@+id/main_recipe"
+        layout="@layout/discover_main_recipe"
+        android:layout_width="355dp"
+        android:layout_height="333dp"
+        android:layout_marginTop="12dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView14"
+        app:recipe="@{viewModel.mainRecipe}" />
 
-    <!--
-        <TextView
-            android:id="@+id/textView14"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
-            android:text="@string/recipes_for_you"
-            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+    <include
+        android:id="@+id/secondary_recipe"
+        layout="@layout/discover_secondary_recipe"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/main_recipe"
+        app:recipe="@{viewModel.secondaryRecipes[0]}" />
 
-
-        <include
-            layout="@layout/list_item_recipe_card"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="24dp"
-            app:layout_constraintDimensionRatio="1:1"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView14" />
-     -->
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

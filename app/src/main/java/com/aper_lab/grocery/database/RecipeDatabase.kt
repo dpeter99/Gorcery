@@ -21,6 +21,7 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.tasks.await
+import kotlin.random.Random
 
 object RecipeDatabase {
 
@@ -85,6 +86,41 @@ object RecipeDatabase {
             return UserRecipe(r, u);
         }
         return null;
+    }
+
+
+    suspend fun getUserDiscoverrecipes():List<UserRecipe>{
+        val source = "ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789"
+        val rand = java.util.Random().ints(15, 0, source.length-1)
+            .toArray()
+            .map(source::get)
+            .joinToString("")
+        val rand_id = com.aper_lab.scraperlib.util.HashUtils.md5(rand);
+
+
+        val rec = recipes.whereGreaterThanOrEqualTo("id", rand_id)
+                .orderBy("id")
+                .limit(3)
+                .get()
+                .await();
+
+        val rec_list = rec.toObjects<Recipe>().toMutableList()
+
+        if(rec.count() < 3){
+            val recipes_next = recipes.whereGreaterThanOrEqualTo("id", "A")
+                    .orderBy("id")
+                    .limit((3 - rec.count()).toLong())
+                    .get()
+                    .await();
+             rec_list.addAll(recipes_next.toObjects<Recipe>());
+        }
+
+        val discover_recipes = rec_list.map {
+            val userData = getUserRecipeData(it)
+            UserRecipe(it,userData)
+        }
+
+        return discover_recipes;
     }
 
 

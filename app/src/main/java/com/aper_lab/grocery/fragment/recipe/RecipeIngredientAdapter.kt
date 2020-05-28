@@ -1,4 +1,4 @@
-package com.aper_lab.grocery.viewModel.recipe
+package com.aper_lab.grocery.fragment.recipe
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -6,7 +6,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.aper_lab.grocery.R
 import com.aper_lab.grocery.databinding.ListItemIngredientBinding
-import com.aper_lab.grocery.databinding.ListItemRecipeBinding
 import com.aper_lab.scraperlib.data.Ingredient
 
 //TODO(Diff Utils)
@@ -25,7 +24,9 @@ class RecipeIngredientAdapter: RecyclerView.Adapter<RecipeIngredientAdapter.View
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
 
-        return ViewHolder.from(parent);
+        return ViewHolder.from(
+            parent
+        );
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -40,7 +41,7 @@ class RecipeIngredientAdapter: RecyclerView.Adapter<RecipeIngredientAdapter.View
         }
 
         companion object{
-            fun from(parent: ViewGroup): ViewHolder{
+            fun from(parent: ViewGroup): ViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context);
 
                 //val view = layoutInflater.inflate(R.layout.list_item_ingredient, parent);
@@ -48,7 +49,9 @@ class RecipeIngredientAdapter: RecyclerView.Adapter<RecipeIngredientAdapter.View
                 var binding : ListItemIngredientBinding = DataBindingUtil.inflate(layoutInflater,R.layout.list_item_ingredient, parent,false);
 
                 //val binding = ListItemIngredientBinding.inflate(layoutInflater);
-                return ViewHolder(binding);
+                return ViewHolder(
+                    binding
+                );
             }
         }
     }

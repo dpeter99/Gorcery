@@ -24,7 +24,7 @@ class UserProfileViewModel : ViewModel() {
 
 
     init{
-         _profilePicture.value = user?.photoUrl.toString();
+        _profilePicture.value = user?.photoUrl.toString();
         _profileName.value = user?.displayName;
         _profileEmail.value = user?.email;
     }
