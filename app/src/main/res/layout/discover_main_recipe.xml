@@ -12,11 +12,14 @@
             type="com.aper_lab.grocery.model.UserRecipe" />
     </data>
 
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/main"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="350dp"
+        android:layout_height="300dp"
         app:cardCornerRadius="4dp"
         app:cardPreventCornerOverlap="false"
         app:cardUseCompatPadding="false"
@@ -110,4 +113,6 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </com.google.android.material.card.MaterialCardView>
+
+    </FrameLayout>
 </layout>

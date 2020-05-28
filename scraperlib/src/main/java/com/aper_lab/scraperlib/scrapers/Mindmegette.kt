@@ -50,6 +50,10 @@ class Mindmegette : RecipeScraper{
         return "mindmegette";
     }
 
+    override fun getSourceName(): String {
+        return "Mindmengette"
+    }
+
     companion object{
         val urls = listOf<String>(
             "www.mindmegette.hu",

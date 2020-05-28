@@ -56,6 +56,10 @@ class Nosalty : RecipeScraper{
         return "nosalty"
     }
 
+    override fun getSourceName(): String {
+        return "Nosalty"
+    }
+
 
     companion object{
         val urls = listOf<String>(

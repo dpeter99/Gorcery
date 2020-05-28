@@ -6,7 +6,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.aper_lab.grocery.fragment.discover.DiscoverViewModel" />
+            type="com.aper_lab.grocery.fragment.discover.DiscoverRecipesViewModel" />
     </data>
 
 <androidx.constraintlayout.widget.ConstraintLayout
@@ -88,40 +88,66 @@
 
     </androidx.cardview.widget.CardView>
 
-
-    <TextView
-        android:id="@+id/textView14"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:text="@string/recipes_for_you"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/top_app_bar" />
-
-    <include
-        android:id="@+id/main_recipe"
-        layout="@layout/discover_main_recipe"
-        android:layout_width="355dp"
-        android:layout_height="333dp"
-        android:layout_marginTop="12dp"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/refresh_layout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:backgroundTint="@color/primaryColor"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView14"
-        app:recipe="@{viewModel.mainRecipe}" />
+        app:layout_constraintTop_toBottomOf="@+id/top_app_bar">
 
-    <include
-        android:id="@+id/secondary_recipe"
-        layout="@layout/discover_secondary_recipe"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/main_recipe"
-        app:recipe="@{viewModel.secondaryRecipes[0]}" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
+
+            <TextView
+                android:id="@+id/textView14"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="@string/recipes_for_you"
+                android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                app:layout_constraintTop_toBottomOf="@+id/textView14">
+
+
+                <include
+                    android:id="@+id/main_recipe"
+                    layout="@layout/discover_main_recipe"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView14"
+                    app:recipe="@{viewModel.mainRecipe}" />
+
+                <include
+                    android:id="@+id/secondary_recipe"
+                    layout="@layout/discover_secondary_recipe"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/main_recipe"
+                    app:recipe="@{viewModel.secondaryRecipes[0]}" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

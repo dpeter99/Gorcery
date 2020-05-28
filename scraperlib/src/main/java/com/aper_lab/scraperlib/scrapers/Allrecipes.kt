@@ -60,6 +60,10 @@ class Allrecipes : RecipeScraper{
         return "allrecipes"
     }
 
+    override fun getSourceName(): String {
+        return "Allrecipes"
+    }
+
     companion object{
 
         val  urls = listOf<String>(

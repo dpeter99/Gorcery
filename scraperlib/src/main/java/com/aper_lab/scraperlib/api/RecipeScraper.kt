@@ -11,6 +11,8 @@ interface RecipeScraper {
 
     fun getSourceID():String;
 
+    fun getSourceName():String;
+
     fun processIngredient(){
 
     }

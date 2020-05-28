@@ -76,7 +76,10 @@ object RecipeAPIService {
         return registry.mapping[link.host]?.getSourceID()?: "";
     }
 
-
+    fun getSourceNameFromURL(url:String): String{
+        val link = URL(url);
+        return registry.mapping[link.host]?.getSourceName()?: "";
+    }
 
     private fun checkRecipeVersion(rec: Recipe): Recipe?{
         var result: Recipe? = rec;

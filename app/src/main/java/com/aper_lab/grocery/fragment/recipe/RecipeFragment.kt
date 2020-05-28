@@ -1,6 +1,8 @@
 package com.aper_lab.grocery.fragment.recipe
 
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.*
 import androidx.databinding.DataBindingUtil
@@ -84,6 +86,12 @@ class RecipeFragment : FABFragment() {
 
         binding.favCheckbox.setOnCheckedChangeListener { buttonView, isChecked ->
             viewModel.setRecipeFavorite(isChecked);
+        }
+
+        binding.recipeSourceLink.setOnClickListener {
+            val i = Intent(Intent.ACTION_VIEW)
+            i.setData(Uri.parse(viewModel.recipe.value?.recipe?.link?:""));
+            startActivity(i);
         }
 
     }

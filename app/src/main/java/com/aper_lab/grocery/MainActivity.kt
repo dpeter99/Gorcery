@@ -69,7 +69,9 @@ class MainActivity : AppCompatActivity(), IFABProvider {
             }
         }
 
-
+        navController.addOnDestinationChangedListener { controller, destination, arguments ->
+            bottom_bar?.performShow();
+        }
     }
 
     public fun openCloseNavigationDrawer() {
@@ -137,12 +139,12 @@ class MainActivity : AppCompatActivity(), IFABProvider {
 
     override fun setFABProperties(props: FABParameters?) {
         if(props == null){
-            fab.hide();
+            fab?.hide();
         }
         else {
-            fab.show();
-            fab.setImageResource(props.icon);
-            bottom_bar.fabAlignmentMode = props.position;
+            fab?.show();
+            fab?.setImageResource(props.icon);
+            bottom_bar?.fabAlignmentMode = props.position;
         }
     }
 

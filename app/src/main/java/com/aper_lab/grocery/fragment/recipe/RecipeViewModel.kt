@@ -4,12 +4,15 @@ import androidx.lifecycle.*
 import com.aper_lab.grocery.User
 import com.aper_lab.grocery.database.RecipeDatabase
 import com.aper_lab.grocery.model.UserRecipe
+import com.aper_lab.scraperlib.RecipeAPIService
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 class RecipeViewModel(val id : String) : ViewModel() {
 
     var recipe: MutableLiveData<UserRecipe> = MutableLiveData();
+
+    var recipeSource: MutableLiveData<String> = MutableLiveData();
 
     init {
 
@@ -19,6 +22,7 @@ class RecipeViewModel(val id : String) : ViewModel() {
                 ?: UserRecipe(com.aper_lab.grocery.model.Recipe(), null);
             if (rec != null) {
                 recipe.postValue(rec);
+                recipeSource.postValue(RecipeAPIService.getSourceNameFromURL(rec.recipe.link))
             }
         }
 

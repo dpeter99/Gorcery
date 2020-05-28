@@ -38,6 +38,10 @@ class Tasty : RecipeScraper{
         return "tasty"
     }
 
+    override fun getSourceName(): String {
+        return "Tasty"
+    }
+
     companion object{
         val urls = listOf<String>(
             "tasty.co"

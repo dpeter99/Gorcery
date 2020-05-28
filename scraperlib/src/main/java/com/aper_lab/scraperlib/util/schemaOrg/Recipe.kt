@@ -66,6 +66,10 @@ fun Recipe.Companion.fromSchemaOrg(json : com.aper_lab.scraperlib.util.schemaOrg
     if(json.totalTime != "")
         rec.totalTime = Duration.parse(json.totalTime).seconds;
 
+    if(rec.prepTime != 0L && rec.totalTime != 0L && rec.cookTime == 0L){
+        rec.cookTime = rec.totalTime - rec.prepTime;
+    }
+
     rec.yields = json.recipeYield.removeSuffix("servings")
     rec.image = ScrappingHelper.getImageURLFromAny(json.image);
     rec.description = json.description;

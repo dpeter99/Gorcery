@@ -111,6 +111,8 @@ open class Recipe(
     }
 
     fun copy(rec:Recipe){
+        rec.version = this.version;
+
         rec.id = this.id;
         rec.name = this.name;
         rec.link = this.link;

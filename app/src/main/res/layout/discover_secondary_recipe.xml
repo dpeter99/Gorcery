@@ -17,6 +17,7 @@
         android:layout_height="wrap_content">
 
         <com.google.android.material.card.MaterialCardView
+            android:id="@+id/main"
             android:layout_width="350dp"
             android:layout_height="140dp"
             app:cardCornerRadius="4dp"
@@ -52,11 +53,11 @@
                 <FrameLayout
                     android:layout_width="0dp"
                     android:layout_height="0dp"
+                    android:background="#96FFFFFF"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/guideline3"
-                    android:background="#96FFFFFF">
+                    app:layout_constraintTop_toTopOf="@+id/guideline3">
 
                 </FrameLayout>
 
@@ -90,8 +91,6 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     app:layout_constraintGuide_percent="0.75" />
-
-
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
