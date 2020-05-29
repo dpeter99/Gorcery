@@ -130,6 +130,17 @@ class User(id: String) {
         saveRecipe(rec)
     }
 
+    fun removeRecipe(recipe: UserRecipe){
+        recipe.recipe.owners_id.remove(user_id);
+        recipe.userData = null;
+    }
+
+    fun saveRecipeToCollection(rec: UserRecipe){
+        if(rec.userData == null){
+            saveRecipe(rec.recipe);
+        }
+    }
+
 
     private fun saveRecipe(rec: Recipe) {
         RecipeDatabase.storeRecipe(rec);

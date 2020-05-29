@@ -1,5 +1,7 @@
 package com.aper_lab.grocery.fragment.recipe.recipeMenu
 
+import android.app.Dialog
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.Menu
@@ -8,9 +10,13 @@ import android.view.ViewGroup
 import androidx.appcompat.view.menu.MenuBuilder
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.ViewModelProvider
 import com.aper_lab.grocery.R
 import com.aper_lab.grocery.databinding.FragmentRecipeBottomBinding
 import com.aper_lab.grocery.fragment.recipe.RecipeViewModel
+import com.aper_lab.grocery.fragment.recipe.RecipeViewModelFactory
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 
@@ -18,7 +24,7 @@ class RecipeMenuFragment : BottomSheetDialogFragment() {
 
     private lateinit var binding: FragmentRecipeBottomBinding;
 
-    private lateinit var viewModel: RecipeViewModel;
+    private lateinit var viewModel: RecipeViewModel by activityViewModels<RecipeViewModel>();
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = DataBindingUtil.inflate<FragmentRecipeBottomBinding>(
@@ -28,10 +34,15 @@ class RecipeMenuFragment : BottomSheetDialogFragment() {
         binding.lifecycleOwner = this;
 
         //binding.root.layoutParams = ViewGroup.LayoutParams(200,200);
-
+/*
         if(viewModel != null) {
             binding?.viewModel = viewModel;
         }
+*/
+
+        val d:BottomSheetDialog = dialog as BottomSheetDialog;
+        d.dismissWithAnimation = true;
+
 
 
         binding.switch1.setOnCheckedChangeListener { buttonView, isChecked ->
@@ -42,12 +53,14 @@ class RecipeMenuFragment : BottomSheetDialogFragment() {
         return binding.root;
     }
 
-    fun show(manager: FragmentManager, tag : String, viewModel: RecipeViewModel) {
-        this.viewModel = viewModel;
+    override fun onAttach(context: Context) {
 
+        super.onAttach(context)
+    }
 
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
 
-        super.show(manager,tag);
+        return super.onCreateDialog(savedInstanceState)
     }
 
 }

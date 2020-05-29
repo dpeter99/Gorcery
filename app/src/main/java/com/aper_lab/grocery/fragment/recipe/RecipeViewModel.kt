@@ -38,6 +38,21 @@ class RecipeViewModel(val id : String) : ViewModel() {
         }
     }
 
+    fun removeRecipe(){
+        if(recipe.value != null) {
+            User.getInstance().removeRecipe(recipe.value!!);
+
+
+        }
+    }
+
+    fun addRecipeToCollection(){
+        if(recipe.value != null) {
+
+            User.getInstance().saveRecipeToCollection(recipe.value!!);
+
+        }
+    }
 }
 
 

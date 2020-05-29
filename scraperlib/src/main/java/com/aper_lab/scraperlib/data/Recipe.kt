@@ -34,7 +34,7 @@ open class Recipe(
     var recipeCategory: List<String> = listOf(),
     var recipeCuisine: List<String> = listOf(),
 
-    var nutrition: NutritionInformation = NutritionInformation(),
+    var nutrition: NutritionInformation? = NutritionInformation(),
     var tools: List<String> = listOf(),
 
     var datePublished: Date = Date()
@@ -98,7 +98,7 @@ open class Recipe(
             }
 
         res += "nutrition: \n";
-        res += "\t calories: "+nutrition.calories;
+        res += "\t calories: "+nutrition?.calories;
 
 
         res += " \n##################################################################################";

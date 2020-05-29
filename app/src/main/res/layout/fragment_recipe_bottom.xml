@@ -9,22 +9,18 @@
             type="com.aper_lab.grocery.fragment.recipe.RecipeViewModel" />
     </data>
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
 
-    <com.google.android.material.card.MaterialCardView
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        app:cardCornerRadius="8dp">
+
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="200dp">
 
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
+                android:layout_height="200dp"
+                android:layout_marginStart="@dimen/activity_margin"
+                android:layout_marginEnd="@dimen/activity_margin"
                 android:orientation="vertical"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -35,9 +31,7 @@
                     android:id="@+id/switch1"
                     android:layout_width="match_parent"
                     android:layout_height="34dp"
-                    android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
-                    android:layout_marginEnd="8dp"
                     android:checked="@{viewModel.recipe.userData.favorite}"
                     android:text="Favorite"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -56,10 +50,8 @@
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
-                    android:paddingBottom="8dp"
-                    android:paddingLeft="@dimen/activity_margin"
-                    android:paddingRight="@dimen/activity_margin"
-                    android:paddingTop="8dp">
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp">
 
                     <ImageView
                         android:id="@+id/imageView9"
@@ -85,9 +77,5 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-    </com.google.android.material.card.MaterialCardView>
-
-    </FrameLayout>
 
 </layout>

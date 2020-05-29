@@ -1,10 +1,12 @@
 package com.aper_lab.grocery.fragment.recipe
 
+import android.app.Dialog
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.*
+import androidx.cardview.widget.CardView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -16,6 +18,7 @@ import com.aper_lab.grocery.databinding.FragmentRecepieBinding
 import com.aper_lab.grocery.fragment.recipe.recipeMenu.RecipeMenuFragment
 import com.aper_lab.scraperlib.data.Ingredient
 import com.aper_lab.scraperlib.data.RecipeStep
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 
 
 /**
@@ -31,6 +34,8 @@ class RecipeFragment : FABFragment() {
 
     private lateinit var adapter_ingredients : RecipeIngredientAdapter;
     private lateinit var adapter_steps : RecipeDirectionsAdapter;
+
+    private lateinit var bottom_sheet_behav: BottomSheetBehavior<CardView?>;
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -61,8 +66,8 @@ class RecipeFragment : FABFragment() {
             RecipeDirectionsAdapter();
         binding.stepsList.adapter = adapter_steps;
 
-
-
+        //bottom_sheet_behav = BottomSheetBehavior.from(binding.menuBottomSheet);
+        //bottom_sheet_behav.state = BottomSheetBehavior.STATE_HIDDEN;
 
         return binding.root
     }
@@ -105,7 +110,8 @@ class RecipeFragment : FABFragment() {
         return when (item.itemId) {
             R.id.recipe_menu -> {
                 val bottomSheet = RecipeMenuFragment()
-                bottomSheet.show(childFragmentManager, "exampleBottomSheet", viewModel)
+                bottomSheet.show(childFragmentManager, "exampleBottomSheet")
+                //bottom_sheet_behav.state = BottomSheetBehavior.STATE_EXPANDED;
                 super.onOptionsItemSelected(item)
             }
             else -> super.onOptionsItemSelected(item)
