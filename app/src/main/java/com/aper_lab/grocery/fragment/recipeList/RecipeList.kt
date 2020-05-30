@@ -14,6 +14,7 @@ import com.aper_lab.grocery.R
 import com.aper_lab.grocery.databinding.FragmentRecipeListBinding
 import com.aper_lab.grocery.model.UserRecipe
 import com.google.android.material.bottomappbar.BottomAppBar
+import java.lang.Exception
 
 
 /**
@@ -70,11 +71,16 @@ class RecipeList : FABFragment() {
         recipeAdapter.data = viewModel.recipes.value?: mutableMapOf<String,UserRecipe>();
 
         viewModel._recipeNav.observe(this.viewLifecycleOwner,Observer<String> { recipe ->
-            view?.findNavController()?.navigate(
-                RecipeListDirections.actionRecipeListToRecepie(
-                    recipe
-                )
-            )
+            try {
+                view?.findNavController()
+                        ?.navigate(
+                            RecipeListDirections.actionRecipeListToRecepie(
+                                recipe
+                            )
+                        )
+            }catch (e:Exception){
+
+            }
         })
     }
 

@@ -21,7 +21,7 @@ open class FABFragment : Fragment(), IHasFAB {
     override fun onAttach(context: Context) {
         super.onAttach(context)
 
-        Log.e("APP","Binding: " + this.javaClass.name)
+        Log.i("APP","Binding FABFragment to the activity: " + this.javaClass.name)
         if(context is IFABProvider){
             fab = context;
             fab.setFABProperties(fabParameters);
@@ -35,7 +35,7 @@ open class FABFragment : Fragment(), IHasFAB {
 
     override fun onStart() {
 
-        Log.e("APP","Binding: " + this.javaClass.name)
+        Log.i("APP","Binding FABFragment to the activity: " + this.javaClass.name)
         val a = activity;
         if(a is IFABProvider){
             fab = a;
@@ -47,7 +47,7 @@ open class FABFragment : Fragment(), IHasFAB {
     }
 
     override fun onViewStateRestored(savedInstanceState: Bundle?) {
-        Log.e("APP","Binding: " + this.javaClass.name)
+        Log.i("APP","Binding FABFragment to the activity: " + this.javaClass.name)
 
         super.onViewStateRestored(savedInstanceState)
         fab.setFABProperties(fabParameters);

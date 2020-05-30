@@ -11,6 +11,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.aper_lab.grocery.FABFragment
 import com.aper_lab.grocery.FABParameters
 import com.aper_lab.grocery.IFABProvider
@@ -71,6 +72,10 @@ class RecipeFragment : FABFragment() {
         //bottom_sheet_behav = BottomSheetBehavior.from(binding.menuBottomSheet);
         //bottom_sheet_behav.state = BottomSheetBehavior.STATE_HIDDEN;
 
+        binding.toCooking.setOnClickListener {
+            findNavController().navigate(RecipeFragmentDirections.actionRecepieToCookingView(recipeID))
+        }
+
         return binding.root
     }
 
@@ -91,7 +96,7 @@ class RecipeFragment : FABFragment() {
             adapter_ingredients.data = recipe.recipe.ingredients
 
             if(recipe.userData == null){
-                binding.addButton.visibility = View.INVISIBLE;
+                binding.toCooking.visibility = View.INVISIBLE;
                 fabParameters = FABParameters(
                     BottomAppBar.FAB_ALIGNMENT_MODE_END,
                     R.drawable.ic_notebook_plus_24dp,
@@ -99,7 +104,7 @@ class RecipeFragment : FABFragment() {
                 )
             }
             else{
-                binding.addButton.visibility = View.VISIBLE;
+                binding.toCooking.visibility = View.VISIBLE;
                 fabParameters = null;
             }
 

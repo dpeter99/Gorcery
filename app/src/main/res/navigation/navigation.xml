@@ -26,6 +26,9 @@
         <argument
             android:name="recipeID"
             app:argType="string" />
+        <action
+            android:id="@+id/action_recepie_to_cookingView"
+            app:destination="@id/cookingView" />
     </fragment>
     <fragment
         android:id="@+id/addRecipeFragment"
@@ -61,5 +64,12 @@
     <action
         android:id="@+id/action_global_addRecipeFragment"
         app:destination="@id/addRecipeFragment" />
+    <fragment
+        android:id="@+id/cookingView"
+        android:name="com.aper_lab.grocery.fragment.cooking.CookingView"
+        android:label="CookingView" >
+        <argument android:name="recipe_id"
+            app:argType="string" />
+    </fragment>
 
 </navigation>

@@ -51,7 +51,7 @@
             android:layout_height="match_parent"
             app:defaultNavHost="true"
             app:navGraph="@navigation/navigation"
-            tools:layout="@layout/fragment_recipe_list" />
+            tools:layout="@layout/fragment_cooking_view" />
 
 
         <com.google.android.material.bottomappbar.BottomAppBar
