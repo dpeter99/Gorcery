@@ -142,6 +142,8 @@ class MainActivity : AppCompatActivity(), IFABProvider {
             fab?.hide();
         }
         else {
+
+
             fab?.show();
             fab?.setImageResource(props.icon);
             bottom_bar?.fabAlignmentMode = props.position;

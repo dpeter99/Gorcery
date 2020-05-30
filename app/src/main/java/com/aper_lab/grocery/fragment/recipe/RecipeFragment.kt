@@ -12,12 +12,14 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.aper_lab.grocery.FABFragment
+import com.aper_lab.grocery.FABParameters
 import com.aper_lab.grocery.IFABProvider
 import com.aper_lab.grocery.R
 import com.aper_lab.grocery.databinding.FragmentRecepieBinding
 import com.aper_lab.grocery.fragment.recipe.recipeMenu.RecipeMenuFragment
 import com.aper_lab.scraperlib.data.Ingredient
 import com.aper_lab.scraperlib.data.RecipeStep
+import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 
 
@@ -51,7 +53,7 @@ class RecipeFragment : FABFragment() {
         setHasOptionsMenu(true);
 
         recipeID = RecipeFragmentArgs.fromBundle(
-            arguments!!
+            requireArguments()
         ).recipeID
 
         //viewModel = ViewModelProviders.of(this).get(RecipeViewModel::class.java);
@@ -87,6 +89,20 @@ class RecipeFragment : FABFragment() {
             // Update the UI, in this case, a TextView.
             adapter_steps.data = recipe.recipe.directions
             adapter_ingredients.data = recipe.recipe.ingredients
+
+            if(recipe.userData == null){
+                binding.addButton.visibility = View.INVISIBLE;
+                fabParameters = FABParameters(
+                    BottomAppBar.FAB_ALIGNMENT_MODE_END,
+                    R.drawable.ic_notebook_plus_24dp,
+                    null
+                )
+            }
+            else{
+                binding.addButton.visibility = View.VISIBLE;
+                fabParameters = null;
+            }
+
         })
 
         binding.favCheckbox.setOnCheckedChangeListener { buttonView, isChecked ->
@@ -127,4 +143,7 @@ class RecipeFragment : FABFragment() {
         }
     }
 
+    override fun onFABClicked() {
+        viewModel.addRecipeToCollection();
+    }
 }

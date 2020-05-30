@@ -47,11 +47,15 @@ class DiscoverRecipesViewModel : ViewModel(){
     }
 
     fun openMainRecipe(){
-        _recipeNav.postValue(_mainRecipe.value?.recipe?.id?: "")
+        val rec = _mainRecipe.value?.recipe?.id;
+        if(rec != null)
+        _recipeNav.postValue(rec)
     }
 
     fun openSecondaryRecipe(i:Int){
         val rec = _secondaryRecipes.value?.get(i)?.recipe?.id;
-        _recipeNav.postValue(rec);
+        if(rec != null) {
+            _recipeNav.postValue(rec);
+        }
     }
 }

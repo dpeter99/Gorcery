@@ -71,7 +71,18 @@
             android:src="@drawable/ic_add_24dp"
             app:fabSize="normal"
             app:layout_anchor="@id/bottom_bar"
-            tools:visibility="visible" />
+            tools:visibility="invisible" />
+<!--
+        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+            android:id="@+id/extended_fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/app_name"
+            android:text="@string/app_name"
+            app:fabSize="normal"
+            app:icon="@drawable/ic_account_circle_24dp"
+            app:layout_anchor="@id/bottom_bar"
+            app:layout_anchorGravity="end" />-->
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

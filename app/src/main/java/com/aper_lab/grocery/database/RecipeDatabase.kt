@@ -141,6 +141,7 @@ object RecipeDatabase {
         return db.collection("recipes").whereArrayContains("owners_id", id)
     }
 
+
     suspend fun getUserRecipeData(rec: Recipe): UserRecipeData? {
         val u = recipes.document(rec.id).collection("/owners").document(User.getInstance().user_id).get().await();
         return u.toObject<UserRecipeData>();
@@ -150,6 +151,9 @@ object RecipeDatabase {
         recipes.document(rec.GetID()).collection("/owners").document(data.userID).set(data);
     }
 
+    fun removeUserRecipeData(rec:Recipe, data: UserRecipeData){
+        recipes.document(rec.GetID()).collection("/owners").document(data.userID).delete();
+    }
 
     private fun checkUserID() {
         if (user_id.isNullOrBlank()) {

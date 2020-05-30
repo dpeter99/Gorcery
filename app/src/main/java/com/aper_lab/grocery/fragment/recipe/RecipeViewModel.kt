@@ -40,7 +40,9 @@ class RecipeViewModel(val id : String) : ViewModel() {
 
     fun removeRecipe(){
         if(recipe.value != null) {
-            User.getInstance().removeRecipe(recipe.value!!);
+
+
+            recipe.value = User.getInstance().removeRecipe(recipe.value!!);
 
 
         }
@@ -48,8 +50,9 @@ class RecipeViewModel(val id : String) : ViewModel() {
 
     fun addRecipeToCollection(){
         if(recipe.value != null) {
-
-            User.getInstance().saveRecipeToCollection(recipe.value!!);
+            //val rec = recipe.value
+            recipe.value = User.getInstance().saveRecipeToCollection(recipe.value!!);
+            //recipe.postValue(rec);
 
         }
     }

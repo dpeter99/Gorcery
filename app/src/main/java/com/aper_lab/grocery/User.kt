@@ -98,9 +98,9 @@ class User(id: String) {
         //Check if the recipe already exists in the database, if so only add the user to the owners
         var rec = RecipeDatabase.getRecipeByID(recipe.id);
         if (rec != null) {
-            if (!rec.owners_id.contains(user_id)) {
-                rec.owners_id.add(user_id);
-            }
+            //if (!rec.owners_id.contains(user_id)) {
+                rec.addOwner(user_id);
+            //}
         } else {
             //If the recipe does not exist yet
             rec = recipe.toDomainModel(this.user_id);
@@ -116,7 +116,7 @@ class User(id: String) {
         //Check if the recipe already exists, if so only add the user to the owners
         var rec = RecipeDatabase.getRecipeByID(recipe.id);
         if (rec != null) {
-            if (!rec.owners_id.contains(user_id)) {
+            if (!rec.hasOwner(user_id)) {
                 Log.e("AddRecipe", "User doesn't have this recipe");
                 TODO("Shouldn't be called like that");
             }
@@ -130,23 +130,35 @@ class User(id: String) {
         saveRecipe(rec)
     }
 
-    fun removeRecipe(recipe: UserRecipe){
-        recipe.recipe.owners_id.remove(user_id);
-        recipe.userData = null;
-    }
-
-    fun saveRecipeToCollection(rec: UserRecipe){
-        if(rec.userData == null){
-            saveRecipe(rec.recipe);
+    fun removeRecipe(recipe: UserRecipe):UserRecipe{
+        if(recipe.userData != null) {
+            recipe.recipe.removeOwner(user_id);
+            RecipeDatabase.storeRecipe(recipe.recipe);
+            RecipeDatabase.removeUserRecipeData(recipe.recipe, recipe.userData!!);
+            recipe.userData = null;
         }
+        return recipe;
+    }
+
+    fun saveRecipeToCollection(rec: UserRecipe):UserRecipe?{
+        if(rec.userData == null){
+            rec.recipe.addOwner(user_id);
+           val userdata = saveRecipe(rec.recipe);
+            rec.userData = userdata;
+            //rec.recipe.owners_id.add(user_id);
+            return rec;
+        }
+        return null;
     }
 
 
-    private fun saveRecipe(rec: Recipe) {
+    private fun saveRecipe(rec: Recipe):UserRecipeData {
         RecipeDatabase.storeRecipe(rec);
         //if(rec.userData != null) {
-        RecipeDatabase.storeUserRecipeData(rec, UserRecipeData(user_id));
+        val userd = UserRecipeData(user_id);
+        RecipeDatabase.storeUserRecipeData(rec, userd);
         //}
+        return userd;
     }
 
     fun setFavoriteRecipe(rec: UserRecipe, fav: Boolean) {

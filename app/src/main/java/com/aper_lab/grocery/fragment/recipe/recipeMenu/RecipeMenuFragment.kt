@@ -11,6 +11,7 @@ import androidx.appcompat.view.menu.MenuBuilder
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import com.aper_lab.grocery.R
 import com.aper_lab.grocery.databinding.FragmentRecipeBottomBinding
@@ -24,7 +25,7 @@ class RecipeMenuFragment : BottomSheetDialogFragment() {
 
     private lateinit var binding: FragmentRecipeBottomBinding;
 
-    private lateinit var viewModel: RecipeViewModel by activityViewModels<RecipeViewModel>();
+    private val viewModel: RecipeViewModel by viewModels<RecipeViewModel>({requireParentFragment()});
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = DataBindingUtil.inflate<FragmentRecipeBottomBinding>(
@@ -34,11 +35,11 @@ class RecipeMenuFragment : BottomSheetDialogFragment() {
         binding.lifecycleOwner = this;
 
         //binding.root.layoutParams = ViewGroup.LayoutParams(200,200);
-/*
-        if(viewModel != null) {
-            binding?.viewModel = viewModel;
-        }
-*/
+
+        //if(viewModel != null) {
+            binding.viewModel = viewModel;
+        //}
+
 
         val d:BottomSheetDialog = dialog as BottomSheetDialog;
         d.dismissWithAnimation = true;
@@ -49,6 +50,10 @@ class RecipeMenuFragment : BottomSheetDialogFragment() {
             viewModel.setRecipeFavorite(buttonView.isChecked);
         }
 
+        binding.deleteMenu.setOnClickListener {
+            viewModel.removeRecipe();
+            dismiss();
+        }
 
         return binding.root;
     }

@@ -47,7 +47,8 @@ class RecipeList : FABFragment() {
 
         fabParameters = FABParameters(
             BottomAppBar.FAB_ALIGNMENT_MODE_END,
-            R.drawable.ic_add_24dp
+            R.drawable.ic_add_24dp,
+            null
         );
 
         //Navigation event

@@ -52,7 +52,8 @@ class AddRecipeFragment : FABFragment() {
 
         fabParameters = FABParameters(
             BottomAppBar.FAB_ALIGNMENT_MODE_END,
-            R.drawable.ic_search_24dp
+            R.drawable.ic_search_24dp,
+            null
         )
 
 
@@ -72,7 +73,8 @@ class AddRecipeFragment : FABFragment() {
                 AddRecipeViewModel.State.Default -> {
                     fabParameters = FABParameters(
                         BottomAppBar.FAB_ALIGNMENT_MODE_END,
-                        R.drawable.ic_search_24dp
+                        R.drawable.ic_search_24dp,
+                        null
                     )
                     preview.visibility = View.INVISIBLE;
                 }
@@ -83,7 +85,8 @@ class AddRecipeFragment : FABFragment() {
                 AddRecipeViewModel.State.Done -> {
                     fabParameters = FABParameters(
                         BottomAppBar.FAB_ALIGNMENT_MODE_END,
-                        R.drawable.ic_done_24dp
+                        R.drawable.ic_done_24dp,
+                        null
                     )
 
                     preview.visibility = View.VISIBLE;
