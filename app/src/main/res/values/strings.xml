@@ -14,4 +14,5 @@
     <string name="recipes_for_you">Recipes For You</string>
     <string name="recipe_description_title">Description</string>
     <string name="source_link_text">Link</string>
+    <string name="import_instructions">You can import recipes from the following websites:</string>
 </resources>

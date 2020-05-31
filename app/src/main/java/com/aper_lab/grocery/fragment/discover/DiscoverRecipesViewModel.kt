@@ -43,7 +43,7 @@ class DiscoverRecipesViewModel : ViewModel(){
 
             _mainRecipe.postValue(rec[0]);
 
-            _secondaryRecipes.postValue(rec.subList(1,rec.size-1));
+            _secondaryRecipes.postValue(rec.subList(1,rec.size));
     }
 
     fun openMainRecipe(){
