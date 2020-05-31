@@ -88,7 +88,6 @@ class RecipeFragment : FABFragment() {
         toggleButton = binding.favCheckbox
         toggleButton.isChecked = false
         toggleButton.setBackgroundResource( R.drawable.ic_heart_dark_24dp);
-
         toggleButton.setOnCheckedChangeListener(CompoundButton.OnCheckedChangeListener { buttonView, isChecked ->
             if (isChecked) toggleButton.setBackgroundResource(R.drawable.ic_heart_24dp)
             else toggleButton.setBackgroundResource(R.drawable.ic_heart_dark_24dp)
@@ -117,6 +116,7 @@ class RecipeFragment : FABFragment() {
             if(recipe.userData == null){
                 binding.toCooking.visibility = View.INVISIBLE;
                 binding.favCheckbox.visibility =View.INVISIBLE;
+                binding.favCheckbox.isChecked = recipe.userData!!.favorite;
                 fabParameters = FABParameters(
                     BottomAppBar.FAB_ALIGNMENT_MODE_END,
                     R.drawable.ic_notebook_plus_24dp,

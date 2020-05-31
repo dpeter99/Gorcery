@@ -265,6 +265,7 @@
                 android:background="@drawable/ic_heart_dark_24dp"
                 android:textOff=""
                 android:textOn=""
+                android:checked="@{viewModel.recipe.userData.favorite}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
