@@ -77,6 +77,7 @@ class AddRecipeFragment : FABFragment() {
                         null
                     )
                     preview.visibility = View.INVISIBLE;
+                    binding.progressBar.visibility = View.GONE;
                     binding.instructions.visibility = View.VISIBLE;
                 }
                 AddRecipeViewModel.State.Loading -> {
@@ -122,8 +123,9 @@ class AddRecipeFragment : FABFragment() {
 
         } else {
             val url: String = binding.urlInput.getEditText()?.getText().toString();
-
-            viewModel.getRecipeFromURL(url);
+            if(!url.isNullOrBlank()) {
+                viewModel.getRecipeFromURL(url);
+            }
         }
     }
 

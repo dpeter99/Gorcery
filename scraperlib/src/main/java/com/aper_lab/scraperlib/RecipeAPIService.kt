@@ -7,11 +7,13 @@ import com.aper_lab.scraperlib.datastore.DataStore
 import com.aper_lab.scraperlib.scrapers.*
 import com.aper_lab.scraperlib.util.HashUtils
 import com.aper_lab.scraperlib.util.URLutils
+import com.sun.jndi.toolkit.url.UrlUtil
 import com.sun.org.apache.xpath.internal.operations.Bool
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.async
+import sun.net.util.URLUtil
 import java.net.URL
 
 object RecipeAPIService {
@@ -97,6 +99,10 @@ object RecipeAPIService {
     }
 
     private fun scrape(path: String): Recipe?{
+        if(!URLutils.isValid(path)){
+            return null;
+        }
+
         val url_parsed = URLutils.HTTPToHTTPS(path);
         var url = URL(url_parsed);
 

@@ -50,6 +50,9 @@ class AddRecipeViewModel(val user:User) : ViewModel() {
                 _recipe.postValue(rec);
                 _state.postValue(State.Done);
             }
+            else{
+                _state.postValue(State.Default);
+            }
         }
     }
 
