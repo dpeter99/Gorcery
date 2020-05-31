@@ -13,8 +13,8 @@ android {
         applicationId "com.aper_lab.grocery"
         minSdkVersion 24
         targetSdkVersion 29
-        versionCode 5
-        versionName "v0.0.1-alpha07"
+        versionCode 6
+        versionName "v0.0.1-alpha08"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -76,17 +76,14 @@ dependencies {
     implementation 'com.android.support:cardview-v7:29.0.0'
 
     implementation 'androidx.core:core-ktx:1.4.0-alpha01'
-
-
-
-    kapt "com.android.databinding:compiler:$android_plugin_version"
-
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.0-beta6'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.recyclerview:recyclerview:1.2.0-alpha03'
     implementation "androidx.fragment:fragment-ktx:1.2.4"
     apply plugin: 'androidx.navigation.safeargs'
+
+    kapt "com.android.databinding:compiler:$android_plugin_version"
 
     implementation "android.arch.navigation:navigation-fragment-ktx:$navigationVersion"
     implementation "android.arch.navigation:navigation-ui-ktx:${navigationVersion}"
