@@ -53,7 +53,7 @@
                 <FrameLayout
                     android:layout_width="0dp"
                     android:layout_height="0dp"
-                    android:background="#96FFFFFF"
+                    android:background="@color/recipe_shade"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -61,7 +61,7 @@
 
                 </FrameLayout>
 
-                <ImageView
+                <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/imageView3"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
@@ -69,7 +69,8 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/guideline3"
-                    tools:srcCompat="@drawable/icon_nosalty" />
+                    tools:srcCompat="@drawable/icon_nosalty"
+                    app:recipeSourceIcon="@{recipe.recipe}"/>
 
                 <com.elyeproj.loaderviewlibrary.LoaderTextView
                     android:id="@+id/textView15"

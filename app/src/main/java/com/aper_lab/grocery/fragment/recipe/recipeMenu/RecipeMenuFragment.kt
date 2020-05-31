@@ -12,6 +12,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.aper_lab.grocery.R
 import com.aper_lab.grocery.databinding.FragmentRecipeBottomBinding
@@ -54,6 +55,15 @@ class RecipeMenuFragment : BottomSheetDialogFragment() {
             viewModel.removeRecipe();
             dismiss();
         }
+
+        viewModel.recipe.observe(this, Observer {
+
+            if(it.userData == null){
+                binding.deleteMenu.visibility = View.GONE;
+            }
+
+
+        })
 
         return binding.root;
     }

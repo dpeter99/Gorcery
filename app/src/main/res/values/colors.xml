@@ -13,4 +13,5 @@
     <color name="primaryHintColor">#C6C6C6</color>
 
     <color name="textColor">#000000</color>
+    <color name="recipe_shade">#B4FFFFFF</color>
 </resources>

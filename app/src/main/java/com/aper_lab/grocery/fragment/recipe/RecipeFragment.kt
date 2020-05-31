@@ -6,6 +6,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.*
+import android.widget.Toast
 import androidx.cardview.widget.CardView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -97,6 +98,7 @@ class RecipeFragment : FABFragment() {
 
             if(recipe.userData == null){
                 binding.toCooking.visibility = View.INVISIBLE;
+                binding.favCheckbox.visibility =View.INVISIBLE;
                 fabParameters = FABParameters(
                     BottomAppBar.FAB_ALIGNMENT_MODE_END,
                     R.drawable.ic_notebook_plus_24dp,
@@ -105,6 +107,7 @@ class RecipeFragment : FABFragment() {
             }
             else{
                 binding.toCooking.visibility = View.VISIBLE;
+                binding.favCheckbox.visibility =View.VISIBLE;
                 fabParameters = null;
             }
 
@@ -150,5 +153,6 @@ class RecipeFragment : FABFragment() {
 
     override fun onFABClicked() {
         viewModel.addRecipeToCollection();
+        Toast.makeText(this.context,"Successfully added recipe",Toast.LENGTH_LONG).show();
     }
 }

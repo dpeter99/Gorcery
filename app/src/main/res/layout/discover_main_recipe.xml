@@ -47,9 +47,9 @@
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:srcCompat="@drawable/recipe_creamy_chicken_and_mushroom_pasta1" />
+                tools:src="@drawable/recipe_creamy_chicken_and_mushroom_pasta1" />
 
-            <ImageView
+            <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/imageView3"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
@@ -57,13 +57,14 @@
                 android:layout_marginEnd="8dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:srcCompat="@drawable/icon_nosalty" />
+                tools:srcCompat="@drawable/icon_nosalty"
+                app:recipeSourceIcon="@{recipe.recipe}"/>
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/constraintLayout"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:background="#96FFFFFF"
+                android:background="@color/recipe_shade"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -95,6 +96,7 @@
                     android:ellipsize="end"
                     android:maxLines="4"
                     android:text="@{recipe.recipe.description}"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
