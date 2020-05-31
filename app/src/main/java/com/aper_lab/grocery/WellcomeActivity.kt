@@ -82,8 +82,7 @@ class WellcomeActivity : AppCompatActivity() {
                 // Successfully signed in
                 val user = FirebaseAuth.getInstance().currentUser
                 if(user != null) {
-                    Toast.makeText(this, "signed in!" + user.displayName, Toast.LENGTH_SHORT)
-                        .show();
+                    //Toast.makeText(this, "signed in! " + user.displayName, Toast.LENGTH_SHORT).show();
                     var i: Intent = Intent(this,
                         MainActivity::class.java);
                     i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
