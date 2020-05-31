@@ -33,7 +33,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_account_24dp" />
+            app:srcCompat="@drawable/ic_app_icon" />
 
         <com.google.android.gms.common.SignInButton
             android:id="@+id/g_sign_in"

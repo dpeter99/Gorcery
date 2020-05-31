@@ -74,14 +74,17 @@
 
                 <com.elyeproj.loaderviewlibrary.LoaderTextView
                     android:id="@+id/textView15"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="32dp"
                     android:layout_marginStart="8dp"
+                    android:ellipsize="end"
+                    android:singleLine="true"
                     android:text="@{recipe.recipe.name}"
                     android:textAppearance="@style/TextAppearance.AppCompat.Display1"
                     android:textColor="@color/textColor"
                     android:textSize="24dp"
                     app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/imageView3"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/guideline3"
                     tools:text="Meat loaf" />

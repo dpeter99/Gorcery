@@ -83,7 +83,7 @@ class AddRecipeFragment : FABFragment() {
                 AddRecipeViewModel.State.Loading -> {
                     fabParameters = null;
                     binding.progressBar.visibility = View.VISIBLE;
-                    binding.instructions.visibility = View.INVISIBLE;
+                    binding.instructions.visibility = View.GONE;
                 }
                 AddRecipeViewModel.State.Done -> {
                     fabParameters = FABParameters(
@@ -94,7 +94,7 @@ class AddRecipeFragment : FABFragment() {
 
                     preview.visibility = View.VISIBLE;
                     binding.progressBar.visibility = View.GONE;
-                    binding.instructions.visibility = View.INVISIBLE;
+                    binding.instructions.visibility = View.GONE;
                 }
 
             }
