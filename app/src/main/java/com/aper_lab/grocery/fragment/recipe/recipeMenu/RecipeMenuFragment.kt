@@ -60,6 +60,7 @@ class RecipeMenuFragment : BottomSheetDialogFragment() {
 
             if(it.userData == null){
                 binding.deleteMenu.visibility = View.GONE;
+                binding.switch1.visibility = View.GONE;
             }
 
 

@@ -116,7 +116,7 @@ class RecipeFragment : FABFragment() {
             if(recipe.userData == null){
                 binding.toCooking.visibility = View.INVISIBLE;
                 binding.favCheckbox.visibility =View.INVISIBLE;
-                binding.favCheckbox.isChecked = recipe.userData!!.favorite;
+                binding.favCheckbox.isChecked = recipe.userData?.favorite ?: false;
                 fabParameters = FABParameters(
                     BottomAppBar.FAB_ALIGNMENT_MODE_END,
                     R.drawable.ic_notebook_plus_24dp,

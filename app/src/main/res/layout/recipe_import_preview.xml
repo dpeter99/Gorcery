@@ -82,7 +82,6 @@
                     android:id="@+id/textView12"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="@string/dummy_description"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                     app:layout_constraintBottom_toBottomOf="@+id/appCompatImageView"
                     app:layout_constraintEnd_toEndOf="parent"
