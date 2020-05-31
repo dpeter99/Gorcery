@@ -118,7 +118,8 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
                 android:orientation="vertical"
-                app:layout_constraintTop_toBottomOf="@+id/textView14">
+                app:layout_constraintTop_toBottomOf="@+id/textView14"
+                tools:layout_editor_absoluteX="0dp">
 
 
                 <include
@@ -133,15 +134,20 @@
                     app:recipe="@{viewModel.mainRecipe}" />
 
                 <include
-                    android:id="@+id/secondary_recipe"
+                    android:id="@+id/secondary_recipe_1"
                     layout="@layout/discover_secondary_recipe"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/main_recipe"
                     app:recipe="@{viewModel.secondaryRecipes[0]}" />
+
+                <include
+                    android:id="@+id/secondary_recipe_2"
+                    layout="@layout/discover_secondary_recipe"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    app:recipe="@{viewModel.secondaryRecipes[1]}" />
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 

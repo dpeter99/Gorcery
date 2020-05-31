@@ -44,8 +44,12 @@ class DiscoverRecipesFragment : FABFragment() {
             viewModel.openMainRecipe();
         }
 
-        binding.secondaryRecipe.main.setOnClickListener {
+        binding.secondaryRecipe1?.main?.setOnClickListener {
             viewModel.openSecondaryRecipe(0);
+        }
+
+        binding.secondaryRecipe2?.main?.setOnClickListener {
+            viewModel.openSecondaryRecipe(1);
         }
 
         binding.refreshLayout.setColorSchemeResources(R.color.primaryColor)
