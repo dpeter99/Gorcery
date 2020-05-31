@@ -25,7 +25,7 @@ dependencies {
     implementation "com.squareup.moshi:moshi:1.9.2"
 
     //implementation 'com.github.jsonld-java:jsonld-java:0.13.0'
-    implementation 'com.jakewharton.threetenabp:threetenabp:1.2.3'
+    implementation 'com.jakewharton.threetenabp:threetenabp:1.2.4'
 
 
 

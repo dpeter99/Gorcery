@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import android.widget.Toast
 import androidx.cardview.widget.CardView
@@ -23,6 +24,9 @@ import com.aper_lab.scraperlib.data.Ingredient
 import com.aper_lab.scraperlib.data.RecipeStep
 import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.firebase.crashlytics.FirebaseCrashlytics
+import java.lang.Exception
+import java.lang.RuntimeException
 
 
 /**
@@ -74,7 +78,16 @@ class RecipeFragment : FABFragment() {
         //bottom_sheet_behav.state = BottomSheetBehavior.STATE_HIDDEN;
 
         binding.toCooking.setOnClickListener {
-            findNavController().navigate(RecipeFragmentDirections.actionRecepieToCookingView(recipeID))
+            val navController = findNavController()
+            try {
+                navController.navigate(RecipeFragmentDirections.actionRecepieToCookingView(recipeID))
+            }catch (e:Exception){
+                Log.e("App","There was a problem with navigation")
+                Log.e("App", "Current navgraph: " + navController.graph.toString())
+                e.printStackTrace();
+                FirebaseCrashlytics.getInstance().recordException(e)
+            }
+
         }
 
         return binding.root

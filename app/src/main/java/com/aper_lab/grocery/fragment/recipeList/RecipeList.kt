@@ -14,6 +14,7 @@ import com.aper_lab.grocery.R
 import com.aper_lab.grocery.databinding.FragmentRecipeListBinding
 import com.aper_lab.grocery.model.UserRecipe
 import com.google.android.material.bottomappbar.BottomAppBar
+import com.google.firebase.crashlytics.FirebaseCrashlytics
 import java.lang.Exception
 
 
@@ -79,7 +80,7 @@ class RecipeList : FABFragment() {
                             )
                         )
             }catch (e:Exception){
-
+                FirebaseCrashlytics.getInstance().recordException(e)
             }
         })
     }

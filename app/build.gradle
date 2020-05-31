@@ -3,6 +3,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'com.google.gms.google-services'
+apply plugin: 'com.google.firebase.crashlytics'
 
 android {
     compileSdkVersion 29
@@ -93,6 +94,8 @@ dependencies {
 
     implementation 'com.google.firebase:firebase-firestore-ktx:21.4.3'
     implementation 'com.google.firebase:firebase-auth:19.3.1'
+    // Add the Firebase Crashlytics SDK.
+    implementation 'com.google.firebase:firebase-crashlytics:17.0.0'
     implementation 'com.firebaseui:firebase-ui-auth:6.2.0'
 
     apply plugin: 'com.google.gms.google-services'
@@ -101,7 +104,7 @@ dependencies {
 
     implementation "com.github.bumptech.glide:glide:$version_glide"
 
-    implementation 'com.jakewharton.threetenabp:threetenabp:1.2.3'
+    implementation 'com.jakewharton.threetenabp:threetenabp:1.2.4'
 
     implementation 'net.steamcrafted:materialiconlib:1.1.5'
 
