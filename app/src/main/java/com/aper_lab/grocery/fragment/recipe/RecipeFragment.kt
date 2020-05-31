@@ -1,14 +1,16 @@
 package com.aper_lab.grocery.fragment.recipe
 
-import android.app.Dialog
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.*
+import android.widget.CompoundButton
 import android.widget.Toast
+import android.widget.ToggleButton
 import androidx.cardview.widget.CardView
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -22,11 +24,10 @@ import com.aper_lab.grocery.databinding.FragmentRecepieBinding
 import com.aper_lab.grocery.fragment.recipe.recipeMenu.RecipeMenuFragment
 import com.aper_lab.scraperlib.data.Ingredient
 import com.aper_lab.scraperlib.data.RecipeStep
+import com.firebase.ui.auth.AuthUI.getApplicationContext
 import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.firebase.crashlytics.FirebaseCrashlytics
-import java.lang.Exception
-import java.lang.RuntimeException
 
 
 /**
@@ -62,10 +63,6 @@ class RecipeFragment : FABFragment() {
             requireArguments()
         ).recipeID
 
-        //viewModel = ViewModelProviders.of(this).get(RecipeViewModel::class.java);
-        //viewModelFactory = RecipeViewModelFactory(args.recipeID)
-        //viewModel = ViewModelProvider(this, viewModelFactory).get(RecipeViewModel::class.java);
-
         adapter_ingredients =
             RecipeIngredientAdapter();
         binding.ingredientList.adapter = adapter_ingredients;
@@ -73,9 +70,6 @@ class RecipeFragment : FABFragment() {
         adapter_steps =
             RecipeDirectionsAdapter();
         binding.stepsList.adapter = adapter_steps;
-
-        //bottom_sheet_behav = BottomSheetBehavior.from(binding.menuBottomSheet);
-        //bottom_sheet_behav.state = BottomSheetBehavior.STATE_HIDDEN;
 
         binding.toCooking.setOnClickListener {
             val navController = findNavController()
@@ -89,6 +83,17 @@ class RecipeFragment : FABFragment() {
             }
 
         }
+
+        val toggleButton: ToggleButton
+        toggleButton = binding.favCheckbox
+        toggleButton.isChecked = false
+        toggleButton.setBackgroundResource( R.drawable.ic_heart_dark_24dp);
+
+        toggleButton.setOnCheckedChangeListener(CompoundButton.OnCheckedChangeListener { buttonView, isChecked ->
+            if (isChecked) toggleButton.setBackgroundResource(R.drawable.ic_heart_24dp)
+            else toggleButton.setBackgroundResource(R.drawable.ic_heart_dark_24dp)
+            viewModel.setRecipeFavorite(isChecked);
+        })
 
         return binding.root
     }
@@ -125,10 +130,6 @@ class RecipeFragment : FABFragment() {
             }
 
         })
-
-        binding.favCheckbox.setOnCheckedChangeListener { buttonView, isChecked ->
-            viewModel.setRecipeFavorite(isChecked);
-        }
 
         binding.recipeSourceLink.setOnClickListener {
             val i = Intent(Intent.ACTION_VIEW)

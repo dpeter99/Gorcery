@@ -35,6 +35,10 @@
         <item name="android:background">@drawable/rounded_dialog</item>
     </style>
 
+
+    <style name="checkBoxStyle" parent="Base.Theme.AppCompat">
+        <item name="colorAccent">#E91E63</item>
+    </style>
     
 
 </resources>
