@@ -13,8 +13,8 @@ android {
         applicationId "com.aper_lab.grocery"
         minSdkVersion 24
         targetSdkVersion 29
-        versionCode 6
-        versionName "v0.0.1-alpha08"
+        versionCode 7
+        versionName "v0.0.1-alpha09"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
