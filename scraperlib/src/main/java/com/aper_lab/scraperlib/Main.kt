@@ -6,7 +6,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
 
-fun main(args: Array<String>) = runBlocking{
+fun main() = runBlocking{
 
     val sites = listOf<String>(
         //"https://www.allrecipes.com/recipe/83557/juicy-roasted-chicken/",

@@ -92,7 +92,7 @@ object RecipeAPIService {
                 result.id = HashUtils.md5(rec.name);
                 result.version = Data.DATA_VERSION;
 
-                dataStore.updateRecipe(result);
+                //dataStore.updateRecipe(result);
             }
         }
         return result;
