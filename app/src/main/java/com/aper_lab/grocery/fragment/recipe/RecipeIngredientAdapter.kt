@@ -10,7 +10,7 @@ import com.aper_lab.scraperlib.data.Ingredient
 
 //TODO(Diff Utils)
 
-class RecipeIngredientAdapter: RecyclerView.Adapter<RecipeIngredientAdapter.ViewHolder>() {
+class RecipeIngredientAdapter(val listener:IngredientClickListener): RecyclerView.Adapter<RecipeIngredientAdapter.ViewHolder>() {
 
     var data = listOf<Ingredient>()
         set(value) {
@@ -30,13 +30,19 @@ class RecipeIngredientAdapter: RecyclerView.Adapter<RecipeIngredientAdapter.View
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(data[position])
+        holder.bind(data[position], listener)
     }
 
     class ViewHolder(val binding: ListItemIngredientBinding): RecyclerView.ViewHolder(binding.root){
 
-        fun bind(ingredient: Ingredient){
+        fun bind(ingredient: Ingredient, listener: IngredientClickListener){
             binding.ingredient = ingredient;
+            binding.listener = listener;
+/*
+            binding.root.setOnClickListener {
+                listener.ingredientClicked(ingredient);
+            }
+ */
             binding.executePendingBindings();
         }
 
@@ -44,11 +50,8 @@ class RecipeIngredientAdapter: RecyclerView.Adapter<RecipeIngredientAdapter.View
             fun from(parent: ViewGroup): ViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context);
 
-                //val view = layoutInflater.inflate(R.layout.list_item_ingredient, parent);
-
                 var binding : ListItemIngredientBinding = DataBindingUtil.inflate(layoutInflater,R.layout.list_item_ingredient, parent,false);
 
-                //val binding = ListItemIngredientBinding.inflate(layoutInflater);
                 return ViewHolder(
                     binding
                 );
@@ -56,4 +59,8 @@ class RecipeIngredientAdapter: RecyclerView.Adapter<RecipeIngredientAdapter.View
         }
     }
 
+
+    interface IngredientClickListener{
+        fun onIngredientClicked(ingredient: Ingredient);
+    }
 }

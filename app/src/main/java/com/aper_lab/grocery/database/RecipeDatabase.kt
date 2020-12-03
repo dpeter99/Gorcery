@@ -1,11 +1,12 @@
 package com.aper_lab.grocery.database
 
 import android.util.Log
+import androidx.lifecycle.LiveData
 import com.aper_lab.grocery.User
-import com.aper_lab.grocery.model.Recipe
-import com.aper_lab.grocery.model.UserRecipe
-import com.aper_lab.grocery.model.UserRecipeData
-import com.aper_lab.grocery.model.toDomainModel
+import com.aper_lab.grocery.liveData.LiveShoppingList
+import com.aper_lab.grocery.model.*
+import com.aper_lab.grocery.util.livedata
+import com.aper_lab.grocery.util.singleLivedata
 import com.aper_lab.scraperlib.api.DatabaseConnection
 import com.aper_lab.scraperlib.api.IHasID
 import com.google.android.gms.tasks.Tasks.await
@@ -89,7 +90,7 @@ object RecipeDatabase {
     }
 
 
-    suspend fun getUserDiscoverrecipes():List<UserRecipe>{
+    suspend fun getUserDiscoverRecipes():List<UserRecipe>{
         val source = "ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789"
         val rand = java.util.Random().ints(15, 0, source.length-1)
             .toArray()
@@ -153,6 +154,32 @@ object RecipeDatabase {
 
     fun removeUserRecipeData(rec:Recipe, data: UserRecipeData){
         recipes.document(rec.GetID()).collection("/owners").document(data.userID).delete();
+    }
+
+
+    /*
+        Shopping List
+     */
+    fun getShoppingList(): LiveShoppingList{
+        var querry = db.collection("shoppingLists").whereEqualTo("owner", user_id).limit(1)
+        GlobalScope.async {
+            //var res = querry.get().await();
+            //Log.e("ShoppingList",res.documents[0].id);
+        }
+
+        return LiveShoppingList(querry)//.singleLivedata(ShoppingList::class.java)
+    }
+
+    fun addShoppingList(list:ShoppingList){
+        db.collection("shoppingLists").add(list);
+    }
+
+    fun updateShoppingList(list:LiveShoppingList){
+        list.value?.let {
+            it.id?.let { id ->
+                db.collection("shoppingLists").document(id).set(it);
+            }
+        }
     }
 
     private fun checkUserID() {

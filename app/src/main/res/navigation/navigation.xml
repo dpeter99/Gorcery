@@ -56,6 +56,9 @@
         <action
             android:id="@+id/action_discover_recipes_to_recepie"
             app:destination="@id/recepie" />
+        <action
+            android:id="@+id/action_discover_recipes_to_shoppingList"
+            app:destination="@id/shoppingList" />
     </fragment>
     <fragment
         android:id="@+id/userProfile"
@@ -71,5 +74,19 @@
         <argument android:name="recipe_id"
             app:argType="string" />
     </fragment>
+    <fragment
+        android:id="@+id/shoppingList"
+        android:name="com.aper_lab.grocery.fragment.shoppingList.ShoppingListView"
+        android:label="fragment_shopping_list"
+        tools:layout="@layout/fragment_shopping_list" >
+        <action
+            android:id="@+id/action_shoppingList_to_addNewShoppingItem"
+            app:destination="@id/addNewShoppingItem" />
+    </fragment>
+    <fragment
+        android:id="@+id/addNewShoppingItem"
+        android:name="com.aper_lab.grocery.fragment.shoppingList.AddNewShoppingItem"
+        android:label="fragment_add_new_shopping_item"
+        tools:layout="@layout/fragment_add_new_shopping_item" />
 
 </navigation>

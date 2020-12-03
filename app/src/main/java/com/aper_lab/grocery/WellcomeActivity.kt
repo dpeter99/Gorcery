@@ -99,7 +99,7 @@ class WellcomeActivity : AppCompatActivity() {
                 // sign-in flow using the back button. Otherwise check
                 // response.getError().getErrorCode() and handle the error.
                 // ...
-                Toast.makeText(this,"failled!",Toast.LENGTH_SHORT).show();
+                Toast.makeText(this,"Login Failed!",Toast.LENGTH_SHORT).show();
                 setResult(1, intent);
                 finish();
             }

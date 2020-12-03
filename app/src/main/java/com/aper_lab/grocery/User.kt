@@ -171,7 +171,7 @@ class User(id: String) {
 
 
     suspend fun getDiscoverRecipes():List<UserRecipe>{
-        return RecipeDatabase.getUserDiscoverrecipes();
+        return RecipeDatabase.getUserDiscoverRecipes();
     }
 
     companion object {

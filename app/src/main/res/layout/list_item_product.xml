@@ -5,11 +5,11 @@
 
     <data>
         <variable
-            name="ingredient"
-            type="com.aper_lab.scraperlib.data.Ingredient" />
+            name="product"
+            type="com.aper_lab.grocery.model.ShoppingItem" />
         <variable
-            name="listener"
-            type="com.aper_lab.grocery.fragment.recipe.RecipeIngredientAdapter.IngredientClickListener" />
+            name="clickListener"
+            type="com.aper_lab.grocery.fragment.shoppingList.ShoppingListAdapter.ShoppingListListener" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -17,7 +17,7 @@
         android:layout_height="wrap_content"
         android:paddingTop="8dp"
         android:paddingBottom="8dp"
-        android:onClick="@{()->listener.onIngredientClicked(ingredient)}">
+        android:onClick="@{() -> clickListener.onShoppingItemClick(product)}">
 
         <ImageView
             android:id="@+id/imageView"
@@ -34,7 +34,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:text="@{ingredient.name}"
+            android:text="@{product.name}"
+            android:textAllCaps="false"
             android:textColor="@color/textColor"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -48,10 +49,22 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
-            android:text="@{ingredient.amount}"
+            android:text="@{ Float.toString(product.amount)}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="10kg" />
+
+        <ImageView
+            android:id="@+id/strikethrough"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/ingredient_amount"
+            app:layout_constraintStart_toEndOf="@+id/imageView"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ge_strikethrough" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -54,8 +54,6 @@ class MainActivity : AppCompatActivity(), IFABProvider {
         FirebaseAuth.getInstance().addAuthStateListener {
             val user = it.currentUser
             //checkSignedIn(user);
-
-
         }
 
         when {

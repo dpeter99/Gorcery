@@ -20,8 +20,12 @@ import com.aper_lab.grocery.FABFragment
 import com.aper_lab.grocery.FABParameters
 import com.aper_lab.grocery.IFABProvider
 import com.aper_lab.grocery.R
+import com.aper_lab.grocery.database.RecipeDatabase
 import com.aper_lab.grocery.databinding.FragmentRecepieBinding
 import com.aper_lab.grocery.fragment.recipe.recipeMenu.RecipeMenuFragment
+import com.aper_lab.grocery.model.ShoppingItem
+import com.aper_lab.grocery.model.ShoppingList
+import com.aper_lab.grocery.viewModel.ShoppingListViewModel
 import com.aper_lab.scraperlib.data.Ingredient
 import com.aper_lab.scraperlib.data.RecipeStep
 import com.firebase.ui.auth.AuthUI.getApplicationContext
@@ -33,7 +37,7 @@ import com.google.firebase.crashlytics.FirebaseCrashlytics
 /**
  * A simple [Fragment] subclass.
  */
-class RecipeFragment : FABFragment() {
+class RecipeFragment : FABFragment(), RecipeIngredientAdapter.IngredientClickListener {
 
     private lateinit var viewModel: RecipeViewModel;
     private lateinit var viewModelFactory: RecipeViewModelFactory;
@@ -63,8 +67,7 @@ class RecipeFragment : FABFragment() {
             requireArguments()
         ).recipeID
 
-        adapter_ingredients =
-            RecipeIngredientAdapter();
+        adapter_ingredients = RecipeIngredientAdapter(this);
         binding.ingredientList.adapter = adapter_ingredients;
 
         adapter_steps =
@@ -168,5 +171,23 @@ class RecipeFragment : FABFragment() {
     override fun onFABClicked() {
         viewModel.addRecipeToCollection();
         Toast.makeText(this.context,"Successfully added recipe",Toast.LENGTH_LONG).show();
+    }
+
+    override fun onIngredientClicked(ingredient: Ingredient) {
+        val shoppingListViewModel = ViewModelProvider(this).get(ShoppingListViewModel::class.java);
+
+/*
+        shoppingListViewModel.shoppingList.firstUpdate.observe(viewLifecycleOwner, {
+            val item = ShoppingItem(ingredient.name);
+
+            shoppingListViewModel.AddShoppingListItem(item);
+        });
+
+ */
+        shoppingListViewModel.shoppingList.runWhenLoaded {
+            val item = ShoppingItem(ingredient.name);
+
+            shoppingListViewModel.AddShoppingListItem(item);
+        }
     }
 }
