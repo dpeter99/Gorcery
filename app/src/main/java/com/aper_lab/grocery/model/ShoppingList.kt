@@ -1,9 +1,11 @@
 package com.aper_lab.grocery.model
 
 import com.aper_lab.grocery.User
+import com.google.firebase.encoders.annotations.Encodable
 import com.google.firebase.firestore.DocumentId
 import com.google.firebase.firestore.IgnoreExtraProperties
 
+@IgnoreExtraProperties
 data class ShoppingList(
 
     @DocumentId
@@ -12,6 +14,7 @@ data class ShoppingList(
 
     var items: MutableList<ShoppingItem> = mutableListOf()
 ) {
+
 
     val hasCheckedItems: Boolean
         get() {

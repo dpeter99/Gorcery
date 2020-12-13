@@ -9,13 +9,15 @@ import androidx.fragment.app.setFragmentResultListener
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
-import com.aper_lab.grocery.util.FABUtils.FABFragment
-import com.aper_lab.grocery.util.FABUtils.FABParameters
+import androidx.recyclerview.widget.ItemTouchHelper
 import com.aper_lab.grocery.R
 import com.aper_lab.grocery.databinding.FragmentShoppingListBinding
 import com.aper_lab.grocery.model.ShoppingItem
+import com.aper_lab.grocery.util.FABUtils.FABFragment
+import com.aper_lab.grocery.util.FABUtils.FABParameters
 import com.aper_lab.grocery.viewModel.ShoppingListViewModel
 import com.google.android.material.bottomappbar.BottomAppBar
+
 
 class ShoppingListView : FABFragment(), ShoppingListAdapter.ShoppingListListener {
 
@@ -35,6 +37,10 @@ class ShoppingListView : FABFragment(), ShoppingListAdapter.ShoppingListListener
         binding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_shopping_list, container, false)
         binding.lifecycleOwner = this;
+
+        binding.deleteAllChecked.setOnClickListener {
+            viewModel.removeAllChecked()
+        }
 
         fabParameters = FABParameters(
             BottomAppBar.FAB_ALIGNMENT_MODE_END,
@@ -83,12 +89,18 @@ class ShoppingListView : FABFragment(), ShoppingListAdapter.ShoppingListListener
 
             val checked = it.items.any { it -> it.checked }
             if (checked) {
-                binding.checkedItemsText.visibility = View.VISIBLE
+                binding.checkedItemsHeader.visibility = View.VISIBLE
             } else {
-                binding.checkedItemsText.visibility = View.INVISIBLE
+                binding.checkedItemsHeader.visibility = View.INVISIBLE
             }
 
         })
+
+
+        val simpleItemTouchCallback = SwipeHelper<ShoppingItem>(viewModel, binding.shoppingListChecked, this.requireContext());
+
+        val mItemTouchHelper = ItemTouchHelper(simpleItemTouchCallback)
+        mItemTouchHelper.attachToRecyclerView(binding.shoppingListChecked)
     }
 
     override fun onShoppingItemClick(recipe: ShoppingItem) {

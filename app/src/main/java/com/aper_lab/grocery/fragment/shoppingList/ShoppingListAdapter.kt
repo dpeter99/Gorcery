@@ -1,14 +1,22 @@
 package com.aper_lab.grocery.fragment.shoppingList
 
-import android.graphics.Paint
+import android.graphics.Color
+import android.graphics.PorterDuff
 import android.graphics.Typeface
+import android.graphics.drawable.ColorDrawable
+import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
+import com.aper_lab.grocery.R
 import com.aper_lab.grocery.databinding.ListItemProductBinding
 import com.aper_lab.grocery.model.ShoppingItem
 import com.aper_lab.grocery.model.ShoppingList
+
 
 class ShoppingListAdapter(val clickListener: ShoppingListListener, val checked: Boolean) : RecyclerView.Adapter<ShoppingListAdapter.ViewHolder>() {
 
@@ -31,9 +39,12 @@ class ShoppingListAdapter(val clickListener: ShoppingListListener, val checked: 
         return data?.items?.count { item -> item.checked == checked } ?: 0
     }
 
-    class ViewHolder(val binding: ListItemProductBinding) : RecyclerView.ViewHolder(binding.root) {
+    class ViewHolder(val binding: ListItemProductBinding) : RecyclerView.ViewHolder(binding.root), SwipeHelper.ItemProvider<ShoppingItem> {
+
+        var data: ShoppingItem?  = null;
 
         fun bind(item: ShoppingItem, itemCount: Int, clickListener: ShoppingListListener) {
+            data = item;
             binding.product = item;
             //binding.ingredientAmount.text = itemCount.toString();
             binding.clickListener = clickListener;
@@ -48,7 +59,12 @@ class ShoppingListAdapter(val clickListener: ShoppingListListener, val checked: 
                 binding.ingredientName.setTypeface(null, Typeface.NORMAL);
             }
 
+
             binding.executePendingBindings();
+        }
+
+        override fun getBoundItem(): ShoppingItem? {
+            return data;
         }
 
         companion object {
@@ -65,6 +81,8 @@ class ShoppingListAdapter(val clickListener: ShoppingListListener, val checked: 
                 return ViewHolder(binding);
             }
         }
+
+
 
     }
 
