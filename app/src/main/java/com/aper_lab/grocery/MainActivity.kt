@@ -4,57 +4,52 @@ package com.aper_lab.grocery
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.View
-import android.widget.Toast
-import androidx.annotation.MenuRes
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
-import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import com.aper_lab.grocery.database.RecipeDatabase
 import com.aper_lab.grocery.database.ScrapperDatabaseInterface
-import com.aper_lab.grocery.fragment.addrecipe.AddRecipeFragmentDirections
+import com.aper_lab.grocery.databinding.ActivityMainBinding
+import com.aper_lab.grocery.util.FABUtils.FABParameters
+import com.aper_lab.grocery.util.FABUtils.FABProvider
+import com.aper_lab.grocery.util.FABUtils.IHasFAB
 import com.aper_lab.scraperlib.RecipeAPIService
-import com.firebase.ui.auth.AuthUI
 import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.navigation.NavigationView
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
-import kotlinx.android.synthetic.main.activity_main.*
 
 
-class MainActivity : AppCompatActivity(), IFABProvider {
+class MainActivity : FABProvider() {
+
+    private lateinit var binding: ActivityMainBinding;
 
     lateinit var navController : NavController;
-
     lateinit var  appBarConfiguration : AppBarConfiguration;
-
     lateinit var drawerLayout: DrawerLayout;
-
     var fabContext : IHasFAB? = null;
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+
+        binding = ActivityMainBinding.inflate(layoutInflater)
+
+        setContentView(binding.root)
 
         RecipeAPIService.initApi(ScrapperDatabaseInterface);
         setupNavBar()
 
-        val user = FirebaseAuth.getInstance().currentUser
+        /*
+        //val user = FirebaseAuth.getInstance().currentUser
         //checkSignedIn(user);
         FirebaseAuth.getInstance().addAuthStateListener {
-            val user = it.currentUser
+            //val user = it.currentUser
             //checkSignedIn(user);
         }
+         */
 
         when {
             intent?.action == Intent.ACTION_SEND -> {
@@ -68,11 +63,11 @@ class MainActivity : AppCompatActivity(), IFABProvider {
         }
 
         navController.addOnDestinationChangedListener { controller, destination, arguments ->
-            bottom_bar?.performShow();
+            binding.bottomBar.performShow();
         }
     }
 
-    public fun openCloseNavigationDrawer() {
+    fun openCloseNavigationDrawer() {
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
             drawerLayout.closeDrawer(GravityCompat.START)
         } else {
@@ -107,9 +102,11 @@ class MainActivity : AppCompatActivity(), IFABProvider {
         navController = findNavController(R.id.myNavHostFragment);
         setupNavigationMenu(navController);
 
-        fab.setOnClickListener {
+        binding.fab.setOnClickListener {
             fabContext?.onFABClicked();
         }
+
+
     }
 
     private fun setupNavigationMenu(navController: NavController) {
@@ -136,19 +133,21 @@ class MainActivity : AppCompatActivity(), IFABProvider {
 
 
     override fun setFABProperties(props: FABParameters?) {
+
         if(props == null){
-            fab?.hide();
+            binding.fab.hide();
         }
         else {
-
-
-            fab?.show();
-            fab?.setImageResource(props.icon);
-            bottom_bar?.fabAlignmentMode = props.position;
+            binding?.let {
+                binding.fab.show();
+                binding.fab.setImageResource(props.icon);
+                binding.bottomBar.fabAlignmentMode = props.position;
+            }
         }
+
     }
 
-    override fun setFABListener(a: IHasFAB) {
+    override fun setFABListener(a: IHasFAB?) {
         fabContext = a;
     }
 

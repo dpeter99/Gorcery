@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/recipe_list"
-        android:name="com.aper_lab.grocery.fragment.recipeList.RecipeList"
+        android:name="com.aper_lab.grocery.fragment.recipeList.RecipeListFragment"
         android:label="My recipes">
         <action
             android:id="@+id/action_recipeList_to_recepie"
@@ -17,6 +17,10 @@
         <action
             android:id="@+id/action_recipeList_to_addRecipeFragment"
             app:destination="@id/addRecipeFragment" />
+        <argument
+            android:name="tag_filter"
+            app:argType="string"
+            app:nullable="true" />
     </fragment>
     <fragment
         android:id="@+id/recepie"
@@ -29,6 +33,9 @@
         <action
             android:id="@+id/action_recepie_to_cookingView"
             app:destination="@id/cookingView" />
+        <action
+            android:id="@+id/action_recepie_to_recipeTagMenuView"
+            app:destination="@id/recipeTags" />
     </fragment>
     <fragment
         android:id="@+id/addRecipeFragment"
@@ -58,7 +65,11 @@
             app:destination="@id/recepie" />
         <action
             android:id="@+id/action_discover_recipes_to_shoppingList"
-            app:destination="@id/shoppingList" />
+            app:destination="@id/shoppingList"
+            app:launchSingleTop="true" />
+        <action
+            android:id="@+id/action_discover_recipes_to_userTags"
+            app:destination="@id/userTags" />
     </fragment>
     <fragment
         android:id="@+id/userProfile"
@@ -88,5 +99,34 @@
         android:name="com.aper_lab.grocery.fragment.shoppingList.AddNewShoppingItem"
         android:label="fragment_add_new_shopping_item"
         tools:layout="@layout/fragment_add_new_shopping_item" />
+    <fragment
+        android:id="@+id/recipeTags"
+        android:name="com.aper_lab.grocery.fragment.recipe.recipeTagMenu.RecipeTagMenuView"
+        android:label="fragment_recipe_tag_menu"
+        tools:layout="@layout/fragment_recipe_tag_menu" >
+        <argument
+            android:name="recipeID"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/userTags"
+        android:name="com.aper_lab.grocery.fragment.tags.UserTagsFragment"
+        android:label="fragment_user_tags"
+        tools:layout="@layout/fragment_user_tags" >
+        <action
+            android:id="@+id/action_userTags_to_recipe_list"
+            app:destination="@id/recipe_list" >
+            <argument
+                android:name="tag_filter" />
+        </action>
+        <action
+            android:id="@+id/action_userTags_to_addTagFragment"
+            app:destination="@id/addTagFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addTagFragment"
+        android:name="com.aper_lab.grocery.fragment.tags.addTag.AddTagFragment"
+        android:label="fragment_add_tag"
+        tools:layout="@layout/fragment_add_tag" />
 
 </navigation>

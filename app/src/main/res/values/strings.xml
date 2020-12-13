@@ -22,4 +22,6 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="checked_items">Checked Items</string>
+    <string name="recipe_image_description">Recipe Image</string>
+    <string name="tags">Tags</string>
 </resources>

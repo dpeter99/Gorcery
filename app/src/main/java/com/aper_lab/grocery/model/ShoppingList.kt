@@ -13,9 +13,6 @@ data class ShoppingList(
     var items: MutableList<ShoppingItem> = mutableListOf()
 ) {
 
-    //val owner: String get() = user?.user_id ?:""
-
-    //@IgnoreExtraProperties
     val hasCheckedItems: Boolean
         get() {
             return items.any { it -> it.checked };

@@ -30,4 +30,10 @@
         android:icon="@drawable/ic_account_circle_24dp"
         android:title="@string/profile"
         app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/userTags"
+        android:icon="@drawable/ic_label_multiple"
+        android:title="@string/tags"
+        app:showAsAction="ifRoom" />
 </menu>

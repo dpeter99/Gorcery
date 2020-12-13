@@ -14,7 +14,7 @@ import com.firebase.ui.auth.IdpResponse
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.auth.ActionCodeSettings
 import com.google.firebase.auth.FirebaseAuth
-import kotlinx.android.synthetic.main.activity_wellcome.*
+//import kotlinx.android.synthetic.main.activity_wellcome.*
 
 class WellcomeActivity : AppCompatActivity() {
 
@@ -27,10 +27,9 @@ class WellcomeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding = DataBindingUtil.setContentView(
-            this, R.layout.activity_wellcome)
+        binding = ActivityWellcomeBinding.inflate(layoutInflater);
 
-        g_sign_in.setOnClickListener {
+        binding.gSignIn.setOnClickListener {
             signIn();
         }
 
@@ -90,9 +89,6 @@ class WellcomeActivity : AppCompatActivity() {
                     i.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
                     startActivity(i);
                 }
-
-
-
                 // ...
             } else {
                 // Sign in failed. If response is null the user canceled the

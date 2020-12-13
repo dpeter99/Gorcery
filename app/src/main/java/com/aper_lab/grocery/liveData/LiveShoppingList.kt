@@ -26,7 +26,6 @@ class LiveShoppingList(private val query: Query) : QuerySingleLiveMutableDataNat
         else{
             this.firstUpdate.observeForever(a);
         }
-
     }
 
 }

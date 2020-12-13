@@ -26,7 +26,7 @@ class User(id: String) {
     val recipes: LiveData<Map<String, UserRecipe>>
         get() = _recipes;
 
-    public lateinit var profilePic: String;
+    var profilePic: String;
 
     init {
         User.instance = this;

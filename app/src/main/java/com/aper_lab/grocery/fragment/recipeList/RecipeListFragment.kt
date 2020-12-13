@@ -4,12 +4,13 @@ import android.os.Bundle
 import android.view.*
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
-import com.aper_lab.grocery.FABFragment
-import com.aper_lab.grocery.FABParameters
-import com.aper_lab.grocery.IFABProvider
+import androidx.navigation.fragment.navArgs
+import com.aper_lab.grocery.util.FABUtils.FABFragment
+import com.aper_lab.grocery.util.FABUtils.FABParameters
 import com.aper_lab.grocery.R
 import com.aper_lab.grocery.databinding.FragmentRecipeListBinding
 import com.aper_lab.grocery.model.UserRecipe
@@ -22,11 +23,12 @@ import java.lang.Exception
  * A [Fragment] that is responsible for displaying the list of recipes hte user has.
  * It uses the [RecipeListViewModel] to display the list
  */
-class RecipeList : FABFragment() {
+class RecipeListFragment : FABFragment() {
 
-    private lateinit var viewModel: RecipeListViewModel;
+    private val args: RecipeListFragmentArgs by navArgs();
 
-    private lateinit var fab: IFABProvider;
+    private val viewModel: RecipeListViewModel by viewModels(factoryProducer = {RecipeListViewModel.provideFactory(args.tagFilter)});
+
 
     private lateinit var recipeAdapter: RecipeListAdapter;
 
@@ -59,23 +61,24 @@ class RecipeList : FABFragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this,
-            RecipeListViewModelFactory()
-        ).get(RecipeListViewModel::class.java);
+        //viewModel = ViewModelProvider(this, RecipeListViewModelFactory()).get(RecipeListViewModel::class.java);
         binding.viewModel = viewModel;
 
         // recipe list changes
         viewModel.recipes.observe(this.viewLifecycleOwner,Observer { recipe ->
             // Update the UI, in this case, a TextView.
-            recipeAdapter.data = recipe?: mutableMapOf();
+            recipeAdapter.data = recipe;
         })
-        recipeAdapter.data = viewModel.recipes.value?: mutableMapOf<String,UserRecipe>();
+        viewModel.recipes.value?.let {
+            recipeAdapter.data = it;
+        }
+
 
         viewModel._recipeNav.observe(this.viewLifecycleOwner,Observer<String> { recipe ->
             try {
                 view?.findNavController()
                         ?.navigate(
-                            RecipeListDirections.actionRecipeListToRecepie(
+                            RecipeListFragmentDirections.actionRecipeListToRecepie(
                                 recipe
                             )
                         )
@@ -91,6 +94,6 @@ class RecipeList : FABFragment() {
     }
 
     override fun onFABClicked() {
-        view?.findNavController()?.navigate(RecipeListDirections.actionRecipeListToAddRecipeFragment(""))
+        view?.findNavController()?.navigate(RecipeListFragmentDirections.actionRecipeListToAddRecipeFragment(""))
     }
 }

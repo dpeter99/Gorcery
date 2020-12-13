@@ -1,7 +1,6 @@
 package com.aper_lab.grocery.fragment.shoppingList
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,11 +8,9 @@ import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import com.aper_lab.grocery.R
 import androidx.fragment.app.setFragmentResult
-import com.aper_lab.grocery.FABFragment
-import com.aper_lab.grocery.FABParameters
+import com.aper_lab.grocery.util.FABUtils.FABFragment
+import com.aper_lab.grocery.util.FABUtils.FABParameters
 import com.aper_lab.grocery.databinding.FragmentAddNewShoppingItemBinding
-import com.aper_lab.grocery.databinding.FragmentShoppingListBinding
-import com.aper_lab.grocery.model.ShoppingItem
 import com.google.android.material.bottomappbar.BottomAppBar
 
 class AddNewShoppingItem : FABFragment() {

@@ -9,11 +9,10 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
-import com.aper_lab.grocery.FABFragment
+import com.aper_lab.grocery.util.FABUtils.FABFragment
 import com.aper_lab.grocery.MainActivity
 import com.aper_lab.grocery.R
 import com.aper_lab.grocery.databinding.FragmentDiscoverRecipesBinding
-import com.aper_lab.grocery.fragment.recipeList.RecipeListDirections
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 

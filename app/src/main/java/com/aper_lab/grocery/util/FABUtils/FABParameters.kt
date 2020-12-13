@@ -1,4 +1,4 @@
-package com.aper_lab.grocery
+package com.aper_lab.grocery.util.FABUtils
 
 import androidx.annotation.DrawableRes
 import com.google.android.material.bottomappbar.BottomAppBar

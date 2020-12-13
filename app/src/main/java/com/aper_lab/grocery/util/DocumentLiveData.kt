@@ -36,3 +36,30 @@ private class DocumentLiveDataNative<T>(private val documentReference: DocumentR
         listener = null
     }
 }
+
+open class DocumentLiveData<T>(private val documentReference: DocumentReference,
+                                        private val clazz: Class<T>) : LiveData<T>() {
+
+    private var listener: ListenerRegistration? = null
+
+    override fun onActive() {
+        super.onActive()
+
+        listener = documentReference.addSnapshotListener { documentSnapshot, exception ->
+            if (exception == null) {
+                documentSnapshot?.let {
+                    value = it.toObject(clazz)
+                }
+            } else {
+                Log.e("FireStoreLiveData", "", exception)
+            }
+        }
+    }
+
+    override fun onInactive() {
+        super.onInactive()
+
+        listener?.remove()
+        listener = null
+    }
+}

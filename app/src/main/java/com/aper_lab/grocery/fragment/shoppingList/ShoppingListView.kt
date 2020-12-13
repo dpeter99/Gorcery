@@ -9,8 +9,8 @@ import androidx.fragment.app.setFragmentResultListener
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
-import com.aper_lab.grocery.FABFragment
-import com.aper_lab.grocery.FABParameters
+import com.aper_lab.grocery.util.FABUtils.FABFragment
+import com.aper_lab.grocery.util.FABUtils.FABParameters
 import com.aper_lab.grocery.R
 import com.aper_lab.grocery.databinding.FragmentShoppingListBinding
 import com.aper_lab.grocery.model.ShoppingItem

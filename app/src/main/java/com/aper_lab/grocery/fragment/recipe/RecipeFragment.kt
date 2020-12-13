@@ -10,25 +10,21 @@ import android.widget.CompoundButton
 import android.widget.Toast
 import android.widget.ToggleButton
 import androidx.cardview.widget.CardView
-import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.aper_lab.grocery.FABFragment
-import com.aper_lab.grocery.FABParameters
-import com.aper_lab.grocery.IFABProvider
+import com.aper_lab.grocery.util.FABUtils.FABFragment
+import com.aper_lab.grocery.util.FABUtils.FABParameters
+import com.aper_lab.grocery.util.FABUtils.FABProvider
 import com.aper_lab.grocery.R
-import com.aper_lab.grocery.database.RecipeDatabase
 import com.aper_lab.grocery.databinding.FragmentRecepieBinding
 import com.aper_lab.grocery.fragment.recipe.recipeMenu.RecipeMenuFragment
 import com.aper_lab.grocery.model.ShoppingItem
-import com.aper_lab.grocery.model.ShoppingList
 import com.aper_lab.grocery.viewModel.ShoppingListViewModel
 import com.aper_lab.scraperlib.data.Ingredient
 import com.aper_lab.scraperlib.data.RecipeStep
-import com.firebase.ui.auth.AuthUI.getApplicationContext
 import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.firebase.crashlytics.FirebaseCrashlytics
@@ -97,6 +93,11 @@ class RecipeFragment : FABFragment(), RecipeIngredientAdapter.IngredientClickLis
             viewModel.setRecipeFavorite(isChecked);
         })
 
+        binding.tagsButton.setOnClickListener {
+            val navController = findNavController()
+            navController.navigate(RecipeFragmentDirections.actionRecepieToRecipeTagMenuView(recipeID))
+        }
+
         return binding.root
     }
 
@@ -162,7 +163,7 @@ class RecipeFragment : FABFragment(), RecipeIngredientAdapter.IngredientClickLis
     override fun onAttach(context: Context) {
         super.onAttach(context)
 
-        if (context is IFABProvider) {
+        if (context is FABProvider) {
             context.setFABProperties(null);
             context.setFABListener(this);
         }
@@ -176,14 +177,6 @@ class RecipeFragment : FABFragment(), RecipeIngredientAdapter.IngredientClickLis
     override fun onIngredientClicked(ingredient: Ingredient) {
         val shoppingListViewModel = ViewModelProvider(this).get(ShoppingListViewModel::class.java);
 
-/*
-        shoppingListViewModel.shoppingList.firstUpdate.observe(viewLifecycleOwner, {
-            val item = ShoppingItem(ingredient.name);
-
-            shoppingListViewModel.AddShoppingListItem(item);
-        });
-
- */
         shoppingListViewModel.shoppingList.runWhenLoaded {
             val item = ShoppingItem(ingredient.name);
 

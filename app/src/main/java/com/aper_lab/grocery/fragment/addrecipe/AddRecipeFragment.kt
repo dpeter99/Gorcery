@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.widget.doOnTextChanged
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
@@ -12,12 +11,9 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.aper_lab.grocery.*
 import com.aper_lab.grocery.databinding.FragmentAddRecipeBinding
-import com.aper_lab.scraperlib.RecipeAPIService
-import com.aper_lab.scraperlib.RecipeAPIService.scope
+import com.aper_lab.grocery.util.FABUtils.FABFragment
+import com.aper_lab.grocery.util.FABUtils.FABParameters
 import com.google.android.material.bottomappbar.BottomAppBar
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.recipe_import_preview.*
-import kotlinx.coroutines.launch
 
 
 class AddRecipeFragment : FABFragment() {

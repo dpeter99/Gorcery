@@ -19,7 +19,7 @@ open class Recipe: com.aper_lab.scraperlib.data.Recipe() {
 
 }
 
-class UserRecipe(var recipe: Recipe, var userData: UserRecipeData?) {
+data class UserRecipe(var recipe: Recipe, var userData: UserRecipeData?) {
 
 }
 

@@ -9,9 +9,6 @@
             type="com.aper_lab.grocery.fragment.recipe.RecipeViewModel" />
     </data>
 
-
-
-
     <androidx.core.widget.NestedScrollView
         android:id="@+id/scroll_view"
         android:layout_width="match_parent"
@@ -26,13 +23,15 @@
                 android:id="@+id/imageView4"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:contentDescription="@string/dummy_recipe_name"
+                android:contentDescription="@string/recipe_image_description"
                 android:scaleType="centerCrop"
                 app:imageUrl="@{viewModel.recipe.recipe.image}"
                 app:layout_constraintBottom_toTopOf="@+id/guideline"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="1.0"
                 tools:srcCompat="@drawable/recipe_creamy_chicken_and_mushroom_pasta1" />
 
             <androidx.constraintlayout.widget.Guideline
@@ -268,6 +267,16 @@
                 android:checked="@{viewModel.recipe.userData.favorite}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/tags_button"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintBottom_toBottomOf="@+id/fav_checkbox"
+                app:layout_constraintEnd_toStartOf="@+id/fav_checkbox"
+                app:layout_constraintTop_toTopOf="@+id/fav_checkbox"
+                app:srcCompat="@drawable/ic_label_multiple" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

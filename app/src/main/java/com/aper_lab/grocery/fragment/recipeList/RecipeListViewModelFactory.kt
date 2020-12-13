@@ -10,7 +10,7 @@ class RecipeListViewModelFactory: ViewModelProvider.Factory {
         if (modelClass.isAssignableFrom(RecipeListViewModel::class.java)) {
 
             return RecipeListViewModel(
-                User.getInstance()
+
             ) as T
 
         }

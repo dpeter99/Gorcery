@@ -1,26 +1,22 @@
 package com.aper_lab.grocery.fragment.recipeList
 
-import androidx.arch.core.util.Function
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
-import androidx.lifecycle.ViewModel
-import com.aper_lab.grocery.User
-import com.aper_lab.grocery.model.UserRecipe
+import androidx.lifecycle.*
+import com.aper_lab.grocery.liveData.LiveUserRecipeList
 import com.aper_lab.grocery.util.SingleLiveEvent
-import com.aper_lab.scraperlib.data.Recipe
+import com.aper_lab.grocery.UserData
+import com.aper_lab.grocery.database.RecipeDatabase
 
 
-class RecipeListViewModel(user: User): ViewModel() {
+class RecipeListViewModel(var tag:String? = ""): ViewModel() {
 
     //var recipes = mutableMapOf<String,Recipe>()
     //val recipesLiveData :MutableLiveData<MutableMap<String,Recipe>> = MutableLiveData(mutableMapOf());
 
-    private val _recipes = MutableLiveData<Map<String,Recipe>>();
-    val recipes : LiveData<Map<String,UserRecipe>>
+    //private val _recipes = MutableLiveData<Map<String,Recipe>>();
+    val recipes : LiveUserRecipeList
         get() = repo;
 
-    var repo: LiveData<Map<String,UserRecipe>> = User.getInstance().recipes;
+    var repo: LiveUserRecipeList = UserData.instance.recipes;
 
     var recipesCount : MutableLiveData<String> = MutableLiveData("")
 
@@ -58,12 +54,30 @@ class RecipeListViewModel(user: User): ViewModel() {
         }
          */
 
+        if(tag.isNullOrBlank()){
+            repo = UserData.instance.recipes;
+        }
+        else{
+            val t = UserData.instance.user.value?.tags?.find { it.name == tag }
+            t?.let {
+            repo = RecipeDatabase.getRecipesInTag(it)
+            };
+        }
     }
 
     fun recipeClicked(id: String){
         _recipeNav.value = id;
     }
 
-    class RecipePreview(val name:String){
+
+    companion object {
+        fun provideFactory(tag: String?): ViewModelProvider.Factory =
+            object : ViewModelProvider.Factory {
+                @Suppress("UNCHECKED_CAST")
+                override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+                    //return assistedFactory.create(recipeID) as T
+                    return RecipeListViewModel(tag) as T
+                }
+            }
     }
 }

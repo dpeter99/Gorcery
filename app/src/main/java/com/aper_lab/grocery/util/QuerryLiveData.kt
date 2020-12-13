@@ -5,17 +5,16 @@ import androidx.lifecycle.*
 import com.google.firebase.firestore.*
 
 fun <T> Query.livedata(clazz: Class<T>): LiveData<List<T>> {
-    return QueryLiveDataNative(this, clazz)
+    return QueryLiveDataListNative(this, clazz)
 }
 
 fun <T> Query.singleLivedata(clazz: Class<T>): LiveData<T> {
     return QuerySingleLiveMutableDataNative(this, clazz)
 }
 
-private class QueryLiveDataNative<T>(
-    private val query: Query,
-    private val clazz: Class<T>
-) : LiveData<List<T>>() {
+public abstract class QueryLiveData<T>(
+    private val query: Query
+) : LiveData<T>() {
 
     private var listener: ListenerRegistration? = null
 
@@ -24,7 +23,7 @@ private class QueryLiveDataNative<T>(
 
         listener = query.addSnapshotListener { querySnapshot, exception ->
             if (exception == null) {
-                value = querySnapshot?.documents?.map { it.toObject(clazz)!! }
+                value = querySnapshot?.let { parseSnapshot(it) }
             } else {
                 Log.e("FireStoreLiveData", "", exception)
             }
@@ -37,6 +36,45 @@ private class QueryLiveDataNative<T>(
         listener?.remove()
         listener = null
     }
+
+    abstract fun parseSnapshot(querySnapshot: QuerySnapshot): T
+
+}
+
+public abstract class QueryLiveDataList<T>(private val query: Query
+) : QueryLiveData<List<T>>(query) {
+
+    override fun parseSnapshot(querySnapshot: QuerySnapshot): List<T> {
+        return querySnapshot.documents.map { parseSingle(it) }
+    }
+
+    abstract fun parseSingle(documentSnapshot: DocumentSnapshot): T
+}
+
+
+public open class QueryLiveDataListNative<T>(
+    private val query: Query,
+    private val clazz: Class<T>
+) : QueryLiveDataList<T>(query) {
+
+    override fun parseSingle(documentSnapshot: DocumentSnapshot): T {
+        return documentSnapshot.toObject(clazz)!!;
+    }
+}
+
+
+public open class QueryLiveDataListCustom<T>(private val query: Query,
+                                     private val parser: (documentSnapshot: DocumentSnapshot) -> T
+) : QueryLiveDataList<T>(query) {
+
+    override fun parseSnapshot(querySnapshot: QuerySnapshot): List<T> {
+        return querySnapshot.documents.map { parseSingle(it) }
+    }
+
+    override fun parseSingle(documentSnapshot: DocumentSnapshot): T {
+        return parser.invoke(documentSnapshot);
+    }
+
 }
 
 public open class QuerySingleLiveMutableDataNative<T>(
@@ -66,9 +104,9 @@ public open class QuerySingleLiveMutableDataNative<T>(
             if (exception == null) {
                 querySnapshot?.let {
                     if(!querySnapshot.isEmpty) {
-                        value = querySnapshot?.documents?.get(0)
+                        value = querySnapshot.documents[0]
                                 ?.toObject(clazz)
-                        lastFirestoreData = querySnapshot?.documents?.get(0);
+                        lastFirestoreData = querySnapshot.documents[0];
                     }
                     else{
                         onEmpty();

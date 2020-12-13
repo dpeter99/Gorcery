@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.aper_lab.grocery.databinding.ListItemRecipeBinding
+import com.aper_lab.grocery.liveData.LiveUserRecipe
 import com.aper_lab.grocery.model.UserRecipe
 import com.aper_lab.scraperlib.RecipeAPIService
 import com.aper_lab.scraperlib.data.Recipe
@@ -12,7 +13,7 @@ import com.aper_lab.scraperlib.data.Recipe
 class RecipeListAdapter(val clickListener: RecipeListener) :
     RecyclerView.Adapter<RecipeListAdapter.ViewHolder>() {
 
-    var data = mapOf<String, UserRecipe>()
+    var data = listOf<UserRecipe>()
         set(value) {
             field = value
             notifyDataSetChanged()
@@ -29,7 +30,7 @@ class RecipeListAdapter(val clickListener: RecipeListener) :
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(data.values.elementAt(position), data.size, clickListener)
+        data.elementAt(position).let { holder.bind(it, data.size, clickListener) }
     }
 
     class ViewHolder(val binding: ListItemRecipeBinding) : RecyclerView.ViewHolder(binding.root) {
@@ -42,7 +43,9 @@ class RecipeListAdapter(val clickListener: RecipeListener) :
             binding.recipe = recipe.recipe;
             binding.clickListener = clickListener;
 
-            val id = RecipeAPIService.getSourceIDfromURL(recipe.recipe.link);
+
+
+            val id = recipe.recipe.link.let { RecipeAPIService.getSourceIDfromURL(it) };
             binding.icon.setImageResource(
                 binding.root.context.resources.getIdentifier(
                     "icon_" + id,

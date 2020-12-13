@@ -1,28 +1,21 @@
 package com.aper_lab.grocery.database
 
 import android.util.Log
-import androidx.lifecycle.LiveData
 import com.aper_lab.grocery.User
 import com.aper_lab.grocery.liveData.LiveShoppingList
+import com.aper_lab.grocery.liveData.LiveUser
+import com.aper_lab.grocery.liveData.LiveUserRecipe
+import com.aper_lab.grocery.liveData.LiveUserRecipeList
 import com.aper_lab.grocery.model.*
-import com.aper_lab.grocery.util.livedata
-import com.aper_lab.grocery.util.singleLivedata
-import com.aper_lab.scraperlib.api.DatabaseConnection
-import com.aper_lab.scraperlib.api.IHasID
-import com.google.android.gms.tasks.Tasks.await
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.firestore.ktx.toObjects
-import com.google.gson.internal.`$Gson$Preconditions`
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
-import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.tasks.await
-import kotlin.random.Random
 
 object RecipeDatabase {
 
@@ -89,6 +82,12 @@ object RecipeDatabase {
         return null;
     }
 
+    fun getLiveUserRecipeByID(id: String): LiveUserRecipe {
+        val r = LiveUserRecipe(recipes.document(id));
+        return r;
+    }
+
+
 
     suspend fun getUserDiscoverRecipes():List<UserRecipe>{
         val source = "ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789"
@@ -142,6 +141,16 @@ object RecipeDatabase {
         return db.collection("recipes").whereArrayContains("owners_id", id)
     }
 
+    fun getLiveUserRecipesCollection(): LiveUserRecipeList {
+        val id = User.getInstance().user_id
+        return LiveUserRecipeList(db.collection("recipes").whereArrayContains("owners_id", id))
+    }
+
+    fun getRecipesInTag(tag: RecipeTag): LiveUserRecipeList{
+        val q = db.collection("recipes").whereIn("id",tag.recipes);
+        return LiveUserRecipeList(q);
+    }
+
 
     suspend fun getUserRecipeData(rec: Recipe): UserRecipeData? {
         val u = recipes.document(rec.id).collection("/owners").document(User.getInstance().user_id).get().await();
@@ -180,6 +189,40 @@ object RecipeDatabase {
                 db.collection("shoppingLists").document(id).set(it);
             }
         }
+    }
+
+    /*
+    User
+     */
+    fun getUser(id:String): LiveUser{
+        val userDoc = db.collection("users").document(id)
+        userDoc.get().addOnCompleteListener {
+            if (it.result?.exists() == false){
+                createUser(id);
+            }
+        }
+        return LiveUser(userDoc);
+    }
+
+    fun getLoggedInUser():LiveUser{
+        FirebaseAuth.getInstance().currentUser!!.let {
+            return getUser(it.uid);
+        }
+        //return null;
+    }
+
+    fun updateUser(user: LiveUser){
+        FirebaseAuth.getInstance().currentUser!!.let {
+            user.value?.let { u ->
+                db.collection("users").document(it.uid).set(u);
+            }
+        }
+    }
+
+
+    fun createUser(id:String){
+        var u = com.aper_lab.grocery.model.User(id);
+        db.collection("users").document(id).set(u);
     }
 
     private fun checkUserID() {

@@ -1,16 +1,12 @@
-package com.aper_lab.grocery
+package com.aper_lab.grocery.util.FABUtils
 
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.google.android.material.bottomappbar.BottomAppBar
 
 open class FABFragment : Fragment(), IHasFAB {
-    private lateinit var fab: IFABProvider;
+    private lateinit var fab: FABProvider;
 
     var fabParameters: FABParameters? = null
     set(v){
@@ -22,22 +18,27 @@ open class FABFragment : Fragment(), IHasFAB {
         super.onAttach(context)
 
         Log.i("APP","Binding FABFragment to the activity: " + this.javaClass.name)
-        if(context is IFABProvider){
+        if(context is FABProvider){
             fab = context;
-            fab.setFABProperties(fabParameters);
-            fab.setFABListener(this);
+            //fab.setFABProperties(fabParameters);
+            //fab.setFABListener(this);
         }
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        fab.let {
+            //fab = context;
+            fab.setFABProperties(fabParameters);
+            fab.setFABListener(this);
+        }
     }
 
     override fun onStart() {
 
         Log.i("APP","Binding FABFragment to the activity: " + this.javaClass.name)
         val a = activity;
-        if(a is IFABProvider){
+        if(a is FABProvider){
             fab = a;
             fab.setFABProperties(fabParameters);
             fab.setFABListener(this);

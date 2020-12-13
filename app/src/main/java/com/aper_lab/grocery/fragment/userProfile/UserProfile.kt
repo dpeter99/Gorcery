@@ -7,9 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.findNavController
-import com.aper_lab.grocery.FABFragment
-import com.aper_lab.grocery.MainActivity
+import com.aper_lab.grocery.util.FABUtils.FABFragment
 
 import com.aper_lab.grocery.R
 import com.aper_lab.grocery.WellcomeActivity
