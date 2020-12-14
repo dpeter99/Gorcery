@@ -65,13 +65,22 @@ class RecipeListFragment : FABFragment() {
         binding.viewModel = viewModel;
 
         // recipe list changes
-        viewModel.recipes.observe(this.viewLifecycleOwner,Observer { recipe ->
-            // Update the UI, in this case, a TextView.
-            recipeAdapter.data = recipe;
-        })
-        viewModel.recipes.value?.let {
-            recipeAdapter.data = it;
+        viewModel.recipes?.let{
+            it.observe(this.viewLifecycleOwner,Observer { recipe ->
+                // Update the UI, in this case, a TextView.
+                recipeAdapter.data = recipe;
+            })
+            it.value?.let {
+                recipeAdapter.data = it;
+            }
         }
+
+        if(viewModel.recipes == null){
+            binding.emptyResults.visibility = View.VISIBLE;
+            binding.recipeList.visibility = View.INVISIBLE;
+        }
+
+
 
 
         viewModel._recipeNav.observe(this.viewLifecycleOwner,Observer<String> { recipe ->

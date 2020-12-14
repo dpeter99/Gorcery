@@ -24,4 +24,5 @@
     <string name="checked_items">Checked Items</string>
     <string name="recipe_image_description">Recipe Image</string>
     <string name="tags">Tags</string>
+    <string name="no_recipes_with_this_filter">No recipes with this filter</string>
 </resources>

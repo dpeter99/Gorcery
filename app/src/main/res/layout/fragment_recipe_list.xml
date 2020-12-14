@@ -34,5 +34,17 @@
             tools:itemCount="5"
             tools:listitem="@layout/list_item_recipe" />
 
+        <TextView
+            android:id="@+id/empty_results"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/no_recipes_with_this_filter"
+            android:textSize="18sp"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/recipe_list" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

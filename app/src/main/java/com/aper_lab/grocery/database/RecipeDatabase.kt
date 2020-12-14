@@ -147,8 +147,9 @@ object RecipeDatabase {
     }
 
     fun getRecipesInTag(tag: RecipeTag): LiveUserRecipeList{
-        val q = db.collection("recipes").whereIn("id",tag.recipes);
-        return LiveUserRecipeList(q);
+            val q = db.collection("recipes")
+                    .whereIn("id", tag.recipes);
+            return LiveUserRecipeList(q);
     }
 
 
